@@ -56,7 +56,7 @@ class ModalHeader extends React.Component {
         {closeButton &&
           <button
             type="button"
-            className="close"
+            className="u-close"
             aria-label={label}
             onClick={createChainedFunction(modal.onHide, onHide)}
           >

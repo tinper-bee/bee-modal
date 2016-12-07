@@ -33,8 +33,8 @@
     "pub": "bee-tools run pub"
   },
   "dependencies": {
-    "bee-overlay": "file:///I:\\workspace\\iuap\\bee-overlay",
-    "bee-transition": "file:///I:\\workspace\\iuap\\bee-transition",
+    "bee-overlay": "0.0.19",
+    "bee-transition": "^0.0.1",
     "classnames": "^2.2.5",
     "dom-helpers": "^3.1.0",
     "tinper-bee-core": "latest"
