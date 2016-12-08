@@ -9,7 +9,7 @@ import { BaseModal } from 'bee-overlay';
 import isOverflowing from 'bee-overlay/build/utils/isOverflowing';
 import { elementType, splitComponent, createChainedFunction } from 'tinper-bee-core';
 
-import Fade from 'bee-transition';
+import { Fade } from 'bee-transition';
 import Body from './ModalBody';
 import ModalDialog from './ModalDialog';
 import Footer from './ModalFooter';
@@ -22,40 +22,32 @@ const propTypes = {
   ...ModalDialog.propTypes,
 
   /**
-   * Include a backdrop component. Specify 'static' for a backdrop that doesn't
-   * trigger an "onHide" when clicked.
+   * 是否弹出遮罩层/遮罩层点击是否触发关闭
    */
   backdrop: React.PropTypes.oneOf(['static', true, false]),
 
   /**
-   * Close the modal when escape key is pressed
+   * esc触发关闭
    */
   keyboard: React.PropTypes.bool,
 
   /**
-   * Open and close the Modal with a slide and fade animation.
+   * 显隐时是否使用动画
    */
   animation: React.PropTypes.bool,
 
   /**
-   * A Component type that provides the modal content Markup. This is a useful
-   * prop when you want to use your own styles and markup to create a custom
-   * modal component.
+   * 传递给模态框的样式
    */
   dialogComponentClass: elementType,
 
   /**
-   * When `true` The modal will automatically shift focus to itself when it
-   * opens, and replace it to the last focused element when it closes.
-   * Generally this should never be set to false as it makes the Modal less
-   * accessible to assistive technologies, like screen-readers.
+   * 自动设置焦点
    */
   autoFocus: React.PropTypes.bool,
 
   /**
-   * When `true` The modal will prevent focus from leaving the Modal while
-   * open. Consider leaving the default value here, as it is necessary to make
-   * the Modal work well with assistive technologies, such as screen readers.
+   * 防止打开时焦点离开模态框
    */
   enforceFocus: React.PropTypes.bool,
 
@@ -105,7 +97,7 @@ const propTypes = {
    */
   container: BaseModal.propTypes.container,
 
-  size: React.PropTypes.oneOf(["sm", "lg", "xs"])
+  size: React.PropTypes.oneOf(["sm", "lg"])
 };
 
 const defaultProps = {
@@ -216,10 +208,6 @@ class Modal extends React.Component {
       splitComponent(props, BaseModal);
 
     const inClassName = show && !animation && 'in';
-    const classes = {};
-    if(size){
-        classes[`${clsPrefix}-${size}`] = true;
-    }
 
     const backdropClasses = {
         [`${clsPrefix}-backdrop`]: true
@@ -245,8 +233,9 @@ class Modal extends React.Component {
         <Dialog
           {...dialogProps}
           style={{ ...this.state.style, ...style }}
-          className={classNames(className, inClassName, classes)}
+          className={classNames(className, inClassName)}
           onClick={backdrop === true ? this.handleDialogClick : null}
+          size ={ size }
         >
           {children}
         </Dialog>
@@ -266,7 +255,7 @@ Modal.Footer = Footer;
 
 Modal.Dialog = ModalDialog;
 
-Modal.TRANSITION_DURATION = 300;
-Modal.BACKDROP_TRANSITION_DURATION = 150;
+Modal.TRANSITION_DURATION = 200000;
+Modal.BACKDROP_TRANSITION_DURATION = 10000;
 
 export default Modal;

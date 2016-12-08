@@ -14,7 +14,7 @@
 
 react bee-modal component for tinper-bee
 
-some description...
+模态框组件
 
 ## 使用方法
 
@@ -28,6 +28,22 @@ some description...
 
 |参数|说明|类型|默认值|
 |:--|:---:|:--:|---:|
+|backdrop|是否弹出遮罩层/遮罩层点击是否触发关闭|boolean/"static"|true|
+|keyboard|esc触发关闭|boolean|-|
+|animation|显隐时是否使用动画|boolean|true|
+|dialogComponentClass|传递给模态框的样式|string|-|
+|autoFocus|自动设置焦点|boolean|true|
+|enforceFocus|防止打开时焦点离开模态框|boolean|-|
+|show|是否打开模态框|string|-|
+
+|autoFocus|自动设置焦点|boolean|true|
+|keyboard|esc触发关闭|boolean|-|
+|dialogComponentClass|传递给模态框的样式|string|-|
+|autoFocus|自动设置焦点|boolean|true|
+|enforceFocus|esc触发关闭|boolean|-|
+|dialogComponentClass|传递给模态框的样式|string|-|
+|autoFocus|自动设置焦点|boolean|true|
+|keyboard|esc触发关闭|boolean|-|
 
 #### 开发调试
 
