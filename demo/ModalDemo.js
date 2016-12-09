@@ -9,45 +9,12 @@ import Button from 'bee-button';
 class Demo2 extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showModal: false,
-        };
-        this.close = this.close.bind(this);
-        this.open = this.open.bind(this);
-
-    }
-
-    close() {
-        this.setState({
-            showModal: false
-        });
-    }
-    open() {
-        this.setState({
-            showModal: true
-        });
     }
 
     render() {
-        const { size } = this.props;
-        return ( <
-            div >
-            <
-            Button colors = "primary"
-            size = "large"
-            onClick = {
-                this.open
-            } >
-            点击打开小模态框 <
-            /Button>​
+        return (
              <
-            Modal show = {
-                this.state.showModal
-            }
-            onHide = {
-                this.close
-            }
-            size = { size } backdrop={false}>
+            Modal { ...this.props }>
             <
             Modal.Header closeButton >
             <
@@ -80,8 +47,7 @@ class Demo2 extends Component {
                 this.close
             } > 关闭 < /Button> < /
             Modal.Footer > <
-            /Modal> < /
-            div >
+            /Modal>
         );
     }
 };
@@ -89,12 +55,113 @@ class Demo2 extends Component {
 
 
 class Demo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: false,
+            size: "",
+            backdrop: true
+        };
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
+        this.changeState = this.changeState.bind(this);
+
+    }
+
+    close() {
+        this.setState({
+            showModal: false
+        });
+    }
+    open() {
+        this.setState({
+            showModal: true
+        });
+    }
+    changeState (size, backdrop) {
+        this.setState({
+            showModal: true,
+            size: size,
+            backdrop: backdrop
+        });
+    }
+
     render() {
         return ( <
             div >
-
             <
-            Demo2 / >
+            Button colors = "primary"
+            size = "large"
+            onClick = { () =>{
+                this.changeState('sm', true);
+                this.open();
+            }
+            } >
+            点击打开小模态框 <
+            /Button>​
+            <
+            Button colors = "primary"
+            size = "large"
+            onClick = {
+                () =>{
+                    this.changeState('', true);
+                    this.open();
+                }
+            } >
+            点击打开默认模态框 <
+            /Button>​
+            <
+            Button colors = "primary"
+            size = "large"
+            onClick = {
+                () =>{
+                    this.changeState('lg', true);
+                    this.open();
+                }
+            } >
+            点击打开大模态框 <
+            /Button>​
+            <
+            Button colors = "primary"
+            size = "large"
+            onClick = {
+                () =>{
+                    this.changeState('xlg', true);
+                    this.open();
+                }
+            } >
+            点击打开特大模态框 <
+            /Button>​
+            <
+            Button colors = "primary"
+            size = "large"
+            onClick = {
+                () =>{
+                    this.changeState('', false);
+                    this.open();
+                }
+            } >
+            点击打开没有背景的模态框 <
+            /Button>​
+            <
+            Button colors = "primary"
+            size = "large"
+            onClick = {
+                () =>{
+                    this.changeState('', 'static');
+                    this.open();
+                }
+            } >
+            点击打开静态背景的模态框 <
+            /Button>​
+            <
+            Demo2 show = {
+                this.state.showModal
+            }
+            onHide = {
+                this.close
+            }
+            size = { this.state.size } backdrop={this.state.backdrop} / >
             <
             /div>
         )

@@ -52,52 +52,36 @@ const propTypes = {
   enforceFocus: React.PropTypes.bool,
 
   /**
-   * When `true` The modal will show itself.
+   * 是否打开模态框
    */
   show: React.PropTypes.bool,
 
   /**
-   * A callback fired when the header closeButton or non-static backdrop is
-   * clicked. Required if either are specified.
+   * 关闭时的钩子函数
    */
   onHide: React.PropTypes.func,
 
-  /**
-   * Callback fired before the Modal transitions in
-   */
   onEnter: React.PropTypes.func,
 
-  /**
-   * Callback fired as the Modal begins to transition in
-   */
   onEntering: React.PropTypes.func,
 
-  /**
-   * Callback fired after the Modal finishes transitioning in
-   */
   onEntered: React.PropTypes.func,
 
-  /**
-   * Callback fired right before the Modal transitions out
-   */
   onExit: React.PropTypes.func,
 
-  /**
-   * Callback fired as the Modal begins to transition out
-   */
   onExiting: React.PropTypes.func,
 
-  /**
-   * Callback fired after the Modal finishes transitioning out
-   */
   onExited: React.PropTypes.func,
 
   /**
-   * @private
+   * 要添加到的元素
    */
   container: BaseModal.propTypes.container,
 
-  size: React.PropTypes.oneOf(["sm", "lg"])
+  /**
+   * 尺寸
+   */
+  size: React.PropTypes.oneOf(["sm", "lg", "xlg"])
 };
 
 const defaultProps = {

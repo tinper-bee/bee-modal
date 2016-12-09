@@ -155,7 +155,7 @@ button.u-close {
 
 
 .u-modal-backdrop.in {
-    opacity: .5;
+    opacity: .6;
     filter: alpha(opacity=50);
 }
 
@@ -180,5 +180,11 @@ button.u-close {
 @media (min-width: 992px){
     .u-modal-lg {
         width: 900px;
+    }
+}
+
+@media (min-width: 1200px){
+    .u-modal-xlg {
+        width: 1200px;
     }
 }

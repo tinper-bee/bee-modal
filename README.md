@@ -19,9 +19,74 @@ react bee-modal component for tinper-bee
 ## 使用方法
 
 ```js
+import Modal from 'bee-modal';
 
+class ModalDemo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showModal: false
+        };
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
+    }
+
+    close() {
+        this.setState({ showModal: false });
+    }
+
+    open() {
+        this.setState({ showModal: true });
+    }
+    render () {
+        return (
+            <div>
+              <Button color="primary" size="large" onClick={this.open}>
+                点击打开模态框
+              </Button>
+              <Modal show = {
+                  this.state.showModal
+              }
+              onHide = {
+                  this.close
+              }>
+                <Modal.Header>
+                  <Modal.Title>标题</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                  正文描述。。。
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button>关闭</Button>
+                  <Button color="primary">确认</Button>
+                </Modal.Footer>
+
+              </Modal>
+            </div>
+        )
+    }
+}
+
+);
+
+ReactDOM.render(
+        <ModalDemo />
+        , document.getElementById('target'));
 ```
 
+#### 样式引入
+- 可以使用link引入build目录下Modal.css
+```
+<link rel="stylesheet" href="./node_modules/bee-modal/build/Modal.css">
+```
+- 可以在js中import样式
+```js
+import "./node_modules/bee-modal/src/Modal.scss"
+//或是
+import "./node_modules/bee-modal/build/Modal.css"
+```
 
 
 ## API
@@ -31,19 +96,33 @@ react bee-modal component for tinper-bee
 |backdrop|是否弹出遮罩层/遮罩层点击是否触发关闭|boolean/"static"|true|
 |keyboard|esc触发关闭|boolean|-|
 |animation|显隐时是否使用动画|boolean|true|
-|dialogComponentClass|传递给模态框的样式|string|-|
+|dialogComponentClass|传递给模态框使用的元素|string/element|-|
+|dialogClassName|传递给模态框的样式| class |-|
 |autoFocus|自动设置焦点|boolean|true|
 |enforceFocus|防止打开时焦点离开模态框|boolean|-|
 |show|是否打开模态框|string|-|
+|onHide|关闭时的钩子函数|function|-|
+|size|模态框尺寸|sm/lg/xlg|-|
+|onEnter|开始显示时的钩子函数|function|-|
+|onEntering|显示时的钩子函数|function|-|
+|onEntered|显示完成后的钩子函数|function|-|
+|onExit|隐藏开始时的钩子函数|function|-|
+|onExiting|隐藏进行时的钩子函数|function|-|
+|onExited|隐藏结束时的钩子函数|function|-|
+|container|容器|DOM元素\React组件\或者返回React组件的函数|-|
 
-|autoFocus|自动设置焦点|boolean|true|
-|keyboard|esc触发关闭|boolean|-|
-|dialogComponentClass|传递给模态框的样式|string|-|
-|autoFocus|自动设置焦点|boolean|true|
-|enforceFocus|esc触发关闭|boolean|-|
-|dialogComponentClass|传递给模态框的样式|string|-|
-|autoFocus|自动设置焦点|boolean|true|
-|keyboard|esc触发关闭|boolean|-|
+|onShow|当模态框显示时的钩子函数|function|-|
+|renderBackdrop|返回背景元素的函数|function|-|
+|onEscapeKeyUp|响应ESC键时的钩子函数|function|-|
+|onBackdropClick|点击背景元素的函数|function|-|
+|backdropStyle|添加到背景元素的style|function|-|
+|backdropClassName|添加到背景元素的class|function|-|
+|containerClassName|添加到外部容器的class|function|-|
+|transition|动画组件|function|-|
+|dialogTransitionTimeout|设置动画超时时间|function|-|
+|backdropTransitionTimeout|设置背景动画超时时间|function|-|
+|manager|管理模态框状态的组件|required|-|
+
 
 #### 开发调试
 
