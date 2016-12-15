@@ -32,7 +32,8 @@ var propTypes = {
   /**
    * 传给dialog的classname
    */
-  dialogClassName: _react2["default"].PropTypes.string
+  dialogClassName: _react2["default"].PropTypes.string,
+  contentStyle: _react2["default"].PropTypes.object
 
 };
 
@@ -58,9 +59,10 @@ var ModalDialog = function (_React$Component) {
     var clsPrefix = _props.clsPrefix;
     var size = _props.size;
     var style = _props.style;
+    var contentStyle = _props.contentStyle;
     var children = _props.children;
 
-    var props = _objectWithoutProperties(_props, ['dialogClassName', 'className', 'clsPrefix', 'size', 'style', 'children']);
+    var props = _objectWithoutProperties(_props, ['dialogClassName', 'className', 'clsPrefix', 'size', 'style', 'contentStyle', 'children']);
     // const [bsProps, elementProps] = splitBsProps(props);
     //
 
@@ -87,7 +89,7 @@ var ModalDialog = function (_React$Component) {
         { className: (0, _classnames2["default"])(dialogClassName, dialogClasses) },
         _react2["default"].createElement(
           'div',
-          { className: (0, _classnames2["default"])([clsPrefix + '-content']), role: 'document' },
+          { style: contentStyle, className: (0, _classnames2["default"])([clsPrefix + '-content']), role: 'document' },
           children
         )
       )

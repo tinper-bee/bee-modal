@@ -6,7 +6,8 @@ const propTypes = {
   /**
    * 传给dialog的classname
    */
-  dialogClassName: React.PropTypes.string
+  dialogClassName: React.PropTypes.string,
+  contentStyle: React.PropTypes.object,
 
 };
 
@@ -16,7 +17,7 @@ const defaultProps = {
 
 class ModalDialog extends React.Component {
   render() {
-    const { dialogClassName, className, clsPrefix, size, style , children, ...props } =
+    const { dialogClassName, className, clsPrefix, size, style, contentStyle, children, ...props } =
       this.props;
     // const [bsProps, elementProps] = splitBsProps(props);
     //
@@ -44,7 +45,7 @@ class ModalDialog extends React.Component {
         className={classNames(className, uClassName)}
       >
         <div className={classNames(dialogClassName, dialogClasses)}>
-          <div className={classNames([`${clsPrefix}-content`])} role="document">
+          <div style={contentStyle} className={classNames([`${clsPrefix}-content`])} role="document">
             {children}
           </div>
         </div>
