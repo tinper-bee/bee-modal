@@ -110,7 +110,6 @@ import "./node_modules/bee-modal/build/Modal.css"
 |onExiting|隐藏进行时的钩子函数|function|-|
 |onExited|隐藏结束时的钩子函数|function|-|
 |container|容器|DOM元素\React组件\或者返回React组件的函数|-|
-
 |onShow|当模态框显示时的钩子函数|function|-|
 |renderBackdrop|返回背景元素的函数|function|-|
 |onEscapeKeyUp|响应ESC键时的钩子函数|function|-|

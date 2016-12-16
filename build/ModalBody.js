@@ -47,12 +47,11 @@ var ModalBody = function (_React$Component) {
   }
 
   ModalBody.prototype.render = function render() {
-    var _props = this.props;
-    var Component = _props.componentClass;
-    var clsPrefix = _props.clsPrefix;
-    var className = _props.className;
-
-    var props = _objectWithoutProperties(_props, ['componentClass', 'clsPrefix', 'className']);
+    var _props = this.props,
+        Component = _props.componentClass,
+        clsPrefix = _props.clsPrefix,
+        className = _props.className,
+        props = _objectWithoutProperties(_props, ['componentClass', 'clsPrefix', 'className']);
 
     var classes = {};
     classes['' + clsPrefix] = true;

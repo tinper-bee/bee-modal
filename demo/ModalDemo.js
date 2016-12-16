@@ -1,7 +1,5 @@
 import Modal from '../src/index';
-import React, {
-    Component
-} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'bee-button';
 

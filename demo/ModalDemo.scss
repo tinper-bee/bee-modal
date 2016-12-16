@@ -1,3 +1,20 @@
 @import "../node_modules/tinper-bee-core/scss/index.scss";
-@import "../src/Modal.scss";
 @import "../node_modules/bee-button/src/Button.scss";
+@import "../node_modules/bee-layout/src/Layout.scss";
+@import "../node_modules/bee-panel/src/Panel.scss";
+@import "../src/Modal.scss";
+.static-modal .u-modal {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    z-index: 1;
+    display: block;
+}
+.padding-15{
+    button{
+        margin: auto 15px;
+    }
+
+}

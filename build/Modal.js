@@ -235,28 +235,24 @@ var Modal = function (_React$Component) {
   Modal.prototype.render = function render() {
     var _this2 = this;
 
-    var _props = this.props;
-    var backdrop = _props.backdrop;
-    var animation = _props.animation;
-    var show = _props.show;
-    var Dialog = _props.dialogComponentClass;
-    var className = _props.className;
-    var clsPrefix = _props.clsPrefix;
-    var style = _props.style;
-    var size = _props.size;
-    var children = _props.children;
-    var onEntering = _props.onEntering;
-    var onExited = _props.onExited;
+    var _props = this.props,
+        backdrop = _props.backdrop,
+        animation = _props.animation,
+        show = _props.show,
+        Dialog = _props.dialogComponentClass,
+        className = _props.className,
+        clsPrefix = _props.clsPrefix,
+        style = _props.style,
+        size = _props.size,
+        children = _props.children,
+        onEntering = _props.onEntering,
+        onExited = _props.onExited,
+        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
 
-    var props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
-
-    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _beeOverlay.BaseModal);
-
-    var _splitComponent2 = _slicedToArray(_splitComponent, 2);
-
-    var baseModalProps = _splitComponent2[0];
-    var dialogProps = _splitComponent2[1];
-
+    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _beeOverlay.BaseModal),
+        _splitComponent2 = _slicedToArray(_splitComponent, 2),
+        baseModalProps = _splitComponent2[0],
+        dialogProps = _splitComponent2[1];
 
     var inClassName = show && !animation && 'in';
 
