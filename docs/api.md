@@ -7,7 +7,7 @@
 ### API
 
 |参数|说明|类型|默认值|
-|:---|:----:|:---:|------:|
+|:--|:----|:---|:----|
 |backdrop|是否弹出遮罩层/遮罩层点击是否触发关闭|boolean/"static"|true|
 |keyboard|esc触发关闭|boolean|-|
 |animation|显隐时是否使用动画|boolean|true|
