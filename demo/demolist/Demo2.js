@@ -20,12 +20,14 @@ class Demo2 extends Component {
             showModal: false
         });
     }
+
     open() {
         this.setState({
             showModal: true
         });
     }
-    render () {
+
+    render() {
         return (
         <div className="padding-15">
             <Button
