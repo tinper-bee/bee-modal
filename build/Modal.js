@@ -36,7 +36,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _beeOverlay = require('bee-overlay');
+var _Modal = require('bee-overlay/build/Modal');
+
+var _Modal2 = _interopRequireDefault(_Modal);
 
 var _isOverflowing = require('bee-overlay/build/utils/isOverflowing');
 
@@ -80,7 +82,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 
-var propTypes = _extends({}, _beeOverlay.BaseModal.propTypes, _ModalDialog2["default"].propTypes, {
+var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["default"].propTypes, {
 
   /**
    * 是否弹出遮罩层/遮罩层点击是否触发关闭
@@ -137,15 +139,15 @@ var propTypes = _extends({}, _beeOverlay.BaseModal.propTypes, _ModalDialog2["def
   /**
    * 要添加到的元素
    */
-  container: _beeOverlay.BaseModal.propTypes.container,
+  container: _Modal2["default"].propTypes.container,
 
   /**
    * 尺寸
    */
-  size: _react2["default"].PropTypes.oneOf(["sm", "lg", "xlg"])
+  size: _react2["default"].PropTypes.oneOf(["sm", "lg", "xlg", ""])
 });
 
-var defaultProps = _extends({}, _beeOverlay.BaseModal.defaultProps, {
+var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
   animation: true,
   dialogComponentClass: _ModalDialog2["default"],
   clsPrefix: 'u-modal'
@@ -249,7 +251,7 @@ var Modal = function (_React$Component) {
         onExited = _props.onExited,
         props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
 
-    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _beeOverlay.BaseModal),
+    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
         _splitComponent2 = _slicedToArray(_splitComponent, 2),
         baseModalProps = _splitComponent2[0],
         dialogProps = _splitComponent2[1];
@@ -260,7 +262,7 @@ var Modal = function (_React$Component) {
     var containerClasses = _defineProperty({}, clsPrefix + '-open', true);
 
     return _react2["default"].createElement(
-      _beeOverlay.BaseModal,
+      _Modal2["default"],
       _extends({}, baseModalProps, {
         ref: function ref(c) {
           _this2._modal = c;

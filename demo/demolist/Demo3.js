@@ -1,7 +1,7 @@
 /**
  *
  * @title 不同大小的模态框
- * @description 通过`size`属性控制模态框大小
+ * @description 通过size属性控制模态框大小
  *
  */
 

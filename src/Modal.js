@@ -5,7 +5,7 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BaseModal } from 'bee-overlay';
+import  BaseModal  from 'bee-overlay/build/Modal';
 import isOverflowing from 'bee-overlay/build/utils/isOverflowing';
 import { elementType, splitComponent, createChainedFunction } from 'tinper-bee-core';
 
@@ -81,7 +81,7 @@ const propTypes = {
   /**
    * 尺寸
    */
-  size: React.PropTypes.oneOf(["sm", "lg", "xlg"])
+  size: React.PropTypes.oneOf(["sm", "lg", "xlg", ""])
 };
 
 const defaultProps = {
@@ -190,6 +190,7 @@ class Modal extends React.Component {
 
     const [baseModalProps, dialogProps] =
       splitComponent(props, BaseModal);
+
 
     const inClassName = show && !animation && 'in';
 

@@ -26,7 +26,8 @@ class ModalDialog extends React.Component {
      };
 
 
-    const modalStyle = { display: 'block', ...style };
+    const modalStyle = { display: 'block'};
+
 
     const dialogClasses = {
       [uClassName]: false,
@@ -44,7 +45,7 @@ class ModalDialog extends React.Component {
         style={modalStyle}
         className={classNames(className, uClassName)}
       >
-        <div className={classNames(dialogClassName, dialogClasses)}>
+        <div className={classNames(dialogClassName, dialogClasses)} style={ style }>
           <div style={contentStyle} className={classNames([`${clsPrefix}-content`])} role="document">
             {children}
           </div>

@@ -68,7 +68,7 @@ var ModalDialog = function (_React$Component) {
 
     var uClassName = _defineProperty({}, '' + clsPrefix, true);
 
-    var modalStyle = _extends({ display: 'block' }, style);
+    var modalStyle = { display: 'block' };
 
     var dialogClasses = (_dialogClasses = {}, _defineProperty(_dialogClasses, uClassName, false), _defineProperty(_dialogClasses, clsPrefix + '-dialog', true), _dialogClasses);
     if (size) {
@@ -85,7 +85,7 @@ var ModalDialog = function (_React$Component) {
       }),
       _react2["default"].createElement(
         'div',
-        { className: (0, _classnames2["default"])(dialogClassName, dialogClasses) },
+        { className: (0, _classnames2["default"])(dialogClassName, dialogClasses), style: style },
         _react2["default"].createElement(
           'div',
           { style: contentStyle, className: (0, _classnames2["default"])([clsPrefix + '-content']), role: 'document' },

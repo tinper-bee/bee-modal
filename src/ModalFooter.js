@@ -9,7 +9,7 @@ const propTypes = {
 
 const defaultProps = {
   componentClass: 'div',
-  clsPrefix: 'u-modal-footer'
+  clsPrefix: 'u-modal-footer',
 };
 
 class ModalFooter extends React.Component {
