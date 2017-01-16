@@ -4,9 +4,33 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _classnames = require('classnames');
 
@@ -70,19 +94,7 @@ var _ModalTitle2 = _interopRequireDefault(_ModalTitle);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
-
-var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["default"].propTypes, {
+var propTypes = (0, _extends3["default"])({}, _Modal2["default"].propTypes, _ModalDialog2["default"].propTypes, {
 
   /**
    * 是否弹出遮罩层/遮罩层点击是否触发关闭
@@ -147,7 +159,7 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
   size: _react2["default"].PropTypes.oneOf(["sm", "lg", "xlg", ""])
 });
 
-var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
+var defaultProps = (0, _extends3["default"])({}, _Modal2["default"].defaultProps, {
   animation: true,
   dialogComponentClass: _ModalDialog2["default"],
   clsPrefix: 'u-modal'
@@ -160,12 +172,12 @@ var childContextTypes = {
 };
 
 var Modal = function (_React$Component) {
-  _inherits(Modal, _React$Component);
+  (0, _inherits3["default"])(Modal, _React$Component);
 
   function Modal(props, context) {
-    _classCallCheck(this, Modal);
+    (0, _classCallCheck3["default"])(this, Modal);
 
-    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
+    var _this = (0, _possibleConstructorReturn3["default"])(this, _React$Component.call(this, props, context));
 
     _this.handleEntering = _this.handleEntering.bind(_this);
     _this.handleExited = _this.handleExited.bind(_this);
@@ -237,33 +249,36 @@ var Modal = function (_React$Component) {
   Modal.prototype.render = function render() {
     var _this2 = this;
 
-    var _props = this.props,
-        backdrop = _props.backdrop,
-        animation = _props.animation,
-        show = _props.show,
-        Dialog = _props.dialogComponentClass,
-        className = _props.className,
-        clsPrefix = _props.clsPrefix,
-        style = _props.style,
-        size = _props.size,
-        children = _props.children,
-        onEntering = _props.onEntering,
-        onExited = _props.onExited,
-        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
+    var _props = this.props;
+    var backdrop = _props.backdrop;
+    var animation = _props.animation;
+    var show = _props.show;
+    var Dialog = _props.dialogComponentClass;
+    var className = _props.className;
+    var clsPrefix = _props.clsPrefix;
+    var style = _props.style;
+    var size = _props.size;
+    var children = _props.children;
+    var onEntering = _props.onEntering;
+    var onExited = _props.onExited;
+    var props = (0, _objectWithoutProperties3["default"])(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
 
-    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
-        _splitComponent2 = _slicedToArray(_splitComponent, 2),
-        baseModalProps = _splitComponent2[0],
-        dialogProps = _splitComponent2[1];
+    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]);
+
+    var _splitComponent2 = (0, _slicedToArray3["default"])(_splitComponent, 2);
+
+    var baseModalProps = _splitComponent2[0];
+    var dialogProps = _splitComponent2[1];
+
 
     var inClassName = show && !animation && 'in';
 
-    var backdropClasses = _defineProperty({}, clsPrefix + '-backdrop', true);
-    var containerClasses = _defineProperty({}, clsPrefix + '-open', true);
+    var backdropClasses = (0, _defineProperty3["default"])({}, clsPrefix + '-backdrop', true);
+    var containerClasses = (0, _defineProperty3["default"])({}, clsPrefix + '-open', true);
 
     return _react2["default"].createElement(
       _Modal2["default"],
-      _extends({}, baseModalProps, {
+      (0, _extends3["default"])({}, baseModalProps, {
         ref: function ref(c) {
           _this2._modal = c;
         },
@@ -279,8 +294,8 @@ var Modal = function (_React$Component) {
       }),
       _react2["default"].createElement(
         Dialog,
-        _extends({}, dialogProps, {
-          style: _extends({}, this.state.style, style),
+        (0, _extends3["default"])({}, dialogProps, {
+          style: (0, _extends3["default"])({}, this.state.style, style),
           className: (0, _classnames2["default"])(className, inClassName),
           onClick: backdrop === true ? this.handleDialogClick : null,
           size: size
