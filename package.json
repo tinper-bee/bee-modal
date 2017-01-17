@@ -1,6 +1,6 @@
 {
   "name": "bee-modal",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "ModalDialogl ui component for react",
   "keywords": [
     "react",
@@ -35,7 +35,7 @@
   "dependencies": {
     "bee-button": "latest",
     "bee-overlay": "latest",
-    "bee-transition": "latest",
+    "bee-transition": "^0.2.2",
     "classnames": "^2.2.5",
     "dom-helpers": "3.0.0",
     "tinper-bee-core": "^0.2.1"
