@@ -1,7 +1,5 @@
 @import "../node_modules/tinper-bee-core/scss/minxin-variables";
 @import "../node_modules/tinper-bee-core/scss/minxin-mixins";
-@import "../node_modules/bee-transition/src/Transition.scss";
-
 
 
 
@@ -50,7 +48,12 @@
     transition: transform .3s ease-out;
 }
 
+.u-modal.fade {
+    opacity: 0;
+    transition: opacity 0.15s linear; }
 
+.u-modal.fade.in {
+    opacity: 1; }
 
 .u-modal-content {
     position: relative;

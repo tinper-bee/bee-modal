@@ -48,22 +48,22 @@ class Demo2 extends Component {
                 <Modal.Body>
                 <Form horizontal>
                 				<Row>
-                				    <FormGroup controlId="formInlineName">
+                				    <FormGroup>
                 				    	<Col sm={2} smOffset={2} className="text-right">
                 				    		<ControlLabel>昵称:</ControlLabel>
                 				    	</Col>
                 				      	<Col sm={5}>
-                				      		<FormControl htmlType="text" placeholder="请输入昵称" />
+                				      		<FormControl placeholder="请输入昵称" />
                 				      	</Col>
                 				    </FormGroup>
                 			    </Row>
                 			    <Row>
-                                    <FormGroup controlId="formInlineName">
+                                    <FormGroup>
                                         <Col sm={2} smOffset={2} className="text-right">
                                             <ControlLabel>密码:</ControlLabel>
                                         </Col>
                                         <Col sm={5}>
-                                            <FormControl htmlType="text" placeholder="请输入密码" />
+                                            <FormControl placeholder="请输入密码" />
                                         </Col>
                                     </FormGroup>
                 			    </Row>
