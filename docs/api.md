@@ -6,6 +6,8 @@
 
 ### API
 
+Modal
+
 |参数|说明|类型|默认值|
 |:--|:----|:---|:----|
 |backdrop|是否弹出遮罩层/遮罩层点击是否触发关闭|boolean/"static"|true|
@@ -36,3 +38,9 @@
 |dialogTransitionTimeout|设置动画超时时间|function|-|
 |backdropTransitionTimeout|设置背景动画超时时间|function|-|
 |manager|管理模态框状态的组件|required|-|
+
+Modal.Header
+
+|参数|说明|类型|默认值|
+|:---|:-----|:----|:------|
+|closeButton|是否显示关闭按钮|boolean|false|
