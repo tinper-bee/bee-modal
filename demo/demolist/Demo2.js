@@ -5,6 +5,16 @@
  *
  */
 
+import { Con, Row, Col } from 'bee-layout';
+import { Panel } from 'bee-panel';
+import React, { Component } from 'react';
+import Button from 'bee-button';
+import Modal from '../../src';
+import Form from 'bee-form';
+import FormGroup from 'bee-form-group';
+import ControlLabel from 'bee-control-label';
+import FormControl from 'bee-form-control';
+
 class Demo2 extends Component {
     constructor(props) {
         super(props);
@@ -87,3 +97,6 @@ class Demo2 extends Component {
         )
     }
 }
+
+
+export default Demo2;
