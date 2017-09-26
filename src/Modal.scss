@@ -13,100 +13,75 @@
     z-index: $zindex-modal;
     -webkit-overflow-scrolling: touch;
     outline: 0;
-    .u-modal.in .u-modal-dialog {
+    overflow: hidden;
+    &.in .u-modal-dialog {
         -webkit-transform: translate(0);
         transform: translate(0);
     }
-    .u-modal.fade .u-modal-dialog {
+    &.fade .u-modal-dialog {
         -webkit-transform: translateY(-25%);
         transform: translateY(-25%);
         -webkit-transition: -webkit-transform .3s ease-out;
         transition: transform .3s ease-out;
     }
-
-    .u-modal, .u-modal-open {
-        overflow: hidden;
+    &.fade {
+        opacity: 0;
+        transition: opacity 0.15s linear;
+    }
+    &.fade.in {
+        opacity: 1;
     }
 
+    .u-modal-content {
+        position: relative;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: $modal-border-radius;
+        box-shadow: 0 3px 9px rgba(0,0,0,.5);
+        background-clip: padding-box;
+        outline: 0;
+    }
+
+    .u-modal-dialog {
+        position: relative;
+        width: auto;
+        margin: 10px;
+    }
+    .u-modal-header {
+        padding: $modal-header-padding;
+        border-bottom: 1px solid $modal-header-border-color;
+        .u-close {
+            margin-top: -2px;
+        }
+    }
+
+    .u-modal-title {
+        margin: 0;
+        line-height: 1.42857143;
+    }
+    .u-modal-body {
+        position: relative;
+        padding: $modal-body-padding;
+    }
+    .u-modal-footer {
+        padding: $modal-footer-padding;
+        text-align: right;
+        border-top: 1px solid $modal-footer-border-color;
+    }
 }
-.u-modal-open .u-modal {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-.u-modal, .u-modal-open {
+.u-modal-open {
     overflow: hidden;
-}
-
-.u-modal.in .u-modal-dialog {
-    -webkit-transform: translate(0);
-    transform: translate(0);
-}
-.u-modal.fade .u-modal-dialog {
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%);
-    -webkit-transition: -webkit-transform .3s ease-out;
-    transition: transform .3s ease-out;
-}
-
-.u-modal.fade {
-    opacity: 0;
-    transition: opacity 0.15s linear; }
-
-.u-modal.fade.in {
-    opacity: 1; }
-
-.u-modal-content {
-    position: relative;
-    background-color: #fff;
-    border: 1px solid #999;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: $modal-border-radius;
-    box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    background-clip: padding-box;
-    outline: 0;
-}
-
-.u-modal-dialog {
-    position: relative;
-    width: auto;
-    margin: 10px;
+    .u-modal {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
 }
 
 
-.u-modal.fade .u-modal-dialog {
-    -webkit-transform: translateY(-25%);
-    transform: translateY(-25%);
-    -webkit-transition: -webkit-transform .3s ease-out;
-    transition: transform .3s ease-out;
-}
 
-.u-modal.in .u-modal-dialog {
-    -webkit-transform: translate(0);
-    transform: translate(0);
-}
 
-.u-modal-header {
-    padding: $modal-header-padding;
-    border-bottom: 1px solid $modal-header-border-color;
-}
 
-.u-modal-header .u-close {
-    margin-top: -2px;
-}
 
-.u-modal-title {
-    margin: 0;
-    line-height: 1.42857143;
-}
-.u-modal-body {
-    position: relative;
-    padding: $modal-body-padding;
-}
-.u-modal-footer {
-    padding: $modal-footer-padding;
-    text-align: right;
-    border-top: 1px solid $modal-footer-border-color;
-}
 
 
 button.u-close {
@@ -134,39 +109,30 @@ button.u-close {
 
 .u-modal-container {
     position: relative;
+    .u-modal-backdrop {
+        position: absolute;
+    }
+    .u-modal, .u-modal-backdrop {
+        position: absolute;
+    }
+    .u-modal-backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: $zindex-modal-background;
+        background-color: $modal-backdrop-bg;
+        &.fade {
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        &.in {
+            opacity: $modal-backdrop-opacity;
+            filter: alpha(opacity=50);
+        }
+    }
 }
-
-.u-modal-container .u-modal-backdrop {
-    position: absolute;
-}
-
-.u-modal-container .u-modal, .u-modal-container .u-modal-backdrop {
-    position: absolute;
-}
-
-.u-modal-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: $zindex-modal-background;
-    background-color: $modal-backdrop-bg;
-}
-
-.u-modal-backdrop.fade {
-    opacity: 0;
-    filter: alpha(opacity=0);
-}
-
-
-.u-modal-backdrop.in {
-    opacity: $modal-backdrop-opacity;
-    filter: alpha(opacity=50);
-}
-
-
-
 
 @media (min-width: 768px){
     .u-modal-dialog {
