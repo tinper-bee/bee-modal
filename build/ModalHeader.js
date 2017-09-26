@@ -63,15 +63,14 @@ var ModalHeader = function (_React$Component) {
   }
 
   ModalHeader.prototype.render = function render() {
-    var _props = this.props;
-    var label = _props['aria-label'];
-    var closeButton = _props.closeButton;
-    var onHide = _props.onHide;
-    var className = _props.className;
-    var clsPrefix = _props.clsPrefix;
-    var children = _props.children;
-
-    var props = _objectWithoutProperties(_props, ['aria-label', 'closeButton', 'onHide', 'className', 'clsPrefix', 'children']);
+    var _props = this.props,
+        label = _props['aria-label'],
+        closeButton = _props.closeButton,
+        onHide = _props.onHide,
+        className = _props.className,
+        clsPrefix = _props.clsPrefix,
+        children = _props.children,
+        props = _objectWithoutProperties(_props, ['aria-label', 'closeButton', 'onHide', 'className', 'clsPrefix', 'children']);
 
     var modal = this.context.$u_modal;
 

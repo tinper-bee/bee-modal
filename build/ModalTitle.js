@@ -47,12 +47,11 @@ var ModalTitle = function (_React$Component) {
   }
 
   ModalTitle.prototype.render = function render() {
-    var _props = this.props;
-    var Component = _props.componentClass;
-    var className = _props.className;
-    var clsPrefix = _props.clsPrefix;
-
-    var props = _objectWithoutProperties(_props, ['componentClass', 'className', 'clsPrefix']);
+    var _props = this.props,
+        Component = _props.componentClass,
+        className = _props.className,
+        clsPrefix = _props.clsPrefix,
+        props = _objectWithoutProperties(_props, ['componentClass', 'className', 'clsPrefix']);
 
     var classes = {};
     classes['' + clsPrefix] = true;
