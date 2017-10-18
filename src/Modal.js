@@ -15,6 +15,7 @@ import ModalDialog from './ModalDialog';
 import Footer from './ModalFooter';
 import Header from './ModalHeader';
 import Title from './ModalTitle';
+import PropTypes from 'prop-types';
 
 
 const propTypes = {
@@ -24,17 +25,17 @@ const propTypes = {
   /**
    * 是否弹出遮罩层/遮罩层点击是否触发关闭
    */
-  backdrop: React.PropTypes.oneOf(['static', true, false]),
+  backdrop: PropTypes.oneOf(['static', true, false]),
 
   /**
    * esc触发关闭
    */
-  keyboard: React.PropTypes.bool,
+  keyboard: PropTypes.bool,
 
   /**
    * 显隐时是否使用动画
    */
-  animation: React.PropTypes.bool,
+  animation: PropTypes.bool,
 
   /**
    * 传递给模态框的样式
@@ -44,34 +45,34 @@ const propTypes = {
   /**
    * 自动设置焦点
    */
-  autoFocus: React.PropTypes.bool,
+  autoFocus: PropTypes.bool,
 
   /**
    * 防止打开时焦点离开模态框
    */
-  enforceFocus: React.PropTypes.bool,
+  enforceFocus: PropTypes.bool,
 
   /**
    * 是否打开模态框
    */
-  show: React.PropTypes.bool,
+  show: PropTypes.bool,
 
   /**
    * 关闭时的钩子函数
    */
-  onHide: React.PropTypes.func,
+  onHide: PropTypes.func,
 
-  onEnter: React.PropTypes.func,
+  onEnter: PropTypes.func,
 
-  onEntering: React.PropTypes.func,
+  onEntering: PropTypes.func,
 
-  onEntered: React.PropTypes.func,
+  onEntered: PropTypes.func,
 
-  onExit: React.PropTypes.func,
+  onExit: PropTypes.func,
 
-  onExiting: React.PropTypes.func,
+  onExiting: PropTypes.func,
 
-  onExited: React.PropTypes.func,
+  onExited: PropTypes.func,
 
   /**
    * 要添加到的元素
@@ -81,7 +82,7 @@ const propTypes = {
   /**
    * 尺寸
    */
-  size: React.PropTypes.oneOf(["sm", "lg", "xlg", ""])
+  size: PropTypes.oneOf(["sm", "lg", "xlg", ""])
 };
 
 const defaultProps = {
@@ -92,8 +93,8 @@ const defaultProps = {
 };
 
 const childContextTypes = {
-  $u_modal: React.PropTypes.shape({
-    onHide: React.PropTypes.func,
+  $u_modal: PropTypes.shape({
+    onHide: PropTypes.func,
   }),
 };
 

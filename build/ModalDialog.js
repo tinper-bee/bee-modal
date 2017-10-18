@@ -32,8 +32,8 @@ var propTypes = {
   /**
    * 传给dialog的classname
    */
-  dialogClassName: _react2["default"].PropTypes.string,
-  contentStyle: _react2["default"].PropTypes.object
+  dialogClassName: PropTypes.string,
+  contentStyle: PropTypes.object
 
 };
 

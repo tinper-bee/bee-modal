@@ -33,12 +33,12 @@ var propTypes = {
   /**
    * 是否显示关闭按钮
    */
-  closeButton: _react2["default"].PropTypes.bool,
+  closeButton: PropTypes.bool,
 
   /**
    * 关闭时的钩子函数
    */
-  onHide: _react2["default"].PropTypes.func
+  onHide: PropTypes.func
 };
 
 var defaultProps = {
@@ -48,8 +48,8 @@ var defaultProps = {
 };
 
 var contextTypes = {
-  $u_modal: _react2["default"].PropTypes.shape({
-    onHide: _react2["default"].PropTypes.func
+  $u_modal: PropTypes.shape({
+    onHide: PropTypes.func
   })
 };
 

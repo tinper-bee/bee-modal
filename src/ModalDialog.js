@@ -6,8 +6,8 @@ const propTypes = {
   /**
    * 传给dialog的classname
    */
-  dialogClassName: React.PropTypes.string,
-  contentStyle: React.PropTypes.object,
+  dialogClassName: PropTypes.string,
+  contentStyle: PropTypes.object,
 
 };
 

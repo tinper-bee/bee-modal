@@ -68,6 +68,10 @@ var _ModalTitle = require('./ModalTitle');
 
 var _ModalTitle2 = _interopRequireDefault(_ModalTitle);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
@@ -87,17 +91,17 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
   /**
    * 是否弹出遮罩层/遮罩层点击是否触发关闭
    */
-  backdrop: _react2["default"].PropTypes.oneOf(['static', true, false]),
+  backdrop: _propTypes2["default"].oneOf(['static', true, false]),
 
   /**
    * esc触发关闭
    */
-  keyboard: _react2["default"].PropTypes.bool,
+  keyboard: _propTypes2["default"].bool,
 
   /**
    * 显隐时是否使用动画
    */
-  animation: _react2["default"].PropTypes.bool,
+  animation: _propTypes2["default"].bool,
 
   /**
    * 传递给模态框的样式
@@ -107,34 +111,34 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
   /**
    * 自动设置焦点
    */
-  autoFocus: _react2["default"].PropTypes.bool,
+  autoFocus: _propTypes2["default"].bool,
 
   /**
    * 防止打开时焦点离开模态框
    */
-  enforceFocus: _react2["default"].PropTypes.bool,
+  enforceFocus: _propTypes2["default"].bool,
 
   /**
    * 是否打开模态框
    */
-  show: _react2["default"].PropTypes.bool,
+  show: _propTypes2["default"].bool,
 
   /**
    * 关闭时的钩子函数
    */
-  onHide: _react2["default"].PropTypes.func,
+  onHide: _propTypes2["default"].func,
 
-  onEnter: _react2["default"].PropTypes.func,
+  onEnter: _propTypes2["default"].func,
 
-  onEntering: _react2["default"].PropTypes.func,
+  onEntering: _propTypes2["default"].func,
 
-  onEntered: _react2["default"].PropTypes.func,
+  onEntered: _propTypes2["default"].func,
 
-  onExit: _react2["default"].PropTypes.func,
+  onExit: _propTypes2["default"].func,
 
-  onExiting: _react2["default"].PropTypes.func,
+  onExiting: _propTypes2["default"].func,
 
-  onExited: _react2["default"].PropTypes.func,
+  onExited: _propTypes2["default"].func,
 
   /**
    * 要添加到的元素
@@ -144,7 +148,7 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
   /**
    * 尺寸
    */
-  size: _react2["default"].PropTypes.oneOf(["sm", "lg", "xlg", ""])
+  size: _propTypes2["default"].oneOf(["sm", "lg", "xlg", ""])
 });
 
 var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
@@ -154,8 +158,8 @@ var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
 });
 
 var childContextTypes = {
-  $u_modal: _react2["default"].PropTypes.shape({
-    onHide: _react2["default"].PropTypes.func
+  $u_modal: _propTypes2["default"].shape({
+    onHide: _propTypes2["default"].func
   })
 };
 
