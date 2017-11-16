@@ -33,7 +33,7 @@
     "chrome": "bee-tools-test run chrome",
     "coveralls": "bee-tools-test run coverage",
     "browsers": "bee-tools-test run browsers",
-    "changelog":"conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "pub": "bee-tools run pub"
   },
   "dependencies": {
@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "bee-control-label": "latest",
-    "bee-form": "latest",
+    "bee-form": "^1.0.10",
     "bee-form-control": "latest",
     "bee-form-group": "latest",
     "bee-layout": "latest",

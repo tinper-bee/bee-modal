@@ -14,6 +14,7 @@ import Form from 'bee-form';
 import FormGroup from 'bee-form-group';
 import ControlLabel from 'bee-control-label';
 import FormControl from 'bee-form-control';
+const FormItem = Form.FormItem;
 
 class Demo2 extends Component {
     constructor(props) {
@@ -37,7 +38,18 @@ class Demo2 extends Component {
         });
     }
 
+    checkForm = (flag,obj) => {
+        if(flag){
+            this.close();
+        }
+    }
+
     render() {
+
+        const CancelBtn = (
+            <Button style={{ marginRight: 20 }} onClick={ this.close }>取消</Button>
+        )
+
         return (
         <div className="padding-15">
             <Button
@@ -56,40 +68,34 @@ class Demo2 extends Component {
                 </Modal.Header>
 
                 <Modal.Body>
-                <Form horizontal>
-                				<Row>
-                				    <FormGroup>
-                				    	<Col sm={2} smOffset={2} className="text-right">
-                				    		<ControlLabel>昵称:</ControlLabel>
-                				    	</Col>
-                				      	<Col sm={5}>
-                				      		<FormControl placeholder="请输入昵称" />
-                				      	</Col>
-                				    </FormGroup>
-                			    </Row>
-                			    <Row>
-                                    <FormGroup>
-                                        <Col sm={2} smOffset={2} className="text-right">
-                                            <ControlLabel>密码:</ControlLabel>
-                                        </Col>
-                                        <Col sm={5}>
-                                            <FormControl placeholder="请输入密码" />
-                                        </Col>
-                                    </FormGroup>
-                			    </Row>
-                			</Form>
+
+                    <Form
+                        submitCallBack={this.checkForm}
+                        submitAreaClassName="text-center"
+                        beforeSubmitBtn={CancelBtn}>
+                        <FormItem
+                            labelName="姓名"
+                            isRequire={true}
+                            htmlType="chinese"
+                            errorMessage="姓名格式错误"
+                            method="blur"
+                            inline={true}>
+                            <FormControl name="name" placeholder="只能输入中文"/>
+                        </FormItem>
+                        <FormItem
+                            labelName="年龄"
+                            isRequire={true}
+                            method="blur"
+                            errorMessage="年龄格式错误"
+                            reg={/^[0-9]+$/}
+                            inline={true}>
+                            <FormControl name="age" ref="input" />
+                        </FormItem>
+                    </Form>
 
                 </Modal.Body>
 
                 <Modal.Footer>
-                <Row>
-                    <Col md={2} mdOffset={3}>
-                        <Button onClick={ this.close } shape="border">关闭</Button>
-                    </Col>
-                    <Col md={2} mdOffset={1}>
-                        <Button onClick={ this.close } colors="primary">确认</Button>
-                    </Col>
-                </Row>
                 </Modal.Footer>
            </Modal>
 
