@@ -5,8 +5,6 @@
  *
  */
 
-import { Con, Row, Col } from 'bee-layout';
-import { Panel } from 'bee-panel';
 import React, { Component } from 'react';
 import Button from 'bee-button';
 import Modal from '../../src';
@@ -34,10 +32,11 @@ class Demo1 extends Component {
     }
     render () {
         return (
-        <div className="padding-15">
+        <div>
             <Button
             colors = "primary"
             size = "lg"
+            className="demo-margin"
             onClick = { this.open }>
                 打开模态框
             </Button>​

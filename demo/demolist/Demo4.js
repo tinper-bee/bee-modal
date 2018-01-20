@@ -5,8 +5,6 @@
  *
  */
 
-import { Con, Row, Col } from 'bee-layout';
-import { Panel } from 'bee-panel';
 import React, { Component } from 'react';
 import Button from 'bee-button';
 import Modal from '../../src';
@@ -45,14 +43,25 @@ class Demo4 extends Component {
 
     render() {
         return (
-            <div className="padding-15">
-                <Button colors="primary" size="lg" onClick={ ()=>{this.changeDropup(false);this.open();} }>
+            <div>
+                <Button
+                    colors="primary"
+                    size="lg"
+                    className="demo-margin"
+                    onClick={ ()=>{this.changeDropup(false);this.open();} }>
                     无遮罩层模态框
                 </Button>
-                <Button colors="primary" size="lg" onClick={ ()=>{this.changeDropup("static");this.open();} }>
+                <Button
+                    colors="primary"
+                    size="lg"
+                    className="demo-margin"
+                    onClick={ ()=>{this.changeDropup("static");this.open();} }>
                     遮罩无事件模态框
                 </Button>
-                <Modal show={ this.state.showModal } backdrop={ this.state.modalDropup } onHide={ this.close }>
+                <Modal
+                    show={ this.state.showModal }
+                    backdrop={ this.state.modalDropup }
+                    onHide={ this.close }>
                     <Modal.Header closeButton>
                         <Modal.Title > 我来组成头部 </Modal.Title>
                     </Modal.Header >

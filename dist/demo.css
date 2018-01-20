@@ -6159,57 +6159,28 @@ input.u-button[type="submit"] {
 
 /* FormGroup */
 /*  Navlayout  */
-.u-form .u-form-group {
-  margin-top: 0;
-  margin-bottom: 0; }
+@media (min-width: 768px) {
+  .u-form-inline .u-form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    margin: 2px; }
+  .u-form-inline .u-form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle; }
+  .u-form-inline .u-control-label {
+    margin-bottom: 0;
+    vertical-align: middle; } }
 
-.u-form .u-form-item {
-  padding-top: 5px;
-  padding-bottom: 5px; }
+@media (min-width: 768px) {
+  .u-form-horizontal .u-control-label {
+    text-align: right;
+    margin-bottom: 0;
+    padding-top: 7px; } }
 
-.u-form-item {
-  min-height: 64px; }
-
-.u-form-item .u-select {
-  min-width: 100px; }
-
-.u-form .u-form-item {
-  min-height: 94px; }
-
-.u-form .u-form-item.u-form-inline {
-  min-height: 72px; }
-
-.u-form-error {
-  display: none;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  color: #F22C1D; }
-
-.u-form-error.show {
-  display: block; }
-
-.u-form .u-form-submit {
-  margin-top: 10px; }
-
-.u-form .u-form-item.u-form-inline .u-input-group {
-  display: inline-block;
-  vertical-align: middle;
-  width: auto; }
-
-.u-form-inline .u-label {
-  display: inline-block; }
-
-.u-form .u-row .u-label {
-  line-height: 40px; }
-
-.u-form-item.u-form-inline .u-input-group-outer {
-  display: inline-block; }
-
-.u-mast {
-  color: #F22C1D;
-  position: relative;
-  top: 2px;
-  margin-right: 2px; }
+.u-label {
+  line-height: 30px; }
 
 /* FormGroup */
 /*  Navlayout  */
@@ -6442,19 +6413,19 @@ input.u-button[type="submit"] {
   .u-modal-container .u-modal, .u-modal-container .u-modal-backdrop {
     position: absolute; }
 
-.static-modal .u-modal {
-  position: relative;
-  top: auto;
-  right: auto;
-  left: auto;
-  bottom: auto;
-  z-index: 1;
-  display: block; }
+.demo-margin {
+  margin: 5px 15px; }
 
-.padding-15 button {
+.demo-margin {
   margin: 5px 15px; }
 
 .text-center {
   text-align: center; }
+
+.demo-margin {
+  margin: 5px 15px; }
+
+.demo-margin {
+  margin: 5px 15px; }
 
 /*# sourceMappingURL=demo.css.map */

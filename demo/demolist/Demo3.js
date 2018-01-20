@@ -5,8 +5,6 @@
  *
  */
 
-import { Con, Row, Col } from 'bee-layout';
-import { Panel } from 'bee-panel';
 import React, { Component } from 'react';
 import Button from 'bee-button';
 import Modal from '../../src';
@@ -45,14 +43,26 @@ class Demo3 extends Component {
 
     render() {
         return (
-            <div className="padding-15">
-                <Button colors="primary" size="lg" onClick={ ()=>{this.changeSize("sm");this.open();} }>
+            <div>
+                <Button
+                    colors="primary"
+                    size="lg"
+                    className="demo-margin"
+                    onClick={ ()=>{this.changeSize("sm");this.open();} }>
                     打开小号模态框
                 </Button>
-                <Button colors="primary" size="lg" onClick={ ()=>{this.changeSize("lg");this.open();} }>
+                <Button
+                    colors="primary"
+                    size="lg"
+                    className="demo-margin"
+                    onClick={ ()=>{this.changeSize("lg");this.open();} }>
                     打开大号模态框
                 </Button>
-                <Button colors="primary" size="lg" onClick={ ()=>{this.changeSize("xlg");this.open();} }>
+                <Button
+                    colors="primary"
+                    size="lg"
+                    className="demo-margin"
+                    onClick={ ()=>{this.changeSize("xlg");this.open();} }>
                     打开超大号模态框
                 </Button>
                 <Modal show={ this.state.showModal } size={ this.state.modalSize } onHide={ this.close }>

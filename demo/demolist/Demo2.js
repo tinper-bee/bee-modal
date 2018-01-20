@@ -51,7 +51,7 @@ class Demo2 extends Component {
         )
 
         return (
-        <div className="padding-15">
+        <div className="demo-margin">
             <Button
             colors = "primary"
             size = "lg"
