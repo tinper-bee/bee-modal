@@ -50,8 +50,7 @@
   },
   "devDependencies": {
     "bee-button": "^1.0.0",
-    "bee-control-label": "latest",
-    "bee-form": "^1.0.10",
+    "bee-label": "latest",
     "bee-form-control": "latest",
     "bee-form-group": "latest",
     "bee-layout": "latest",
