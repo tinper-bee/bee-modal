@@ -72,9 +72,10 @@ class Demo2 extends Component {
                     <Form
                         submitCallBack={this.checkForm}
                         submitAreaClassName="text-center"
+                        className="text-center"
                         beforeSubmitBtn={CancelBtn}>
                         <FormItem
-                            labelName="姓名"
+                            labelName="姓名: "
                             isRequire={true}
                             htmlType="chinese"
                             errorMessage="姓名格式错误"
@@ -83,7 +84,7 @@ class Demo2 extends Component {
                             <FormControl name="name" placeholder="只能输入中文"/>
                         </FormItem>
                         <FormItem
-                            labelName="年龄"
+                            labelName="年龄: "
                             isRequire={true}
                             method="blur"
                             errorMessage="年龄格式错误"
