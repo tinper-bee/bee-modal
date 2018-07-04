@@ -219,7 +219,7 @@ var Modal = function (_React$Component) {
   };
 
   Modal.prototype.updateStyle = function updateStyle() {
-    if (!_inDOM2["default"]) {
+    if (!_inDOM2["default"] || !this._modal) {
       return;
     }
 
