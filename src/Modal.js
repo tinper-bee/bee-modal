@@ -152,7 +152,6 @@ class Modal extends React.Component {
     if (!canUseDOM || !this._modal) {
       return;
     }
-    console.log(this._modal);
 
     const dialogNode = this._modal.getDialogElement();
     const dialogHeight = dialogNode.scrollHeight;
