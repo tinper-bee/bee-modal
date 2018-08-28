@@ -50,7 +50,7 @@
 	
 	var _beePanel = __webpack_require__(8);
 	
-	var _beeButton = __webpack_require__(62);
+	var _beeButton = __webpack_require__(65);
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
@@ -76,7 +76,7 @@
 	
 	var CARETUP = _react2['default'].createElement('i', { className: 'uf uf-arrow-up' });
 	
-	var Demo1 = __webpack_require__(64);var Demo2 = __webpack_require__(95);var Demo3 = __webpack_require__(104);var Demo4 = __webpack_require__(105);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 默认的模态框", "code": "/**\n *\n * @title 默认的模态框\n * @description\n *\n */\n\nimport React, { Component } from 'react';\nimport { Modal, Button } from 'tinper-bee';\n\n\nclass Demo1 extends Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            showModal: false\n        };\n        this.close = this.close.bind(this);\n        this.open = this.open.bind(this);\n    }\n\n    close() {\n        this.setState({\n            showModal: false\n        });\n    }\n    open() {\n        this.setState({\n            showModal: true\n        });\n    }\n    render () {\n        return (\n        <div>\n            <Button\n            colors = \"primary\"\n            size = \"lg\"\n            className=\"demo-margin\"\n            onClick = { this.open }>\n                打开模态框\n            </Button>​\n            <Modal\n            show = { this.state.showModal }\n            onHide = { this.close } >\n                <Modal.Header>\n                    <Modal.Title>这是题目</Modal.Title>\n                </Modal.Header>\n\n                <Modal.Body>\n                    这是一些描述。。。\n                </Modal.Body>\n\n                <Modal.Footer>\n                    <Button onClick={ this.close } shape=\"border\" style={{marginRight: 50}}>关闭</Button>\n                    <Button onClick={ this.close } colors=\"primary\">确认</Button>\n                </Modal.Footer>\n           </Modal>\n        </div>\n        )\n    }\n}\n\n\n", "desc": "", "scss_code": ".demo-margin{\n  margin: 5px 15px;\n}" }, { "example": _react2['default'].createElement(Demo2, null), "title": " 注册的模态框", "code": "/**\n *\n * @title 注册的模态框\n * @description\n *\n */\n\nimport React, {Component} from 'react';\nimport { Modal, FormControl, Label, FormGroup, Button } from 'tinper-bee';\n\nclass Demo2 extends Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            showModal: false,\n            password: '',\n            name: ''\n        };\n        this.close = this.close.bind(this);\n        this.open = this.open.bind(this);\n    }\n\n    close() {\n        this.setState({\n            showModal: false\n        });\n    }\n\n    open() {\n        this.setState({\n            showModal: true\n        });\n    }\n\n    handleChange = (state) => (value) => {\n        this.setState({\n            [state]: value\n        })\n    }\n\n    render() {\n\n        return (\n            <div className=\"demo-margin\">\n                <Button\n                    colors=\"primary\"\n                    size=\"lg\"\n                    onClick={this.open}>\n                    注册模态框\n                </Button>​\n                <Modal\n                    show={this.state.showModal}\n                    onHide={this.close}\n                    style={{width: 450}}\n                >\n                    <Modal.Header className=\"text-center\">\n                        <Modal.Title>注册</Modal.Title>\n                    </Modal.Header>\n\n                    <Modal.Body>\n                        <div style={{ width: 300, margin: '0 auto' }}>\n                            <FormGroup>\n                                <Label>用户名</Label>\n                                <FormControl\n                                    value={this.state.name}\n                                    onChange={this.handleChange('name')}\n                                />\n                            </FormGroup>\n                            <FormGroup>\n                                <Label>密码</Label>\n                                <FormControl\n                                    value={this.state.password}\n                                    onChange={this.handleChange('password')}\n                                />\n                            </FormGroup>\n                        </div>\n\n\n                    </Modal.Body>\n\n                    <Modal.Footer className=\"text-center\">\n                        <Button bordered style={{ marginRight: 20 }} onClick={this.close}>\n                            取消\n                        </Button>\n                        <Button colors=\"primary\" onClick={this.close}>\n                            确认\n                        </Button>\n                    </Modal.Footer>\n                </Modal>\n\n            </div>\n        )\n    }\n}\n\n\n", "desc": "", "scss_code": ".demo-margin{\n  margin: 5px 15px;\n}\n.text-center{\n  text-align: center;\n}" }, { "example": _react2['default'].createElement(Demo3, null), "title": " 不同大小的模态框", "code": "/**\n *\n * @title 不同大小的模态框\n * @description 通过size属性控制模态框大小\n *\n */\n\nimport React, { Component } from 'react';\nimport { Modal, Button } from 'tinper-bee';\n\nclass Demo3 extends Component {\n\n    constructor(props) {\n        super(props);\n        this.state = {\n            showModal: false,\n            modalSize: ''\n        };\n        this.close = this.close.bind(this);\n        this.open = this.open.bind(this);\n        this.changeSize = this.changeSize.bind(this);\n\n    }\n\n    close() {\n        this.setState({\n            showModal: false\n        });\n    }\n\n    open() {\n        this.setState({\n            showModal: true\n        });\n    }\n\n    changeSize(size) {\n        this.setState({\n            modalSize: size\n        });\n    }\n\n    render() {\n        return (\n            <div>\n                <Button\n                    colors=\"primary\"\n                    size=\"lg\"\n                    className=\"demo-margin\"\n                    onClick={ ()=>{this.changeSize(\"sm\");this.open();} }>\n                    打开小号模态框\n                </Button>\n                <Button\n                    colors=\"primary\"\n                    size=\"lg\"\n                    className=\"demo-margin\"\n                    onClick={ ()=>{this.changeSize(\"lg\");this.open();} }>\n                    打开大号模态框\n                </Button>\n                <Button\n                    colors=\"primary\"\n                    size=\"lg\"\n                    className=\"demo-margin\"\n                    onClick={ ()=>{this.changeSize(\"xlg\");this.open();} }>\n                    打开超大号模态框\n                </Button>\n                <Modal show={ this.state.showModal } size={ this.state.modalSize } onHide={ this.close }>\n                    <Modal.Header closeButton>\n                        <Modal.Title > 我来组成头部 </Modal.Title>\n                    </Modal.Header >\n                    <Modal.Body >\n                        <h4> 这是一个沉默的标题 </h4>\n\n                        <p> 一些描述。。。 </p>\n                        <hr/>\n                        <h4> 来多添加一些内容， 显示滚动条吧 </h4>\n\n                        <p> 用创想与技术推动商业和社会进步 </p>\n\n                        <p> 我们基于创造性的思想与先进的技术（ 现阶段是信息技术）， 创新和运营高客户价值的产品与服务， 帮助客户实现发展目标， 进而推动商业和社会进步。\n                        </p>\n\n                        <p> 全球领先的企业与公共组织软件、 云服务、 金融服务提供商。 </p>\n\n                        <p> 员工快乐工作， 成就事业， 分享成功的平台。 </p>\n\n                        <p> 企业和公共组织是我们持续服务的客户。 软件、 云服务、 金融服务是用友新发展阶段的核心业务。 全球领先是我们必须达成的目标。 </p>\n\n                        <p> 在努力实现产业发展目标的同时， 员工在用友快乐工作、 成就事业、 分享成功也是公司的追求。 </p>\n\n                        <p> 核心价值观 </p>\n\n                        <p> 用户之友 专业奋斗 </p>\n\n                        <p> 开放创新 诚信合作 </p>\n\n                        <p> 核心价值观是所有用友人最重要的行为指引、 行动指南， 也是公司赖以可持续发展的信念基石。 </p>\n\n                        <p> 我们坚守“ 用户之友” 的初心， 做“ 专业的奋斗者”， 始终坚持“ 开放创新” 和“ 诚信合作”。 </p>\n                    </Modal.Body>\n                    <Modal.Footer>\n                        <Button onClick={ this.close }> 关闭 </Button>\n                    </Modal.Footer>\n                </Modal>\n            </div>\n        )\n    }\n}\n\n\n", "desc": " 通过size属性控制模态框大小", "scss_code": ".demo-margin{\n  margin: 5px 15px;\n}" }, { "example": _react2['default'].createElement(Demo4, null), "title": " 不同遮罩层状态的模态框", "code": "/**\n *\n * @title 不同遮罩层状态的模态框\n * @description 遮罩层可以通过backdrop属性控制状态，可以为不响应事件，可以不显示。\n *\n */\n\nimport React, { Component } from 'react';\nimport { Modal, Button } from 'tinper-bee';\n\n\nclass Demo4 extends Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            showModal: false,\n            modalDropup: true\n        };\n        this.close = this.close.bind(this);\n        this.open = this.open.bind(this);\n        this.changeDropup = this.changeDropup.bind(this);\n\n    }\n\n    close() {\n        this.setState({\n            showModal: false\n        });\n    }\n\n    open() {\n        this.setState({\n            showModal: true\n        });\n    }\n\n    changeDropup(state) {\n        this.setState({\n            modalDropup: state\n        });\n    }\n\n    render() {\n        return (\n            <div>\n                <Button\n                    colors=\"primary\"\n                    size=\"lg\"\n                    className=\"demo-margin\"\n                    onClick={ ()=>{this.changeDropup(false);this.open();} }>\n                    无遮罩层模态框\n                </Button>\n                <Button\n                    colors=\"primary\"\n                    size=\"lg\"\n                    className=\"demo-margin\"\n                    onClick={ ()=>{this.changeDropup(\"static\");this.open();} }>\n                    遮罩无事件模态框\n                </Button>\n                <Modal\n                    show={ this.state.showModal }\n                    backdrop={ this.state.modalDropup }\n                    onHide={ this.close }>\n                    <Modal.Header closeButton>\n                        <Modal.Title > 我来组成头部 </Modal.Title>\n                    </Modal.Header >\n                    <Modal.Body >\n                        <h4> 这是一个沉默的标题 </h4>\n\n                        <p> 一些描述。。。 </p>\n                        <hr/>\n                        <h4> 来多添加一些内容， 显示滚动条吧 </h4>\n\n                        <p> 用创想与技术推动商业和社会进步 </p>\n\n                        <p> 我们基于创造性的思想与先进的技术（ 现阶段是信息技术）， 创新和运营高客户价值的产品与服务， 帮助客户实现发展目标， 进而推动商业和社会进步。 </p>\n\n                        <p> 全球领先的企业与公共组织软件、 云服务、 金融服务提供商。 </p>\n\n                        <p> 员工快乐工作， 成就事业， 分享成功的平台。 </p>\n\n                        <p> 企业和公共组织是我们持续服务的客户。 软件、 云服务、 金融服务是用友新发展阶段的核心业务。 全球领先是我们必须达成的目标。 </p>\n\n                        <p> 在努力实现产业发展目标的同时， 员工在用友快乐工作、 成就事业、 分享成功也是公司的追求。 </p>\n\n                        <p> 核心价值观 </p>\n\n                        <p> 用户之友 专业奋斗 </p>\n\n                        <p> 开放创新 诚信合作 </p>\n\n                        <p> 核心价值观是所有用友人最重要的行为指引、 行动指南， 也是公司赖以可持续发展的信念基石。 </p>\n\n                        <p> 我们坚守“ 用户之友” 的初心， 做“ 专业的奋斗者”， 始终坚持“ 开放创新” 和“ 诚信合作”。 </p>\n                    </Modal.Body>\n                    <Modal.Footer>\n                        <Button onClick={ this.close }> 关闭 </Button>\n                    </Modal.Footer>\n                </Modal>\n            </div>\n        )\n    }\n}\n\n\n", "desc": " 遮罩层可以通过backdrop属性控制状态，可以为不响应事件，可以不显示。", "scss_code": ".demo-margin{\n  margin: 5px 15px;\n}" }];
+	var Demo1 = __webpack_require__(67);var Demo2 = __webpack_require__(98);var Demo3 = __webpack_require__(107);var Demo4 = __webpack_require__(108);var Demo5 = __webpack_require__(109);var DemoArray = [{ "example": _react2['default'].createElement(Demo1, null), "title": " 默认的模态框", "code": "/**\r\n *\r\n * @title 默认的模态框\r\n * @description\r\n *\r\n */\r\n\r\nimport React, { Component } from 'react';\r\n\nimport { Modal, Button } from 'tinper-bee';\r\n\r\n\r\nclass Demo1 extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            showModal: false\r\n        };\r\n        this.close = this.close.bind(this);\r\n        this.open = this.open.bind(this);\r\n    }\r\n\r\n    close() {\r\n        this.setState({\r\n            showModal: false\r\n        });\r\n    }\r\n    open() {\r\n        this.setState({\r\n            showModal: true\r\n        });\r\n    }\r\n    render () {\r\n        return (\r\n        <div>\r\n            <Button\r\n            colors = \"primary\"\r\n            size = \"lg\"\r\n            className=\"demo-margin\"\r\n            onClick = { this.open }>\r\n                打开模态框\r\n            </Button>​\r\n            <Modal\r\n            show = { this.state.showModal }\r\n            onHide = { this.close } >\r\n                <Modal.Header>\r\n                    <Modal.Title>这是题目</Modal.Title>\r\n                </Modal.Header>\r\n\r\n                <Modal.Body>\r\n                    这是一些描述。。。\r\n                </Modal.Body>\r\n\r\n                <Modal.Footer>\r\n                    <Button onClick={ this.close } shape=\"border\" style={{marginRight: 50}}>关闭</Button>\r\n                    <Button onClick={ this.close } colors=\"primary\">确认</Button>\r\n                </Modal.Footer>\r\n           </Modal>\r\n        </div>\r\n        )\r\n    }\r\n}\r\n\r\n\r\n", "desc": "", "scss_code": ".demo-margin{\r\n  margin: 5px 15px;\r\n}" }, { "example": _react2['default'].createElement(Demo2, null), "title": " 注册的模态框", "code": "/**\r\n *\r\n * @title 注册的模态框\r\n * @description\r\n *\r\n */\r\n\r\nimport React, {Component} from 'react';\r\n\nimport { Modal, FormControl, Label, FormGroup, Button } from 'tinper-bee';\r\n\n\n\n\r\nclass Demo2 extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            showModal: false,\r\n            password: '',\r\n            name: ''\r\n        };\r\n        this.close = this.close.bind(this);\r\n        this.open = this.open.bind(this);\r\n    }\r\n\r\n    close() {\r\n        this.setState({\r\n            showModal: false\r\n        });\r\n    }\r\n\r\n    open() {\r\n        this.setState({\r\n            showModal: true\r\n        });\r\n    }\r\n\r\n    handleChange = (state) => (value) => {\r\n        this.setState({\r\n            [state]: value\r\n        })\r\n    }\r\n\r\n    render() {\r\n\r\n        return (\r\n            <div className=\"demo-margin\">\r\n                <Button\r\n                    colors=\"primary\"\r\n                    size=\"lg\"\r\n                    onClick={this.open}>\r\n                    注册模态框\r\n                </Button>​\r\n                <Modal\r\n                    show={this.state.showModal}\r\n                    onHide={this.close}\r\n                    style={{width: 450}}\r\n                >\r\n                    <Modal.Header className=\"text-center\">\r\n                        <Modal.Title>注册</Modal.Title>\r\n                    </Modal.Header>\r\n\r\n                    <Modal.Body>\r\n                        <div style={{ width: 300, margin: '0 auto' }}>\r\n                            <FormGroup>\r\n                                <Label>用户名</Label>\r\n                                <FormControl\r\n                                    value={this.state.name}\r\n                                    onChange={this.handleChange('name')}\r\n                                />\r\n                            </FormGroup>\r\n                            <FormGroup>\r\n                                <Label>密码</Label>\r\n                                <FormControl\r\n                                    value={this.state.password}\r\n                                    onChange={this.handleChange('password')}\r\n                                />\r\n                            </FormGroup>\r\n                        </div>\r\n\r\n\r\n                    </Modal.Body>\r\n\r\n                    <Modal.Footer className=\"text-center\">\r\n                        <Button bordered style={{ marginRight: 20 }} onClick={this.close}>\r\n                            取消\r\n                        </Button>\r\n                        <Button colors=\"primary\" onClick={this.close}>\r\n                            确认\r\n                        </Button>\r\n                    </Modal.Footer>\r\n                </Modal>\r\n\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\n\r\n", "desc": "", "scss_code": ".demo-margin{\r\n  margin: 5px 15px;\r\n}\r\n.text-center{\r\n  text-align: center;\r\n}" }, { "example": _react2['default'].createElement(Demo3, null), "title": " 不同大小的模态框", "code": "/**\r\n *\r\n * @title 不同大小的模态框\r\n * @description 通过size属性控制模态框大小\r\n *\r\n */\r\n\r\nimport React, { Component } from 'react';\r\n\nimport { Modal, Button } from 'tinper-bee';\r\n\r\nclass Demo3 extends Component {\r\n\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            showModal: false,\r\n            modalSize: ''\r\n        };\r\n        this.close = this.close.bind(this);\r\n        this.open = this.open.bind(this);\r\n        this.changeSize = this.changeSize.bind(this);\r\n\r\n    }\r\n\r\n    close() {\r\n        this.setState({\r\n            showModal: false\r\n        });\r\n    }\r\n\r\n    open() {\r\n        this.setState({\r\n            showModal: true\r\n        });\r\n    }\r\n\r\n    changeSize(size) {\r\n        this.setState({\r\n            modalSize: size\r\n        });\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <Button\r\n                    colors=\"primary\"\r\n                    size=\"lg\"\r\n                    className=\"demo-margin\"\r\n                    onClick={ ()=>{this.changeSize(\"sm\");this.open();} }>\r\n                    打开小号模态框\r\n                </Button>\r\n                <Button\r\n                    colors=\"primary\"\r\n                    size=\"lg\"\r\n                    className=\"demo-margin\"\r\n                    onClick={ ()=>{this.changeSize(\"lg\");this.open();} }>\r\n                    打开大号模态框\r\n                </Button>\r\n                <Button\r\n                    colors=\"primary\"\r\n                    size=\"lg\"\r\n                    className=\"demo-margin\"\r\n                    onClick={ ()=>{this.changeSize(\"xlg\");this.open();} }>\r\n                    打开超大号模态框\r\n                </Button>\r\n                <Modal show={ this.state.showModal } size={ this.state.modalSize } onHide={ this.close }>\r\n                    <Modal.Header closeButton>\r\n                        <Modal.Title > 我来组成头部 </Modal.Title>\r\n                    </Modal.Header >\r\n                    <Modal.Body >\r\n                        <h4> 这是一个沉默的标题 </h4>\r\n\r\n                        <p> 一些描述。。。 </p>\r\n                        <hr/>\r\n                        <h4> 来多添加一些内容， 显示滚动条吧 </h4>\r\n\r\n                        <p> 用创想与技术推动商业和社会进步 </p>\r\n\r\n                        <p> 我们基于创造性的思想与先进的技术（ 现阶段是信息技术）， 创新和运营高客户价值的产品与服务， 帮助客户实现发展目标， 进而推动商业和社会进步。\r\n                        </p>\r\n\r\n                        <p> 全球领先的企业与公共组织软件、 云服务、 金融服务提供商。 </p>\r\n\r\n                        <p> 员工快乐工作， 成就事业， 分享成功的平台。 </p>\r\n\r\n                        <p> 企业和公共组织是我们持续服务的客户。 软件、 云服务、 金融服务是用友新发展阶段的核心业务。 全球领先是我们必须达成的目标。 </p>\r\n\r\n                        <p> 在努力实现产业发展目标的同时， 员工在用友快乐工作、 成就事业、 分享成功也是公司的追求。 </p>\r\n\r\n                        <p> 核心价值观 </p>\r\n\r\n                        <p> 用户之友 专业奋斗 </p>\r\n\r\n                        <p> 开放创新 诚信合作 </p>\r\n\r\n                        <p> 核心价值观是所有用友人最重要的行为指引、 行动指南， 也是公司赖以可持续发展的信念基石。 </p>\r\n\r\n                        <p> 我们坚守“ 用户之友” 的初心， 做“ 专业的奋斗者”， 始终坚持“ 开放创新” 和“ 诚信合作”。 </p>\r\n                    </Modal.Body>\r\n                    <Modal.Footer>\r\n                        <Button onClick={ this.close }> 关闭 </Button>\r\n                    </Modal.Footer>\r\n                </Modal>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\n\r\n", "desc": " 通过size属性控制模态框大小", "scss_code": ".demo-margin{\r\n  margin: 5px 15px;\r\n}" }, { "example": _react2['default'].createElement(Demo4, null), "title": " 不同遮罩层状态的模态框", "code": "/**\r\n *\r\n * @title 不同遮罩层状态的模态框\r\n * @description 遮罩层可以通过backdrop属性控制状态，可以为不响应事件，可以不显示。\r\n *\r\n */\r\n\r\nimport React, { Component } from 'react';\r\n\nimport { Modal, Button } from 'tinper-bee';\r\n\r\n\r\nclass Demo4 extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            showModal: false,\r\n            modalDropup: true\r\n        };\r\n        this.close = this.close.bind(this);\r\n        this.open = this.open.bind(this);\r\n        this.changeDropup = this.changeDropup.bind(this);\r\n\r\n    }\r\n\r\n    close() {\r\n        this.setState({\r\n            showModal: false\r\n        });\r\n    }\r\n\r\n    open() {\r\n        this.setState({\r\n            showModal: true\r\n        });\r\n    }\r\n\r\n    changeDropup(state) {\r\n        this.setState({\r\n            modalDropup: state\r\n        });\r\n    }\r\n\r\n    render() {\r\n        return (\r\n            <div>\r\n                <Button\r\n                    colors=\"primary\"\r\n                    size=\"lg\"\r\n                    className=\"demo-margin\"\r\n                    onClick={ ()=>{this.changeDropup(false);this.open();} }>\r\n                    无遮罩层模态框\r\n                </Button>\r\n                <Button\r\n                    colors=\"primary\"\r\n                    size=\"lg\"\r\n                    className=\"demo-margin\"\r\n                    onClick={ ()=>{this.changeDropup(\"static\");this.open();} }>\r\n                    遮罩无事件模态框\r\n                </Button>\r\n                <Modal\r\n                    show={ this.state.showModal }\r\n                    backdrop={ this.state.modalDropup }\r\n                    onHide={ this.close }>\r\n                    <Modal.Header closeButton>\r\n                        <Modal.Title > 我来组成头部 </Modal.Title>\r\n                    </Modal.Header >\r\n                    <Modal.Body >\r\n                        <h4> 这是一个沉默的标题 </h4>\r\n\r\n                        <p> 一些描述。。。 </p>\r\n                        <hr/>\r\n                        <h4> 来多添加一些内容， 显示滚动条吧 </h4>\r\n\r\n                        <p> 用创想与技术推动商业和社会进步 </p>\r\n\r\n                        <p> 我们基于创造性的思想与先进的技术（ 现阶段是信息技术）， 创新和运营高客户价值的产品与服务， 帮助客户实现发展目标， 进而推动商业和社会进步。 </p>\r\n\r\n                        <p> 全球领先的企业与公共组织软件、 云服务、 金融服务提供商。 </p>\r\n\r\n                        <p> 员工快乐工作， 成就事业， 分享成功的平台。 </p>\r\n\r\n                        <p> 企业和公共组织是我们持续服务的客户。 软件、 云服务、 金融服务是用友新发展阶段的核心业务。 全球领先是我们必须达成的目标。 </p>\r\n\r\n                        <p> 在努力实现产业发展目标的同时， 员工在用友快乐工作、 成就事业、 分享成功也是公司的追求。 </p>\r\n\r\n                        <p> 核心价值观 </p>\r\n\r\n                        <p> 用户之友 专业奋斗 </p>\r\n\r\n                        <p> 开放创新 诚信合作 </p>\r\n\r\n                        <p> 核心价值观是所有用友人最重要的行为指引、 行动指南， 也是公司赖以可持续发展的信念基石。 </p>\r\n\r\n                        <p> 我们坚守“ 用户之友” 的初心， 做“ 专业的奋斗者”， 始终坚持“ 开放创新” 和“ 诚信合作”。 </p>\r\n                    </Modal.Body>\r\n                    <Modal.Footer>\r\n                        <Button onClick={ this.close }> 关闭 </Button>\r\n                    </Modal.Footer>\r\n                </Modal>\r\n            </div>\r\n        )\r\n    }\r\n}\r\n\r\n\r\n", "desc": " 遮罩层可以通过backdrop属性控制状态，可以为不响应事件，可以不显示。", "scss_code": ".demo-margin{\r\n  margin: 5px 15px;\r\n}" }, { "example": _react2['default'].createElement(Demo5, null), "title": " 自定义大小的模态框", "code": "/**\r\n *\r\n * @title 自定义大小的模态框\r\n * @description 通过width属性定义模态框大小\r\n *\r\n */\r\n\r\nimport React, { Component } from 'react';\r\n\nimport { Modal, Button } from 'tinper-bee';\r\n\r\n\r\nclass Demo5 extends Component {\r\n    constructor(props) {\r\n        super(props);\r\n        this.state = {\r\n            showModal: false\r\n        };\r\n        this.close = this.close.bind(this);\r\n        this.open = this.open.bind(this);\r\n    }\r\n\r\n    close() {\r\n        this.setState({\r\n            showModal: false\r\n        });\r\n    }\r\n    open() {\r\n        this.setState({\r\n            showModal: true\r\n        });\r\n    }\r\n    render () {\r\n        return (\r\n        <div>\r\n            <Button\r\n            colors = \"primary\"\r\n            className=\"demo-margin\"\r\n            onClick={ ()=>{this.open()} }>\r\n                打开自定义的模态框\r\n            </Button>​\r\n            <Modal\r\n            show = { this.state.showModal }\r\n            onHide = { this.close } \r\n            width = '400'>\r\n                <Modal.Header>\r\n                    <Modal.Title>这是题目</Modal.Title>\r\n                </Modal.Header>\r\n\r\n                <Modal.Body>\r\n                    这是一些描述。。。\r\n                </Modal.Body>\r\n\r\n                <Modal.Footer>\r\n                    <Button onClick={ this.close } shape=\"border\" style={{marginRight: 50}}>关闭</Button>\r\n                    <Button onClick={ this.close } colors=\"primary\">确认</Button>\r\n                </Modal.Footer>\r\n           </Modal>\r\n        </div>\r\n        )\r\n    }\r\n}\r\n\r\n\r\n", "desc": " 通过width属性定义模态框大小", "scss_code": ".demo-margin{\r\n    margin: 5px 15px;\r\n}" }];
 	
 	var Demo = function (_Component) {
 	    _inherits(Demo, _Component);
@@ -388,7 +388,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2016 Jed Watson.
+	  Copyright (c) 2017 Jed Watson.
 	  Licensed under the MIT License (MIT), see
 	  http://jedwatson.github.io/classnames
 	*/
@@ -410,8 +410,11 @@
 	
 				if (argType === 'string' || argType === 'number') {
 					classes.push(arg);
-				} else if (Array.isArray(arg)) {
-					classes.push(classNames.apply(null, arg));
+				} else if (Array.isArray(arg) && arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
+					}
 				} else if (argType === 'object') {
 					for (var key in arg) {
 						if (hasOwn.call(arg, key) && arg[key]) {
@@ -425,6 +428,7 @@
 		}
 	
 		if (typeof module !== 'undefined' && module.exports) {
+			classNames.default = classNames;
 			module.exports = classNames;
 		} else if (true) {
 			// register as 'classnames', consistent with npm package name
@@ -639,7 +643,7 @@
 	
 	var _Panel3 = _interopRequireDefault(_Panel2);
 	
-	var _PanelGroup2 = __webpack_require__(61);
+	var _PanelGroup2 = __webpack_require__(64);
 	
 	var _PanelGroup3 = _interopRequireDefault(_PanelGroup2);
 	
@@ -961,7 +965,7 @@
 	
 	var _Collapse3 = _interopRequireDefault(_Collapse2);
 	
-	var _Fade2 = __webpack_require__(60);
+	var _Fade2 = __webpack_require__(63);
 	
 	var _Fade3 = _interopRequireDefault(_Fade2);
 	
@@ -4392,28 +4396,100 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.alignPoint = exports.alignElement = undefined;
 	
-	var _utils = __webpack_require__(51);
+	var _alignElement = __webpack_require__(51);
 	
-	var _utils2 = _interopRequireDefault(_utils);
+	var _alignElement2 = _interopRequireDefault(_alignElement);
 	
-	var _getOffsetParent = __webpack_require__(53);
+	var _alignPoint = __webpack_require__(62);
+	
+	var _alignPoint2 = _interopRequireDefault(_alignPoint);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	exports.alignElement = _alignElement2['default'];
+	exports.alignPoint = _alignPoint2['default'];
+	exports['default'] = _alignElement2['default'];
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _align = __webpack_require__(52);
+	
+	var _align2 = _interopRequireDefault(_align);
+	
+	var _getOffsetParent = __webpack_require__(56);
 	
 	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
 	
-	var _getVisibleRectForElement = __webpack_require__(54);
+	var _getVisibleRectForElement = __webpack_require__(55);
 	
 	var _getVisibleRectForElement2 = _interopRequireDefault(_getVisibleRectForElement);
 	
-	var _adjustForViewport = __webpack_require__(56);
-	
-	var _adjustForViewport2 = _interopRequireDefault(_adjustForViewport);
-	
-	var _getRegion = __webpack_require__(57);
+	var _getRegion = __webpack_require__(59);
 	
 	var _getRegion2 = _interopRequireDefault(_getRegion);
 	
-	var _getElFuturePos = __webpack_require__(58);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function isOutOfVisibleRect(target) {
+	  var visibleRect = (0, _getVisibleRectForElement2['default'])(target);
+	  var targetRegion = (0, _getRegion2['default'])(target);
+	
+	  return !visibleRect || targetRegion.left + targetRegion.width <= visibleRect.left || targetRegion.top + targetRegion.height <= visibleRect.top || targetRegion.left >= visibleRect.right || targetRegion.top >= visibleRect.bottom;
+	}
+	
+	function alignElement(el, refNode, align) {
+	  var target = align.target || refNode;
+	  var refNodeRegion = (0, _getRegion2['default'])(target);
+	
+	  var isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
+	
+	  return (0, _align2['default'])(el, refNodeRegion, align, isTargetNotOutOfVisible);
+	}
+	
+	alignElement.__getOffsetParent = _getOffsetParent2['default'];
+	
+	alignElement.__getVisibleRectForElement = _getVisibleRectForElement2['default'];
+	
+	exports['default'] = alignElement;
+	module.exports = exports['default'];
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _utils = __webpack_require__(53);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	var _getVisibleRectForElement = __webpack_require__(55);
+	
+	var _getVisibleRectForElement2 = _interopRequireDefault(_getVisibleRectForElement);
+	
+	var _adjustForViewport = __webpack_require__(58);
+	
+	var _adjustForViewport2 = _interopRequireDefault(_adjustForViewport);
+	
+	var _getRegion = __webpack_require__(59);
+	
+	var _getRegion2 = _interopRequireDefault(_getRegion);
+	
+	var _getElFuturePos = __webpack_require__(60);
 	
 	var _getElFuturePos2 = _interopRequireDefault(_getElFuturePos);
 	
@@ -4421,14 +4497,12 @@
 	
 	// http://yiminghe.iteye.com/blog/1124720
 	
-	/**
-	 * align dom node flexibly
-	 * @author yiminghe@gmail.com
-	 */
-	
 	function isFailX(elFuturePos, elRegion, visibleRect) {
 	  return elFuturePos.left < visibleRect.left || elFuturePos.left + elRegion.width > visibleRect.right;
-	}
+	} /**
+	   * align dom node flexibly
+	   * @author yiminghe@gmail.com
+	   */
 	
 	function isFailY(elFuturePos, elRegion, visibleRect) {
 	  return elFuturePos.top < visibleRect.top || elFuturePos.top + elRegion.height > visibleRect.bottom;
@@ -4440,13 +4514,6 @@
 	
 	function isCompleteFailY(elFuturePos, elRegion, visibleRect) {
 	  return elFuturePos.top > visibleRect.bottom || elFuturePos.top + elRegion.height < visibleRect.top;
-	}
-	
-	function isOutOfVisibleRect(target) {
-	  var visibleRect = (0, _getVisibleRectForElement2['default'])(target);
-	  var targetRegion = (0, _getRegion2['default'])(target);
-	
-	  return !visibleRect || targetRegion.left + targetRegion.width <= visibleRect.left || targetRegion.top + targetRegion.height <= visibleRect.top || targetRegion.left >= visibleRect.right || targetRegion.top >= visibleRect.bottom;
 	}
 	
 	function flip(points, reg, map) {
@@ -4479,12 +4546,16 @@
 	  offset[1] = convertOffset(offset[1], el.height);
 	}
 	
-	function domAlign(el, refNode, align) {
+	/**
+	 * @param el
+	 * @param tgtRegion 参照节点所占的区域: { left, top, width, height }
+	 * @param align
+	 */
+	function doAlign(el, tgtRegion, align, isTgtRegionVisible) {
 	  var points = align.points;
 	  var offset = align.offset || [0, 0];
 	  var targetOffset = align.targetOffset || [0, 0];
 	  var overflow = align.overflow;
-	  var target = align.target || refNode;
 	  var source = align.source || el;
 	  offset = [].concat(offset);
 	  targetOffset = [].concat(targetOffset);
@@ -4495,20 +4566,16 @@
 	  var visibleRect = (0, _getVisibleRectForElement2['default'])(source);
 	  // 当前节点所占的区域, left/top/width/height
 	  var elRegion = (0, _getRegion2['default'])(source);
-	  // 参照节点所占的区域, left/top/width/height
-	  var refNodeRegion = (0, _getRegion2['default'])(target);
 	  // 将 offset 转换成数值，支持百分比
 	  normalizeOffset(offset, elRegion);
-	  normalizeOffset(targetOffset, refNodeRegion);
+	  normalizeOffset(targetOffset, tgtRegion);
 	  // 当前节点将要被放置的位置
-	  var elFuturePos = (0, _getElFuturePos2['default'])(elRegion, refNodeRegion, points, offset, targetOffset);
+	  var elFuturePos = (0, _getElFuturePos2['default'])(elRegion, tgtRegion, points, offset, targetOffset);
 	  // 当前节点将要所处的区域
 	  var newElRegion = _utils2['default'].merge(elRegion, elFuturePos);
 	
-	  var isTargetNotOutOfVisible = !isOutOfVisibleRect(target);
-	
 	  // 如果可视区域不能完全放置当前节点时允许调整
-	  if (visibleRect && (overflow.adjustX || overflow.adjustY) && isTargetNotOutOfVisible) {
+	  if (visibleRect && (overflow.adjustX || overflow.adjustY) && isTgtRegionVisible) {
 	    if (overflow.adjustX) {
 	      // 如果横向不能放下
 	      if (isFailX(elFuturePos, elRegion, visibleRect)) {
@@ -4520,7 +4587,7 @@
 	        // 偏移量也反下
 	        var newOffset = flipOffset(offset, 0);
 	        var newTargetOffset = flipOffset(targetOffset, 0);
-	        var newElFuturePos = (0, _getElFuturePos2['default'])(elRegion, refNodeRegion, newPoints, newOffset, newTargetOffset);
+	        var newElFuturePos = (0, _getElFuturePos2['default'])(elRegion, tgtRegion, newPoints, newOffset, newTargetOffset);
 	
 	        if (!isCompleteFailX(newElFuturePos, elRegion, visibleRect)) {
 	          fail = 1;
@@ -4542,7 +4609,7 @@
 	        // 偏移量也反下
 	        var _newOffset = flipOffset(offset, 1);
 	        var _newTargetOffset = flipOffset(targetOffset, 1);
-	        var _newElFuturePos = (0, _getElFuturePos2['default'])(elRegion, refNodeRegion, _newPoints, _newOffset, _newTargetOffset);
+	        var _newElFuturePos = (0, _getElFuturePos2['default'])(elRegion, tgtRegion, _newPoints, _newOffset, _newTargetOffset);
 	
 	        if (!isCompleteFailY(_newElFuturePos, elRegion, visibleRect)) {
 	          fail = 1;
@@ -4555,7 +4622,7 @@
 	
 	    // 如果失败，重新计算当前节点将要被放置的位置
 	    if (fail) {
-	      elFuturePos = (0, _getElFuturePos2['default'])(elRegion, refNodeRegion, points, offset, targetOffset);
+	      elFuturePos = (0, _getElFuturePos2['default'])(elRegion, tgtRegion, points, offset, targetOffset);
 	      _utils2['default'].mix(newElRegion, elFuturePos);
 	    }
 	    var isStillFailX = isFailX(elFuturePos, elRegion, visibleRect);
@@ -4595,7 +4662,8 @@
 	  }, {
 	    useCssRight: align.useCssRight,
 	    useCssBottom: align.useCssBottom,
-	    useCssTransform: align.useCssTransform
+	    useCssTransform: align.useCssTransform,
+	    ignoreShake: align.ignoreShake
 	  });
 	
 	  return {
@@ -4606,11 +4674,7 @@
 	  };
 	}
 	
-	domAlign.__getOffsetParent = _getOffsetParent2['default'];
-	
-	domAlign.__getVisibleRectForElement = _getVisibleRectForElement2['default'];
-	
-	exports['default'] = domAlign;
+	exports['default'] = doAlign;
 	/**
 	 *  2012-04-26 yiminghe@gmail.com
 	 *   - 优化智能对齐算法
@@ -4623,7 +4687,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4634,7 +4698,7 @@
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
-	var _propertyUtils = __webpack_require__(52);
+	var _propertyUtils = __webpack_require__(54);
 	
 	var RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 	
@@ -4931,6 +4995,19 @@
 	}
 	
 	function setOffset(elem, offset, option) {
+	  if (option.ignoreShake) {
+	    var oriOffset = getOffset(elem);
+	
+	    var oLeft = oriOffset.left.toFixed(0);
+	    var oTop = oriOffset.top.toFixed(0);
+	    var tLeft = offset.left.toFixed(0);
+	    var tTop = offset.top.toFixed(0);
+	
+	    if (oLeft === tLeft && oTop === tTop) {
+	      return;
+	    }
+	  }
+	
 	  if (option.useCssRight || option.useCssBottom) {
 	    setLeftTop(elem, offset, option);
 	  } else if (option.useCssTransform && (0, _propertyUtils.getTransformName)() in document.body.style) {
@@ -5205,7 +5282,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5320,7 +5397,7 @@
 	}
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5329,76 +5406,15 @@
 	  value: true
 	});
 	
-	var _utils = __webpack_require__(51);
+	var _utils = __webpack_require__(53);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-	
-	/**
-	 * 得到会导致元素显示不全的祖先元素
-	 */
-	
-	function getOffsetParent(element) {
-	  if (_utils2['default'].isWindow(element) || element.nodeType === 9) {
-	    return null;
-	  }
-	  // ie 这个也不是完全可行
-	  /*
-	   <div style="width: 50px;height: 100px;overflow: hidden">
-	   <div style="width: 50px;height: 100px;position: relative;" id="d6">
-	   元素 6 高 100px 宽 50px<br/>
-	   </div>
-	   </div>
-	   */
-	  // element.offsetParent does the right thing in ie7 and below. Return parent with layout!
-	  //  In other browsers it only includes elements with position absolute, relative or
-	  // fixed, not elements with overflow set to auto or scroll.
-	  //        if (UA.ie && ieMode < 8) {
-	  //            return element.offsetParent;
-	  //        }
-	  // 统一的 offsetParent 方法
-	  var doc = _utils2['default'].getDocument(element);
-	  var body = doc.body;
-	  var parent = void 0;
-	  var positionStyle = _utils2['default'].css(element, 'position');
-	  var skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
-	
-	  if (!skipStatic) {
-	    return element.nodeName.toLowerCase() === 'html' ? null : element.parentNode;
-	  }
-	
-	  for (parent = element.parentNode; parent && parent !== body; parent = parent.parentNode) {
-	    positionStyle = _utils2['default'].css(parent, 'position');
-	    if (positionStyle !== 'static') {
-	      return parent;
-	    }
-	  }
-	  return null;
-	}
-	
-	exports['default'] = getOffsetParent;
-	module.exports = exports['default'];
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _utils = __webpack_require__(51);
-	
-	var _utils2 = _interopRequireDefault(_utils);
-	
-	var _getOffsetParent = __webpack_require__(53);
+	var _getOffsetParent = __webpack_require__(56);
 	
 	var _getOffsetParent2 = _interopRequireDefault(_getOffsetParent);
 	
-	var _isAncestorFixed = __webpack_require__(55);
+	var _isAncestorFixed = __webpack_require__(57);
 	
 	var _isAncestorFixed2 = _interopRequireDefault(_isAncestorFixed);
 	
@@ -5491,7 +5507,68 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 55 */
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _utils = __webpack_require__(53);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	/**
+	 * 得到会导致元素显示不全的祖先元素
+	 */
+	
+	function getOffsetParent(element) {
+	  if (_utils2['default'].isWindow(element) || element.nodeType === 9) {
+	    return null;
+	  }
+	  // ie 这个也不是完全可行
+	  /*
+	   <div style="width: 50px;height: 100px;overflow: hidden">
+	   <div style="width: 50px;height: 100px;position: relative;" id="d6">
+	   元素 6 高 100px 宽 50px<br/>
+	   </div>
+	   </div>
+	   */
+	  // element.offsetParent does the right thing in ie7 and below. Return parent with layout!
+	  //  In other browsers it only includes elements with position absolute, relative or
+	  // fixed, not elements with overflow set to auto or scroll.
+	  //        if (UA.ie && ieMode < 8) {
+	  //            return element.offsetParent;
+	  //        }
+	  // 统一的 offsetParent 方法
+	  var doc = _utils2['default'].getDocument(element);
+	  var body = doc.body;
+	  var parent = void 0;
+	  var positionStyle = _utils2['default'].css(element, 'position');
+	  var skipStatic = positionStyle === 'fixed' || positionStyle === 'absolute';
+	
+	  if (!skipStatic) {
+	    return element.nodeName.toLowerCase() === 'html' ? null : element.parentNode;
+	  }
+	
+	  for (parent = element.parentNode; parent && parent !== body; parent = parent.parentNode) {
+	    positionStyle = _utils2['default'].css(parent, 'position');
+	    if (positionStyle !== 'static') {
+	      return parent;
+	    }
+	  }
+	  return null;
+	}
+	
+	exports['default'] = getOffsetParent;
+	module.exports = exports['default'];
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5501,7 +5578,7 @@
 	});
 	exports['default'] = isAncestorFixed;
 	
-	var _utils = __webpack_require__(51);
+	var _utils = __webpack_require__(53);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -5526,7 +5603,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5535,7 +5612,7 @@
 	  value: true
 	});
 	
-	var _utils = __webpack_require__(51);
+	var _utils = __webpack_require__(53);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -5586,7 +5663,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5595,7 +5672,7 @@
 	  value: true
 	});
 	
-	var _utils = __webpack_require__(51);
+	var _utils = __webpack_require__(53);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -5627,7 +5704,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5636,7 +5713,7 @@
 	  value: true
 	});
 	
-	var _getAlignOffset = __webpack_require__(59);
+	var _getAlignOffset = __webpack_require__(61);
 	
 	var _getAlignOffset2 = _interopRequireDefault(_getAlignOffset);
 	
@@ -5657,7 +5734,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5700,7 +5777,76 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 60 */
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _utils = __webpack_require__(53);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	var _align = __webpack_require__(52);
+	
+	var _align2 = _interopRequireDefault(_align);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	/**
+	 * `tgtPoint`: { pageX, pageY } or { clientX, clientY }.
+	 * If client position provided, will internal convert to page position.
+	 */
+	
+	function alignPoint(el, tgtPoint, align) {
+	  var pageX = void 0;
+	  var pageY = void 0;
+	
+	  var doc = _utils2['default'].getDocument(el);
+	  var win = doc.defaultView || doc.parentWindow;
+	
+	  var scrollX = _utils2['default'].getWindowScrollLeft(win);
+	  var scrollY = _utils2['default'].getWindowScrollTop(win);
+	  var viewportWidth = _utils2['default'].viewportWidth(win);
+	  var viewportHeight = _utils2['default'].viewportHeight(win);
+	
+	  if ('pageX' in tgtPoint) {
+	    pageX = tgtPoint.pageX;
+	  } else {
+	    pageX = scrollX + tgtPoint.clientX;
+	  }
+	
+	  if ('pageY' in tgtPoint) {
+	    pageY = tgtPoint.pageY;
+	  } else {
+	    pageY = scrollY + tgtPoint.clientY;
+	  }
+	
+	  var tgtRegion = {
+	    left: pageX,
+	    top: pageY,
+	    width: 0,
+	    height: 0
+	  };
+	
+	  var pointInView = pageX >= 0 && pageX <= scrollX + viewportWidth && pageY >= 0 && pageY <= scrollY + viewportHeight;
+	
+	  // Provide default target point
+	  var points = [align.points[0], 'cc'];
+	
+	  return (0, _align2['default'])(el, tgtRegion, _extends({}, align, { points: points }), pointInView);
+	}
+	
+	exports['default'] = alignPoint;
+	module.exports = exports['default'];
+
+/***/ }),
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5821,7 +5967,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5968,7 +6114,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 62 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5977,7 +6123,7 @@
 	  value: true
 	});
 	
-	var _Button = __webpack_require__(63);
+	var _Button = __webpack_require__(66);
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
@@ -5987,7 +6133,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 63 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6156,7 +6302,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 64 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6169,11 +6315,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beeButton = __webpack_require__(62);
+	var _beeButton = __webpack_require__(65);
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _src = __webpack_require__(65);
+	var _src = __webpack_require__(68);
 	
 	var _src2 = _interopRequireDefault(_src);
 	
@@ -6278,7 +6424,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 65 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6287,17 +6433,17 @@
 	  value: true
 	});
 	
-	var _Modal = __webpack_require__(66);
+	var _Modal = __webpack_require__(69);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
-
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
+	
 	exports['default'] = _Modal2['default'];
 	module.exports = exports['default'];
 
 /***/ }),
-/* 66 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6314,11 +6460,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _events = __webpack_require__(67);
+	var _events = __webpack_require__(70);
 	
 	var _events2 = _interopRequireDefault(_events);
 	
-	var _ownerDocument = __webpack_require__(73);
+	var _ownerDocument = __webpack_require__(76);
 	
 	var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 	
@@ -6326,7 +6472,7 @@
 	
 	var _inDOM2 = _interopRequireDefault(_inDOM);
 	
-	var _scrollbarSize = __webpack_require__(74);
+	var _scrollbarSize = __webpack_require__(77);
 	
 	var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 	
@@ -6338,11 +6484,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _Modal = __webpack_require__(75);
+	var _Modal = __webpack_require__(78);
 	
 	var _Modal2 = _interopRequireDefault(_Modal);
 	
-	var _isOverflowing = __webpack_require__(84);
+	var _isOverflowing = __webpack_require__(87);
 	
 	var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 	
@@ -6350,23 +6496,23 @@
 	
 	var _beeTransition = __webpack_require__(10);
 	
-	var _ModalBody = __webpack_require__(90);
+	var _ModalBody = __webpack_require__(93);
 	
 	var _ModalBody2 = _interopRequireDefault(_ModalBody);
 	
-	var _ModalDialog = __webpack_require__(91);
+	var _ModalDialog = __webpack_require__(94);
 	
 	var _ModalDialog2 = _interopRequireDefault(_ModalDialog);
 	
-	var _ModalFooter = __webpack_require__(92);
+	var _ModalFooter = __webpack_require__(95);
 	
 	var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 	
-	var _ModalHeader = __webpack_require__(93);
+	var _ModalHeader = __webpack_require__(96);
 	
 	var _ModalHeader2 = _interopRequireDefault(_ModalHeader);
 	
-	var _ModalTitle = __webpack_require__(94);
+	var _ModalTitle = __webpack_require__(97);
 	
 	var _ModalTitle2 = _interopRequireDefault(_ModalTitle);
 	
@@ -6450,7 +6596,11 @@
 	  /**
 	   * 尺寸
 	   */
-	  size: _propTypes2['default'].oneOf(["sm", "lg", "xlg", ""])
+	  size: _propTypes2['default'].oneOf(["sm", "lg", "xlg", ""]),
+	  /**
+	   * 自定义宽度
+	   */
+	  width: _propTypes2['default'].oneOfType([_propTypes2['default'].number, _propTypes2['default'].string])
 	});
 	
 	var defaultProps = _extends({}, _Modal2['default'].defaultProps, {
@@ -6524,7 +6674,6 @@
 	    if (!_inDOM2['default'] || !this._modal) {
 	      return;
 	    }
-	    console.log(this._modal);
 	
 	    var dialogNode = this._modal.getDialogElement();
 	    var dialogHeight = dialogNode.scrollHeight;
@@ -6553,10 +6702,11 @@
 	        clsPrefix = _props.clsPrefix,
 	        style = _props.style,
 	        size = _props.size,
+	        width = _props.width,
 	        children = _props.children,
 	        onEntering = _props.onEntering,
 	        onExited = _props.onExited,
-	        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
+	        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited']);
 	
 	    var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2['default']),
 	        _splitComponent2 = _slicedToArray(_splitComponent, 2),
@@ -6587,7 +6737,7 @@
 	      _react2['default'].createElement(
 	        Dialog,
 	        _extends({}, dialogProps, {
-	          style: _extends({}, this.state.style, style),
+	          style: _extends({}, this.state.style, style, { width: Number(width) }),
 	          className: (0, _classnames2['default'])(className, inClassName),
 	          onClick: backdrop === true ? this.handleDialogClick : null,
 	          size: size
@@ -6618,7 +6768,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 67 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6632,15 +6782,15 @@
 	
 	var _on2 = _interopRequireDefault(_on);
 	
-	var _off = __webpack_require__(68);
+	var _off = __webpack_require__(71);
 	
 	var _off2 = _interopRequireDefault(_off);
 	
-	var _filter = __webpack_require__(69);
+	var _filter = __webpack_require__(72);
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
-	var _listen = __webpack_require__(72);
+	var _listen = __webpack_require__(75);
 	
 	var _listen2 = _interopRequireDefault(_listen);
 	
@@ -6653,7 +6803,7 @@
 	exports.default = { on: _on2.default, off: _off2.default, filter: _filter2.default, listen: _listen2.default };
 
 /***/ }),
-/* 68 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6683,7 +6833,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 69 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6693,11 +6843,11 @@
 	});
 	exports.default = filterEvents;
 	
-	var _contains = __webpack_require__(70);
+	var _contains = __webpack_require__(73);
 	
 	var _contains2 = _interopRequireDefault(_contains);
 	
-	var _querySelectorAll = __webpack_require__(71);
+	var _querySelectorAll = __webpack_require__(74);
 	
 	var _querySelectorAll2 = _interopRequireDefault(_querySelectorAll);
 	
@@ -6717,7 +6867,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 70 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6751,7 +6901,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 71 */
+/* 74 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -6789,7 +6939,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6806,7 +6956,7 @@
 	
 	var _on2 = _interopRequireDefault(_on);
 	
-	var _off = __webpack_require__(68);
+	var _off = __webpack_require__(71);
 	
 	var _off2 = _interopRequireDefault(_off);
 	
@@ -6827,7 +6977,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6842,7 +6992,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6882,7 +7032,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6908,23 +7058,23 @@
 	
 	var _tinperBeeCore = __webpack_require__(26);
 	
-	var _Portal = __webpack_require__(76);
+	var _Portal = __webpack_require__(79);
 	
 	var _Portal2 = _interopRequireDefault(_Portal);
 	
-	var _ModalManager = __webpack_require__(79);
+	var _ModalManager = __webpack_require__(82);
 	
 	var _ModalManager2 = _interopRequireDefault(_ModalManager);
 	
-	var _ownerDocument = __webpack_require__(77);
+	var _ownerDocument = __webpack_require__(80);
 	
 	var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 	
-	var _addEventListener = __webpack_require__(87);
+	var _addEventListener = __webpack_require__(90);
 	
 	var _addEventListener2 = _interopRequireDefault(_addEventListener);
 	
-	var _addFocusListener = __webpack_require__(88);
+	var _addFocusListener = __webpack_require__(91);
 	
 	var _addFocusListener2 = _interopRequireDefault(_addFocusListener);
 	
@@ -6932,15 +7082,15 @@
 	
 	var _inDOM2 = _interopRequireDefault(_inDOM);
 	
-	var _activeElement = __webpack_require__(89);
+	var _activeElement = __webpack_require__(92);
 	
 	var _activeElement2 = _interopRequireDefault(_activeElement);
 	
-	var _contains = __webpack_require__(70);
+	var _contains = __webpack_require__(73);
 	
 	var _contains2 = _interopRequireDefault(_contains);
 	
-	var _getContainer = __webpack_require__(78);
+	var _getContainer = __webpack_require__(81);
 	
 	var _getContainer2 = _interopRequireDefault(_getContainer);
 	
@@ -7426,7 +7576,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 76 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7447,11 +7597,11 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _ownerDocument = __webpack_require__(77);
+	var _ownerDocument = __webpack_require__(80);
 	
 	var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 	
-	var _getContainer = __webpack_require__(78);
+	var _getContainer = __webpack_require__(81);
 	
 	var _getContainer2 = _interopRequireDefault(_getContainer);
 	
@@ -7634,7 +7784,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 77 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7651,7 +7801,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _ownerDocument = __webpack_require__(73);
+	var _ownerDocument = __webpack_require__(76);
 	
 	var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 	
@@ -7660,7 +7810,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 78 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7689,7 +7839,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 79 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7702,19 +7852,19 @@
 	
 	var _style2 = _interopRequireDefault(_style);
 	
-	var _class = __webpack_require__(80);
+	var _class = __webpack_require__(83);
 	
 	var _class2 = _interopRequireDefault(_class);
 	
-	var _scrollbarSize = __webpack_require__(74);
+	var _scrollbarSize = __webpack_require__(77);
 	
 	var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 	
-	var _isOverflowing = __webpack_require__(84);
+	var _isOverflowing = __webpack_require__(87);
 	
 	var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 	
-	var _manageAriaHidden = __webpack_require__(86);
+	var _manageAriaHidden = __webpack_require__(89);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
@@ -7870,7 +8020,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 80 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7880,15 +8030,15 @@
 	});
 	exports.hasClass = exports.removeClass = exports.addClass = undefined;
 	
-	var _addClass = __webpack_require__(81);
+	var _addClass = __webpack_require__(84);
 	
 	var _addClass2 = _interopRequireDefault(_addClass);
 	
-	var _removeClass = __webpack_require__(83);
+	var _removeClass = __webpack_require__(86);
 	
 	var _removeClass2 = _interopRequireDefault(_removeClass);
 	
-	var _hasClass = __webpack_require__(82);
+	var _hasClass = __webpack_require__(85);
 	
 	var _hasClass2 = _interopRequireDefault(_hasClass);
 	
@@ -7900,7 +8050,7 @@
 	exports.default = { addClass: _addClass2.default, removeClass: _removeClass2.default, hasClass: _hasClass2.default };
 
 /***/ }),
-/* 81 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7910,7 +8060,7 @@
 	});
 	exports.default = addClass;
 	
-	var _hasClass = __webpack_require__(82);
+	var _hasClass = __webpack_require__(85);
 	
 	var _hasClass2 = _interopRequireDefault(_hasClass);
 	
@@ -7922,7 +8072,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 82 */
+/* 85 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -7937,7 +8087,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 83 */
+/* 86 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -7947,7 +8097,7 @@
 	};
 
 /***/ }),
-/* 84 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7957,11 +8107,11 @@
 	});
 	exports["default"] = isOverflowing;
 	
-	var _isWindow = __webpack_require__(85);
+	var _isWindow = __webpack_require__(88);
 	
 	var _isWindow2 = _interopRequireDefault(_isWindow);
 	
-	var _ownerDocument = __webpack_require__(73);
+	var _ownerDocument = __webpack_require__(76);
 	
 	var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 	
@@ -7993,7 +8143,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 85 */
+/* 88 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -8008,7 +8158,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 86 */
+/* 89 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -8062,7 +8212,7 @@
 	}
 
 /***/ }),
-/* 87 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8085,7 +8235,7 @@
 	
 	var _on2 = _interopRequireDefault(_on);
 	
-	var _off = __webpack_require__(68);
+	var _off = __webpack_require__(71);
 	
 	var _off2 = _interopRequireDefault(_off);
 	
@@ -8094,7 +8244,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 88 */
+/* 91 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -8130,7 +8280,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 89 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8140,7 +8290,7 @@
 	});
 	exports.default = activeElement;
 	
-	var _ownerDocument = __webpack_require__(73);
+	var _ownerDocument = __webpack_require__(76);
 	
 	var _ownerDocument2 = _interopRequireDefault(_ownerDocument);
 	
@@ -8156,7 +8306,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 90 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8232,7 +8382,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 91 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8346,7 +8496,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 92 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8422,7 +8572,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 93 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8542,7 +8692,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 94 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8618,7 +8768,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 95 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8631,23 +8781,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beeButton = __webpack_require__(62);
+	var _beeButton = __webpack_require__(65);
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _src = __webpack_require__(65);
+	var _src = __webpack_require__(68);
 	
 	var _src2 = _interopRequireDefault(_src);
 	
-	var _beeFormGroup = __webpack_require__(96);
+	var _beeFormGroup = __webpack_require__(99);
 	
 	var _beeFormGroup2 = _interopRequireDefault(_beeFormGroup);
 	
-	var _beeLabel = __webpack_require__(98);
+	var _beeLabel = __webpack_require__(101);
 	
 	var _beeLabel2 = _interopRequireDefault(_beeLabel);
 	
-	var _beeFormControl = __webpack_require__(100);
+	var _beeFormControl = __webpack_require__(103);
 	
 	var _beeFormControl2 = _interopRequireDefault(_beeFormControl);
 	
@@ -8793,7 +8943,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 96 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8802,7 +8952,7 @@
 	  value: true
 	});
 	
-	var _FormGroup = __webpack_require__(97);
+	var _FormGroup = __webpack_require__(100);
 	
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 	
@@ -8812,7 +8962,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 97 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8898,7 +9048,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 98 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8907,7 +9057,7 @@
 	  value: true
 	});
 	
-	var _Label = __webpack_require__(99);
+	var _Label = __webpack_require__(102);
 	
 	var _Label2 = _interopRequireDefault(_Label);
 	
@@ -8917,7 +9067,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 99 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8996,7 +9146,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 100 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9005,7 +9155,7 @@
 	  value: true
 	});
 	
-	var _FormControl = __webpack_require__(101);
+	var _FormControl = __webpack_require__(104);
 	
 	var _FormControl2 = _interopRequireDefault(_FormControl);
 	
@@ -9015,7 +9165,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 101 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9034,7 +9184,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _beeIcon = __webpack_require__(102);
+	var _beeIcon = __webpack_require__(105);
 	
 	var _beeIcon2 = _interopRequireDefault(_beeIcon);
 	
@@ -9059,14 +9209,19 @@
 	    type: _propTypes2["default"].string,
 	    size: _propTypes2["default"].oneOf(['sm', 'md', 'lg']),
 	    onSearch: _propTypes2["default"].func,
-	    onChange: _propTypes2["default"].func
+	    onChange: _propTypes2["default"].func,
+	    onBlur: _propTypes2["default"].func,
+	    showClose: _propTypes2["default"].bool,
+	    showPop: _propTypes2["default"].bool
 	};
 	
 	var defaultProps = {
 	    componentClass: 'input',
 	    clsPrefix: 'u-form-control',
 	    type: 'text',
-	    size: 'md'
+	    size: 'md',
+	    showClose: false,
+	    showPop: false
 	};
 	
 	var FormControl = function (_React$Component) {
@@ -9094,7 +9249,9 @@
 	            var onChange = _this.props.onChange;
 	
 	            var value = _this.input.value;
-	
+	            _this.setState({
+	                showClose: true
+	            });
 	            if (onChange) {
 	                onChange(value, e);
 	            }
@@ -9103,7 +9260,11 @@
 	        _this.clearValue = function () {
 	            var onChange = _this.props.onChange;
 	
-	            _this.setState({ showSearch: true, value: "" });
+	            _this.setState({
+	                showSearch: true,
+	                value: "",
+	                showClose: false
+	            });
 	            if (onChange) {
 	                onChange("");
 	            }
@@ -9123,6 +9284,29 @@
 	            }
 	        };
 	
+	        _this.handleBlur = function (e) {
+	            var value = _this.state.value;
+	            var onBlur = _this.props.onBlur;
+	
+	
+	            if (onBlur) {
+	                onBlur(value, e);
+	            }
+	        };
+	
+	        _this.handleFocus = function (e) {
+	            var value = _this.state.value;
+	            var onFocus = _this.props.onFocus;
+	
+	            if (onFocus) {
+	                onFocus(value, e);
+	            }
+	        };
+	
+	        _this.handleClick = function (e) {
+	            alert();
+	        };
+	
 	        _this.renderInput = function () {
 	            var _this$props2 = _this.props,
 	                Component = _this$props2.componentClass,
@@ -9133,7 +9317,8 @@
 	                value = _this$props2.value,
 	                onChange = _this$props2.onChange,
 	                onSearch = _this$props2.onSearch,
-	                others = _objectWithoutProperties(_this$props2, ['componentClass', 'type', 'className', 'size', 'clsPrefix', 'value', 'onChange', 'onSearch']);
+	                onBlur = _this$props2.onBlur,
+	                others = _objectWithoutProperties(_this$props2, ['componentClass', 'type', 'className', 'size', 'clsPrefix', 'value', 'onChange', 'onSearch', 'onBlur']);
 	            // input[type="file"] 不应该有类名 .form-control.
 	
 	
@@ -9147,13 +9332,33 @@
 	                classNames = (0, _classnames2["default"])(clsPrefix, classes);
 	            }
 	
-	            return _react2["default"].createElement(Component, _extends({}, others, {
+	            return _this.props.showClose ? _react2["default"].createElement(
+	                'div',
+	                { className: (0, _classnames2["default"])(clsPrefix + '-close', clsPrefix + '-affix-wrapper', className) },
+	                _react2["default"].createElement(Component, _extends({}, others, {
+	                    type: type,
+	                    ref: function ref(el) {
+	                        return _this.input = el;
+	                    },
+	                    value: value,
+	                    onChange: _this.handleChange,
+	                    onBlur: _this.handleBlur,
+	                    onFocus: _this.handleFocus,
+	                    className: (0, _classnames2["default"])(className, classNames)
+	                })),
+	                _react2["default"].createElement(
+	                    'div',
+	                    { className: clsPrefix + '-suffix' },
+	                    _this.state.showClose ? _react2["default"].createElement(_beeIcon2["default"], { onClick: _this.clearValue, type: 'uf-close-c' }) : ''
+	                )
+	            ) : _react2["default"].createElement(Component, _extends({}, others, {
 	                type: type,
 	                ref: function ref(el) {
 	                    return _this.input = el;
 	                },
 	                value: value,
 	                onChange: _this.handleChange,
+	                onBlur: _this.handleBlur,
 	                className: (0, _classnames2["default"])(className, classNames)
 	            }));
 	        };
@@ -9168,7 +9373,8 @@
 	                value = _this$props3.value,
 	                onChange = _this$props3.onChange,
 	                onSearch = _this$props3.onSearch,
-	                others = _objectWithoutProperties(_this$props3, ['componentClass', 'type', 'className', 'size', 'clsPrefix', 'value', 'onChange', 'onSearch']);
+	                onBlur = _this$props3.onBlur,
+	                others = _objectWithoutProperties(_this$props3, ['componentClass', 'type', 'className', 'size', 'clsPrefix', 'value', 'onChange', 'onSearch', 'onBlur']);
 	            // input[type="file"] 不应该有类名 .form-control.
 	
 	
@@ -9190,12 +9396,13 @@
 	                        onChange: _this.handleSearchChange,
 	                        value: value,
 	                        onKeyDown: _this.handleKeyDown,
+	                        onBlur: _this.handleBlur,
 	                        className: (0, _classnames2["default"])(className, clsPrefix, classes)
 	                    })),
 	                    _react2["default"].createElement(
 	                        'div',
 	                        { className: clsPrefix + '-suffix' },
-	                        _this.state.showSearch ? _react2["default"].createElement(_beeIcon2["default"], { type: 'uf-search' }) : _react2["default"].createElement(_beeIcon2["default"], { onClick: _this.clearValue, type: 'uf-close-c' })
+	                        _this.state.showSearch || others.disabled ? _react2["default"].createElement(_beeIcon2["default"], { type: 'uf-search' }) : _react2["default"].createElement(_beeIcon2["default"], { onClick: _this.clearValue, type: 'uf-close-c' })
 	                    )
 	                );
 	            }
@@ -9203,7 +9410,8 @@
 	
 	        _this.state = {
 	            showSearch: !props.value,
-	            value: props.value == null ? "" : props.value
+	            value: props.value == null ? "" : props.value,
+	            showClose: false
 	        };
 	        _this.input = {};
 	        return _this;
@@ -9234,7 +9442,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 102 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9243,7 +9451,7 @@
 	  value: true
 	});
 	
-	var _Icon = __webpack_require__(103);
+	var _Icon = __webpack_require__(106);
 	
 	var _Icon2 = _interopRequireDefault(_Icon);
 	
@@ -9253,7 +9461,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 103 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9332,7 +9540,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 104 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9345,11 +9553,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beeButton = __webpack_require__(62);
+	var _beeButton = __webpack_require__(65);
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _src = __webpack_require__(65);
+	var _src = __webpack_require__(68);
 	
 	var _src2 = _interopRequireDefault(_src);
 	
@@ -9551,7 +9759,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 105 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9564,11 +9772,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beeButton = __webpack_require__(62);
+	var _beeButton = __webpack_require__(65);
 	
 	var _beeButton2 = _interopRequireDefault(_beeButton);
 	
-	var _src = __webpack_require__(65);
+	var _src = __webpack_require__(68);
 	
 	var _src2 = _interopRequireDefault(_src);
 	
@@ -9759,6 +9967,132 @@
 	}(_react.Component);
 	
 	exports['default'] = Demo4;
+	module.exports = exports['default'];
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _beeButton = __webpack_require__(65);
+	
+	var _beeButton2 = _interopRequireDefault(_beeButton);
+	
+	var _src = __webpack_require__(68);
+	
+	var _src2 = _interopRequireDefault(_src);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @title 自定义大小的模态框
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * @description 通过width属性定义模态框大小
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	
+	var Demo5 = function (_Component) {
+	    _inherits(Demo5, _Component);
+	
+	    function Demo5(props) {
+	        _classCallCheck(this, Demo5);
+	
+	        var _this = _possibleConstructorReturn(this, _Component.call(this, props));
+	
+	        _this.state = {
+	            showModal: false
+	        };
+	        _this.close = _this.close.bind(_this);
+	        _this.open = _this.open.bind(_this);
+	        return _this;
+	    }
+	
+	    Demo5.prototype.close = function close() {
+	        this.setState({
+	            showModal: false
+	        });
+	    };
+	
+	    Demo5.prototype.open = function open() {
+	        this.setState({
+	            showModal: true
+	        });
+	    };
+	
+	    Demo5.prototype.render = function render() {
+	        var _this2 = this;
+	
+	        return _react2['default'].createElement(
+	            'div',
+	            null,
+	            _react2['default'].createElement(
+	                _beeButton2['default'],
+	                {
+	                    colors: 'primary',
+	                    className: 'demo-margin',
+	                    onClick: function onClick() {
+	                        _this2.open();
+	                    } },
+	                '\u6253\u5F00\u81EA\u5B9A\u4E49\u7684\u6A21\u6001\u6846'
+	            ),
+	            '\u200B',
+	            _react2['default'].createElement(
+	                _src2['default'],
+	                {
+	                    show: this.state.showModal,
+	                    onHide: this.close,
+	                    width: '400' },
+	                _react2['default'].createElement(
+	                    _src2['default'].Header,
+	                    null,
+	                    _react2['default'].createElement(
+	                        _src2['default'].Title,
+	                        null,
+	                        '\u8FD9\u662F\u9898\u76EE'
+	                    )
+	                ),
+	                _react2['default'].createElement(
+	                    _src2['default'].Body,
+	                    null,
+	                    '\u8FD9\u662F\u4E00\u4E9B\u63CF\u8FF0\u3002\u3002\u3002'
+	                ),
+	                _react2['default'].createElement(
+	                    _src2['default'].Footer,
+	                    null,
+	                    _react2['default'].createElement(
+	                        _beeButton2['default'],
+	                        { onClick: this.close, shape: 'border', style: { marginRight: 50 } },
+	                        '\u5173\u95ED'
+	                    ),
+	                    _react2['default'].createElement(
+	                        _beeButton2['default'],
+	                        { onClick: this.close, colors: 'primary' },
+	                        '\u786E\u8BA4'
+	                    )
+	                )
+	            )
+	        );
+	    };
+	
+	    return Demo5;
+	}(_react.Component);
+	
+	exports['default'] = Demo5;
 	module.exports = exports['default'];
 
 /***/ })

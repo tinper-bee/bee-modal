@@ -82,7 +82,11 @@ const propTypes = {
   /**
    * 尺寸
    */
-  size: PropTypes.oneOf(["sm", "lg", "xlg", ""])
+  size: PropTypes.oneOf(["sm", "lg", "xlg", ""]) ,
+  /**
+   * 自定义宽度
+   */
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 const defaultProps = {
@@ -183,12 +187,12 @@ class Modal extends React.Component {
       clsPrefix,
       style,
       size,
+      width,
       children, // Just in case this get added to BaseModal propTypes.
       onEntering,
       onExited,
       ...props
     } = this.props;
-
     const [baseModalProps, dialogProps] =
       splitComponent(props, BaseModal);
 
@@ -218,7 +222,7 @@ class Modal extends React.Component {
       >
         <Dialog
           {...dialogProps}
-          style={{ ...this.state.style, ...style }}
+          style={{ ...this.state.style, ...style , width:Number(width) }}
           className={classNames(className, inClassName)}
           onClick={backdrop === true ? this.handleDialogClick : null}
           size ={ size }

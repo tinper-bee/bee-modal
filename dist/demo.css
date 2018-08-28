@@ -6215,6 +6215,8 @@ input.u-button[type="submit"] {
   .u-form-control:focus {
     border-color: #66afe9;
     outline: 0; }
+  .u-form-control::-ms-clear, .u-form-control ::-ms-reveal {
+    display: none; }
 
 .u-form-control[disabled] {
   background: #eee;
@@ -6382,6 +6384,9 @@ input.u-button[type="submit"] {
 
 .text-center {
   text-align: center; }
+
+.demo-margin {
+  margin: 5px 15px; }
 
 .demo-margin {
   margin: 5px 15px; }

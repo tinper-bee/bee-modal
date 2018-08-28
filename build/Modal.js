@@ -148,7 +148,11 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
   /**
    * 尺寸
    */
-  size: _propTypes2["default"].oneOf(["sm", "lg", "xlg", ""])
+  size: _propTypes2["default"].oneOf(["sm", "lg", "xlg", ""]),
+  /**
+   * 自定义宽度
+   */
+  width: _propTypes2["default"].oneOfType([_propTypes2["default"].number, _propTypes2["default"].string])
 });
 
 var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
@@ -250,10 +254,11 @@ var Modal = function (_React$Component) {
         clsPrefix = _props.clsPrefix,
         style = _props.style,
         size = _props.size,
+        width = _props.width,
         children = _props.children,
         onEntering = _props.onEntering,
         onExited = _props.onExited,
-        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'children', 'onEntering', 'onExited']);
+        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited']);
 
     var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
         _splitComponent2 = _slicedToArray(_splitComponent, 2),
@@ -284,7 +289,7 @@ var Modal = function (_React$Component) {
       _react2["default"].createElement(
         Dialog,
         _extends({}, dialogProps, {
-          style: _extends({}, this.state.style, style),
+          style: _extends({}, this.state.style, style, { width: Number(width) }),
           className: (0, _classnames2["default"])(className, inClassName),
           onClick: backdrop === true ? this.handleDialogClick : null,
           size: size

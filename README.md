@@ -105,6 +105,7 @@ Modal
 |show|是否打开模态框|string|-|
 |onHide|关闭时的钩子函数|function|-|
 |size|模态框尺寸|sm/lg/xlg|-|
+|width|自定义模态框尺寸|string/number|-|
 |onEnter|开始显示时的钩子函数|function|-|
 |onEntering|显示时的钩子函数|function|-|
 |onEntered|显示完成后的钩子函数|function|-|
