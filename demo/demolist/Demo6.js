@@ -1,7 +1,7 @@
 /**
  *
  * @title 被loading遮住的模态框
- * @description
+ * @description 当Modal组件和Loading组件同时出现的时候，Loading会把Modal遮住
  *
  */
 
