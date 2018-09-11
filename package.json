@@ -40,6 +40,7 @@
     "bee-datepicker": "^1.2.1",
     "bee-loading": "^1.0.4",
     "bee-overlay": "^1.0.2",
+    "bee-popconfirm": "^1.0.2",
     "bee-select": "^1.0.12",
     "bee-transition": "^0.2.2",
     "classnames": "^2.2.5",
