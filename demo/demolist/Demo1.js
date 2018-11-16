@@ -43,7 +43,7 @@ class Demo1 extends Component {
             <Modal
             show = { this.state.showModal }
             onHide = { this.close } >
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>这是题目</Modal.Title>
                 </Modal.Header>
 

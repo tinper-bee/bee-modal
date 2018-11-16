@@ -3478,6 +3478,33 @@ a, .mdl-accordion, .mdl-button, .mdl-card, .mdl-checkbox, .mdl-dropdown-menu,
 .uf-treeline-copy:before {
   content: "\e994"; }
 
+.uf-listwithdots:before {
+  content: "\e9cd"; }
+
+.uf-gridlogo:before {
+  content: "\e900"; }
+
+.uf-magnifyingglass:before {
+  content: "\e9ce"; }
+
+.uf-anglearrowdown:before {
+  content: "\e9cf"; }
+
+.uf-yongyouyunchnen:before {
+  content: "\e98d"; }
+
+.uf-yycloud:before {
+  content: "\e68f"; }
+
+.uf-funnel-o:before {
+  content: "\e63c"; }
+
+.uf-filter:before {
+  content: "\e9d0"; }
+
+.uf-filterno:before {
+  content: "\e9d1"; }
+
 /* FormGroup */
 /*  Navlayout  */
 .vertical-align {
@@ -6113,7 +6140,7 @@ input.u-button[type="submit"] {
   .u-panel .u-panel-body {
     padding: 15px 15px;
     position: relative; }
-    .u-panel .u-panel-body .uf {
+    .u-panel .u-panel-body .u-panel-copy {
       position: absolute;
       right: 25px;
       top: 30px;
@@ -6123,7 +6150,7 @@ input.u-button[type="submit"] {
       margin: 8px;
       border-radius: 4px;
       cursor: pointer; }
-      .u-panel .u-panel-body .uf:hover {
+      .u-panel .u-panel-body .u-panel-copy:hover {
         color: #a8a7a7; }
 
 .u-panel-default {
@@ -6840,7 +6867,8 @@ ul {
     zoom: 1;
     position: absolute;
     right: 4px;
-    padding: 0 0 0 8px; }
+    padding: 0 0 0 8px;
+    top: -3px; }
   .u-select-selection--multiple .u-select-selection-choice-remove:before {
     display: block;
     font-family: "uf"; }
@@ -6898,8 +6926,7 @@ ul {
   position: absolute;
   outline: none;
   overflow: hidden;
-  font-size: 12px;
-  animation: uSlideUpIn 300ms ease; }
+  font-size: 12px; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-bottomLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-bottomLeft {
     animation-name: uSlideUpIn; }
   .u-select-dropdown.slide-up-enter.slide-up-enter-active.u-select-dropdown-placement-topLeft, .u-select-dropdown.slide-up-appear.slide-up-appear-active.u-select-dropdown-placement-topLeft {
@@ -7587,7 +7614,8 @@ ul {
   box-shadow: 0 1px 5px #ccc;
   background-clip: padding-box;
   border: 1px solid #ccc;
-  line-height: 1.5; }
+  line-height: 1.5;
+  z-index: 1800; }
 
 .rc-calendar-date-panel,
 .rc-calendar-panel {
@@ -7693,7 +7721,8 @@ ul {
   border-collapse: collapse;
   max-width: 100%;
   background-color: transparent;
-  width: 100%; }
+  width: 100%;
+  height: 100%; }
 
 .rc-calendar table,
 .rc-calendar td,
@@ -7896,7 +7925,7 @@ ul {
 .rc-calendar-time-panel-table {
   table-layout: fixed;
   width: 100%;
-  height: 255px;
+  height: 100%;
   border-collapse: separate; }
 
 .rc-calendar-time-panel-cell {
@@ -7990,13 +8019,16 @@ ul {
   user-select: none;
   right: 0; }
 
-.rc-calendar-month-panel-body {
-  padding: 9px 10px 10px; }
+.rc-calendar-month-panel-body, .rc-calendar-year-panel-body, .rc-calendar-decade-panel-body {
+  padding: 9px 10px 10px;
+  height: calc(100% - 30px); }
+
+.rc-calendar-month-panel > div, .rc-calendar-year-panel > div {
+  height: 100%; }
 
 .rc-calendar-month-panel-table {
   table-layout: fixed;
   width: 100%;
-  height: 255px;
   border-collapse: separate; }
 
 .rc-calendar-month-panel-cell {
@@ -8032,6 +8064,9 @@ ul {
 .rc-calendar-month-panel-selected-cell .rc-calendar-month-panel-month:hover {
   background: #3fc7fa;
   color: #fff; }
+
+.rc-calendar > .rc-calendar-year-panel {
+  position: relative; }
 
 .rc-calendar-year-panel {
   left: 0;
@@ -8321,7 +8356,8 @@ ul {
   left: 36px; }
 
 .rc-calendar-range .rc-calendar-year-panel,
-.rc-calendar-range .rc-calendar-month-panel {
+.rc-calendar-range .rc-calendar-month-panel,
+.rc-calendar-range .rc-calendar-decade-panel {
   top: 35px; }
 
 .rc-calendar-range .rc-calendar-month-panel .rc-calendar-year-panel {
@@ -8931,6 +8967,8 @@ li.rc-time-picker-panel-select-option-disabled:hover {
       background: transparent;
       border: 0;
       -webkit-appearance: none; }
+      .u-modal .u-modal-header .u-close .uf-close {
+        font-size: 12px; }
   .u-modal .u-modal-title {
     margin: 0;
     line-height: 1.42857143; }

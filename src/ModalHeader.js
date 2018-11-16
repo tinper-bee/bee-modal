@@ -61,7 +61,7 @@ class ModalHeader extends React.Component {
             onClick={createChainedFunction(modal.onHide, onHide)}
           >
             <span aria-hidden="true">
-              &times;
+              <i className='uf uf-close'/>
             </span>
           </button>
         }

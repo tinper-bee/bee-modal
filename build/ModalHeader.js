@@ -97,7 +97,7 @@ var ModalHeader = function (_React$Component) {
         _react2["default"].createElement(
           'span',
           { 'aria-hidden': 'true' },
-          '\xD7'
+          _react2["default"].createElement('i', { className: 'uf uf-close' })
         )
       ),
       children
