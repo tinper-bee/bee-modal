@@ -8318,7 +8318,8 @@
 	        Dialog = _props.dialogComponentClass,
 	        className = _props.className,
 	        clsPrefix = _props.clsPrefix,
-	        style = _props.style,
+	        _props$style = _props.style,
+	        style = _props$style === undefined ? {} : _props$style,
 	        size = _props.size,
 	        width = _props.width,
 	        children = _props.children,
@@ -8335,7 +8336,7 @@
 	
 	    var backdropClasses = _defineProperty({}, clsPrefix + '-backdrop', true);
 	    var containerClasses = _defineProperty({}, clsPrefix + '-open', true);
-	
+	    if (width) style.width = Number(width);
 	    return _react2['default'].createElement(
 	      _Modal2['default'],
 	      _extends({}, baseModalProps, {
@@ -8355,7 +8356,7 @@
 	      _react2['default'].createElement(
 	        Dialog,
 	        _extends({}, dialogProps, {
-	          style: _extends({}, this.state.style, style, { width: Number(width) }),
+	          style: _extends({}, this.state.style, style),
 	          className: (0, _classnames2['default'])(className, inClassName),
 	          onClick: backdrop === true ? this.handleDialogClick : null,
 	          size: size

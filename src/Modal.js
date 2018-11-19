@@ -185,7 +185,7 @@ class Modal extends React.Component {
       dialogComponentClass: Dialog,
       className,
       clsPrefix,
-      style,
+      style = {},
       size,
       width,
       children, // Just in case this get added to BaseModal propTypes.
@@ -205,7 +205,7 @@ class Modal extends React.Component {
     const containerClasses = {
         [`${clsPrefix}-open`]: true
     };
-
+    if(width)style.width = Number(width);
     return (
       <BaseModal
         {...baseModalProps}
@@ -222,7 +222,7 @@ class Modal extends React.Component {
       >
         <Dialog
           {...dialogProps}
-          style={{ ...this.state.style, ...style , width:Number(width) }}
+          style={{ ...this.state.style, ...style  }}
           className={classNames(className, inClassName)}
           onClick={backdrop === true ? this.handleDialogClick : null}
           size ={ size }
