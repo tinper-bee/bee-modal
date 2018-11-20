@@ -270,7 +270,7 @@ var Modal = function (_React$Component) {
 
     var backdropClasses = _defineProperty({}, clsPrefix + '-backdrop', true);
     var containerClasses = _defineProperty({}, clsPrefix + '-open', true);
-    if (width) style.width = Number(width);
+    if (Number(width)) width += 'px';
     return _react2["default"].createElement(
       _Modal2["default"],
       _extends({}, baseModalProps, {
@@ -290,7 +290,7 @@ var Modal = function (_React$Component) {
       _react2["default"].createElement(
         Dialog,
         _extends({}, dialogProps, {
-          style: _extends({}, this.state.style, style),
+          style: _extends({}, this.state.style, style, { width: width }),
           className: (0, _classnames2["default"])(className, inClassName),
           onClick: backdrop === true ? this.handleDialogClick : null,
           size: size
