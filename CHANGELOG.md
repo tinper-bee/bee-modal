@@ -1,3 +1,13 @@
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/tinper-bee/bee-modal/compare/v1.0.6...v1.0.7) (2018-11-20)
+
+
+### Features
+
+* **bee-modal:** width宽度 px,数字,rem,em,% 适配 ([edbe746](https://github.com/tinper-bee/bee-modal/commit/edbe746))
+
+
+
 <a name="1.0.6"></a>
 ## [1.0.6](https://github.com/tinper-bee/bee-modal/compare/v1.0.5...v1.0.6) (2018-11-19)
 
