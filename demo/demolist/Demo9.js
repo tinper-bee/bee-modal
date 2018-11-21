@@ -1,7 +1,7 @@
 /**
  *
- * @title 两个模态框
- * @description 当两个模态框同时出现的时候，后面出现的那个层级在上面
+ * @title enforceFocus
+ * @description 打开模态框时控制焦点的聚焦和离开
  *
  */
 
@@ -77,6 +77,7 @@ class Demo9 extends Component {
                 <Modal
                     show={this.state.showModal}
                     onHide={this.close}
+                    enforceFocus={false}
                 >
                     <Modal.Header className="text-center">
                         <Modal.Title>第一个模态框</Modal.Title>
