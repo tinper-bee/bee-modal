@@ -94,6 +94,10 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
   backdrop: _propTypes2["default"].oneOf(['static', true, false]),
 
   /**
+   * 点击遮罩层是否允许关闭
+   */
+  backdropClosable: _propTypes2["default"].bool,
+  /**
    * esc触发关闭
    */
   keyboard: _propTypes2["default"].bool,
@@ -156,6 +160,7 @@ var propTypes = _extends({}, _Modal2["default"].propTypes, _ModalDialog2["defaul
 });
 
 var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
+  backdropClosable: true,
   animation: true,
   dialogComponentClass: _ModalDialog2["default"],
   clsPrefix: 'u-modal'
@@ -247,6 +252,7 @@ var Modal = function (_React$Component) {
 
     var _props = this.props,
         backdrop = _props.backdrop,
+        backdropClosable = _props.backdropClosable,
         animation = _props.animation,
         show = _props.show,
         Dialog = _props.dialogComponentClass,
@@ -259,7 +265,7 @@ var Modal = function (_React$Component) {
         children = _props.children,
         onEntering = _props.onEntering,
         onExited = _props.onExited,
-        props = _objectWithoutProperties(_props, ['backdrop', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited']);
+        props = _objectWithoutProperties(_props, ['backdrop', 'backdropClosable', 'animation', 'show', 'dialogComponentClass', 'className', 'clsPrefix', 'style', 'size', 'width', 'children', 'onEntering', 'onExited']);
 
     var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
         _splitComponent2 = _slicedToArray(_splitComponent, 2),
@@ -297,7 +303,7 @@ var Modal = function (_React$Component) {
         _extends({}, dialogProps, {
           style: styleRes,
           className: (0, _classnames2["default"])(className, inClassName),
-          onClick: backdrop === true ? this.handleDialogClick : null,
+          onClick: backdrop === true && !!backdropClosable ? this.handleDialogClick : null,
           size: size
         }),
         children

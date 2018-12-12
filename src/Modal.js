@@ -28,6 +28,10 @@ const propTypes = {
   backdrop: PropTypes.oneOf(['static', true, false]),
 
   /**
+   * 点击遮罩层是否允许关闭
+   */
+  backdropClosable: PropTypes.bool,
+  /**
    * esc触发关闭
    */
   keyboard: PropTypes.bool,
@@ -91,6 +95,7 @@ const propTypes = {
 
 const defaultProps = {
   ...BaseModal.defaultProps,
+  backdropClosable: true,
   animation: true,
   dialogComponentClass: ModalDialog,
   clsPrefix: 'u-modal'
@@ -180,6 +185,7 @@ class Modal extends React.Component {
   render() {
     let {
       backdrop,
+      backdropClosable,
       animation,
       show,
       dialogComponentClass: Dialog,
@@ -229,7 +235,7 @@ class Modal extends React.Component {
           {...dialogProps}
           style={styleRes}
           className={classNames(className, inClassName)}
-          onClick={backdrop === true ? this.handleDialogClick : null}
+          onClick={backdrop === true && !!backdropClosable ? this.handleDialogClick : null}
           size ={ size }
         >
           {children}
