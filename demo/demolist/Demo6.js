@@ -32,6 +32,11 @@ class Demo6 extends Component {
             showModal: true,
             showLoading: true
         });
+        setTimeout(() => {
+            this.setState({
+                showLoading: false
+            })
+        }, 1000)
     }
 
     render() {
