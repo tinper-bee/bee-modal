@@ -134,6 +134,12 @@ Modal.Header
 |closeButton|是否显示关闭按钮|boolean|false|
 
 
+## 已支持的键盘操作
+
+|按键|功能|
+|:---|:----|
+|esc |关闭模态框|
+
 
 #### 开发调试
 
