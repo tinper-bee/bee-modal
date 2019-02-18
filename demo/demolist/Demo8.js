@@ -71,8 +71,8 @@ class Demo8 extends Component {
                         </Button>
                     </Modal.Body>
 
-                    <Modal.Footer className="text-center">
-                        <Button bordered style={{ marginRight: 20 }} onClick={this.close}>
+                    <Modal.Footer>
+                        <Button shape="border" style={{ marginRight: 8 }} onClick={this.close}>
                             取消
                         </Button>
                         <Button colors="primary" onClick={this.close}>
@@ -92,8 +92,8 @@ class Demo8 extends Component {
                         这是第二个模态框~
                     </Modal.Body>
 
-                    <Modal.Footer className="text-center">
-                        <Button bordered style={{ marginRight: 20 }} onClick={this.close2}>
+                    <Modal.Footer>
+                        <Button shape="border" style={{ marginRight: 8 }} onClick={this.close2}>
                             取消
                         </Button>
                         <Button colors="primary" onClick={this.close2}>

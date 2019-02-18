@@ -83,7 +83,7 @@ class Demo2 extends Component {
                     </Modal.Body>
 
                     <Modal.Footer className="text-center">
-                        <Button bordered style={{ marginRight: 20 }} onClick={this.close}>
+                        <Button shape="border" style={{ marginRight: 8 }} onClick={this.close}>
                             取消
                         </Button>
                         <Button colors="primary" onClick={this.close}>

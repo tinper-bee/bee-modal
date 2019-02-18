@@ -52,7 +52,7 @@ class Demo5 extends Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button onClick={ this.close } shape="border" style={{marginRight: 50}}>关闭</Button>
+                    <Button onClick={ this.close } shape="border" style={{marginRight: 8}}>关闭</Button>
                     <Button onClick={ this.close } colors="primary">确认</Button>
                 </Modal.Footer>
            </Modal>

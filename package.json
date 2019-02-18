@@ -53,7 +53,7 @@
   "prop-types": "15.6.0"
  },
  "devDependencies": {
-  "bee-button": "^1.0.0",
+  "bee-button": "^2.0.0",
   "bee-form-control": "latest",
   "bee-form-group": "latest",
   "bee-label": "latest",
