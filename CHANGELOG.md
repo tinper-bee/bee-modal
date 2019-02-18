@@ -1,3 +1,23 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/tinper-bee/bee-modal/compare/v1.0.10...v1.1.0) (2019-02-18)
+
+
+
+<a name="1.0.10"></a>
+## [1.0.10](https://github.com/tinper-bee/bee-modal/compare/v1.0.9...v1.0.10) (2018-12-12)
+
+
+
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/tinper-bee/bee-modal/compare/v1.0.8...v1.0.9) (2018-11-21)
+
+
+
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/tinper-bee/bee-modal/compare/v1.0.7...v1.0.8) (2018-11-20)
+
+
+
 <a name="1.0.7"></a>
 ## [1.0.7](https://github.com/tinper-bee/bee-modal/compare/v1.0.6...v1.0.7) (2018-11-20)
 
