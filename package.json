@@ -1,6 +1,6 @@
 {
  "name": "bee-modal",
- "version": "1.1.0",
+ "version": "1.1.1",
  "description": "ModalDialogl ui component for react",
  "keywords": [
   "react",
@@ -53,7 +53,7 @@
   "prop-types": "15.6.0"
  },
  "devDependencies": {
-  "bee-button": "^2.0.0",
+  "bee-button": "^2.0.4",
   "bee-form-control": "latest",
   "bee-form-group": "latest",
   "bee-label": "latest",
