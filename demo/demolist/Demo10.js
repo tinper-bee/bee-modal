@@ -76,8 +76,11 @@ class Demo10 extends Component {
     };
 
     clear = () => {
-        console.log('this.modal')
-        debugger
+        let { data } = this.state;
+        data.forEach(item => item._checked = false)
+        this.setState({
+            data:JSON.parse(JSON.stringify(data))
+        })
     }
 
     render () {
@@ -98,6 +101,7 @@ class Demo10 extends Component {
                     onHide={this.close}
                     size="lg"
                     ref={ref => this.modal = ref}
+                    className="demo10-modal"
                 >
                     <Modal.Header closeButton>
                         <Modal.Title>标题</Modal.Title>
@@ -113,6 +117,7 @@ class Demo10 extends Component {
                     </Modal.Body>
 
                     <Modal.Footer>
+                        <Button onClick={this.clear} colors="secondary" className="clear-btn">清空所选</Button>
                         <Button onClick={this.close} colors="secondary" style={{ marginRight: 8 }}>关闭</Button>
                         <Button onClick={this.close} colors="primary">确认</Button>
                     </Modal.Footer>

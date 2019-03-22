@@ -45,7 +45,7 @@
   "bee-transition": "^0.2.2",
   "classnames": "^2.2.5",
   "dom-helpers": "3.0.0",
-  "tinper-bee-core": "latest"
+  "tinper-bee-core": "^2.0.25"
  },
  "peerDependencies": {
   "react": "^15.3.0 || ^16.0",
