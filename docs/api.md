@@ -55,6 +55,7 @@ import bee-modal/build/Modal.css;
 |dialogTransitionTimeout|设置动画超时时间|function|-|
 |backdropTransitionTimeout|设置背景动画超时时间|function|-|
 |manager|管理模态框状态的组件|required|-|
+|draggable|设置模态框是否可拖拽|bool|false|
 
 ### Modal.Header
 

@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import  BaseModal  from 'bee-overlay/build/Modal';
 import isOverflowing from 'bee-overlay/build/utils/isOverflowing';
 import { elementType, splitComponent, createChainedFunction } from 'tinper-bee-core';
+import Dnd from 'bee-dnd';
 
 import { Fade } from 'bee-transition';
 import Body from './ModalBody';
@@ -95,6 +96,10 @@ const propTypes = {
    * 自定义宽度
    */
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * 是否可拖拽
+   */
+  draggable: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -102,6 +107,7 @@ const defaultProps = {
   backdropClosable: true,
   animation: true,
   dialogComponentClass: ModalDialog,
+  draggable: false,
   clsPrefix: 'u-modal'
 };
 
@@ -203,6 +209,7 @@ class Modal extends React.Component {
       onExited,
       backdropClassName,
       containerClassName,
+      draggable,
       ...props
     } = this.props;
     const [baseModalProps, dialogProps] =
@@ -243,6 +250,7 @@ class Modal extends React.Component {
           className={classNames(className, inClassName, backdropClassName)}
           onClick={backdrop === true && !!backdropClosable ? this.handleDialogClick : null}
           size ={ size }
+          draggable={draggable}
         >
           {children}
         </Dialog>

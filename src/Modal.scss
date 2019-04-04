@@ -12,7 +12,11 @@
   -webkit-overflow-scrolling: touch;
   outline: 0;
   overflow: hidden;
-
+  .u-modal-draggable{
+    .u-modal-header.dnd-handle:hover{
+      cursor: all-scroll;
+    }
+  }
   &.fade {
     opacity: 0;
     transition: opacity 0.15s linear;
@@ -154,3 +158,4 @@
 }
 
 
+.react-draggable-transparent-selection * { pointer-events: none !important;}
