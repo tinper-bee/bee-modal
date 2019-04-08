@@ -111,6 +111,46 @@ const defaultProps = {
   clsPrefix: 'u-modal'
 };
 
+const ModalFuncProps = {
+  prefixCls: PropTypes.string,
+  className: PropTypes.string,
+  visible: PropTypes.bool,
+  title: React.ReactNode,
+  content: React.ReactNode,
+  // onOk?: (...args: any[]) => any | PromiseLike<any>;
+  // onCancel?: (...args: any[]) => any | PromiseLike<any>;
+  // okButtonProps?: NativeButtonProps;
+  // cancelButtonProps?: NativeButtonProps;
+  // centered?: boolean;
+  // width?: string | number;
+  // iconClassName?: string;
+  // okText?: React.ReactNode;
+  // okType?: ButtonType;
+  // cancelText?: React.ReactNode;
+  // icon?: React.ReactNode;
+  // /* Deprecated */
+  // iconType?: string;
+  // mask?: boolean;
+  // maskClosable?: boolean;
+  // zIndex?: number;
+  // okCancel?: boolean;
+  // style?: React.CSSProperties;
+  // maskStyle?: React.CSSProperties;
+  // type?: string;
+  // keyboard?: boolean;
+  // getContainer?: (instance: React.ReactInstance) => HTMLElement;
+  // autoFocusButton?: null | 'ok' | 'cancel';
+  // transitionName?: string;
+  // maskTransitionName?: string;
+}
+
+const ModalFunc = (props) => {
+  destroy = () => {};
+  update = (newConfig) => {};
+};
+
+export const destroyFns = [];
+
 const childContextTypes = {
   $u_modal: PropTypes.shape({
     onHide: PropTypes.func,
@@ -130,6 +170,13 @@ class Modal extends React.Component {
       style: {},
     };
   }
+  static info =  ModalFunc;
+  static success =  ModalFunc;
+  static error =  ModalFunc;
+  static warn =  ModalFunc;
+  static warning =  ModalFunc;
+  static confirm =  ModalFunc;
+  static destroyAll =  () => {return};
 
   getChildContext() {
     return {

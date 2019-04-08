@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.destroyFns = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -161,6 +162,46 @@ var defaultProps = _extends({}, _Modal2["default"].defaultProps, {
   clsPrefix: 'u-modal'
 });
 
+var ModalFuncProps = {
+  prefixCls: _propTypes2["default"].string,
+  className: _propTypes2["default"].string,
+  visible: _propTypes2["default"].bool,
+  title: _react2["default"].ReactNode,
+  content: _react2["default"].ReactNode
+  // onOk?: (...args: any[]) => any | PromiseLike<any>;
+  // onCancel?: (...args: any[]) => any | PromiseLike<any>;
+  // okButtonProps?: NativeButtonProps;
+  // cancelButtonProps?: NativeButtonProps;
+  // centered?: boolean;
+  // width?: string | number;
+  // iconClassName?: string;
+  // okText?: React.ReactNode;
+  // okType?: ButtonType;
+  // cancelText?: React.ReactNode;
+  // icon?: React.ReactNode;
+  // /* Deprecated */
+  // iconType?: string;
+  // mask?: boolean;
+  // maskClosable?: boolean;
+  // zIndex?: number;
+  // okCancel?: boolean;
+  // style?: React.CSSProperties;
+  // maskStyle?: React.CSSProperties;
+  // type?: string;
+  // keyboard?: boolean;
+  // getContainer?: (instance: React.ReactInstance) => HTMLElement;
+  // autoFocusButton?: null | 'ok' | 'cancel';
+  // transitionName?: string;
+  // maskTransitionName?: string;
+};
+
+var ModalFunc = function ModalFunc(props) {
+  destroy = function destroy() {};
+  update = function update(newConfig) {};
+};
+
+var destroyFns = exports.destroyFns = [];
+
 var childContextTypes = {
   $u_modal: _propTypes2["default"].shape({
     onHide: _propTypes2["default"].func
@@ -313,6 +354,17 @@ var Modal = function (_React$Component) {
   return Modal;
 }(_react2["default"].Component);
 
+Modal.info = ModalFunc;
+Modal.success = ModalFunc;
+Modal.error = ModalFunc;
+Modal.warn = ModalFunc;
+Modal.warning = ModalFunc;
+Modal.confirm = ModalFunc;
+
+Modal.destroyAll = function () {
+  return;
+};
+
 Modal.propTypes = propTypes;
 Modal.defaultProps = defaultProps;
 Modal.childContextTypes = childContextTypes;
@@ -328,4 +380,3 @@ Modal.TRANSITION_DURATION = 200000;
 Modal.BACKDROP_TRANSITION_DURATION = 10000;
 
 exports["default"] = Modal;
-module.exports = exports['default'];
