@@ -114,34 +114,17 @@ const defaultProps = {
 const ModalFuncProps = {
   prefixCls: PropTypes.string,
   className: PropTypes.string,
-  visible: PropTypes.bool,
+  show: PropTypes.bool,
   title: React.ReactNode,
   content: React.ReactNode,
-  // onOk?: (...args: any[]) => any | PromiseLike<any>;
-  // onCancel?: (...args: any[]) => any | PromiseLike<any>;
-  // okButtonProps?: NativeButtonProps;
-  // cancelButtonProps?: NativeButtonProps;
-  // centered?: boolean;
-  // width?: string | number;
-  // iconClassName?: string;
-  // okText?: React.ReactNode;
-  // okType?: ButtonType;
-  // cancelText?: React.ReactNode;
-  // icon?: React.ReactNode;
-  // /* Deprecated */
-  // iconType?: string;
-  // mask?: boolean;
-  // maskClosable?: boolean;
-  // zIndex?: number;
-  // okCancel?: boolean;
-  // style?: React.CSSProperties;
-  // maskStyle?: React.CSSProperties;
-  // type?: string;
-  // keyboard?: boolean;
-  // getContainer?: (instance: React.ReactInstance) => HTMLElement;
-  // autoFocusButton?: null | 'ok' | 'cancel';
-  // transitionName?: string;
-  // maskTransitionName?: string;
+  onOk: PropTypes.func,
+  onCancel: PropTypes.func,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  okText: PropTypes.string,
+  okType: PropTypes.string,
+  cancelText: PropTypes.string,
+  icon: React.ReactNode,
+  backdrop: PropTypes.oneOf(['static', true, false])
 }
 
 const ModalFunc = (props) => {
