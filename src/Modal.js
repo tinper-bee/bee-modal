@@ -104,6 +104,7 @@ const propTypes = {
    * 是否可以resize
    */
   resizable: PropTypes.bool,
+  resizeClassName: PropTypes.string,
 
   /* resize开始 */
   onResizeStart: PropTypes.func,
@@ -261,6 +262,7 @@ class Modal extends React.Component {
       backdropClassName,
       containerClassName,
       draggable,
+      resizeClassName,
       ...props
     } = this.props;
     const [baseModalProps, dialogProps] =
@@ -302,6 +304,7 @@ class Modal extends React.Component {
           onClick={backdrop === true && !!backdropClosable ? this.handleDialogClick : null}
           size ={ size }
           draggable={draggable}
+          resizeClassName={resizeClassName}
         >
           {children}
         </Dialog>

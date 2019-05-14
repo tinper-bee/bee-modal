@@ -161,8 +161,21 @@ class ModalDialog extends React.Component {
   }
 
   render() {
-    const { dialogClassName, className, clsPrefix, size, style, contentStyle, children,draggable, resizable, minHeight, minWidth, ...props } =
-      this.props;
+    const {
+      dialogClassName,
+      className,
+      clsPrefix,
+      size,
+      style,
+      contentStyle,
+      children,
+      draggable,
+      resizable,
+      resizeClassName,
+      minHeight,
+      minWidth,
+      ...props
+    } = this.props;
     
     let {
       original,
@@ -210,6 +223,7 @@ class ModalDialog extends React.Component {
             {
               resizable ? (
                 <Resizable
+                  className={resizeClassName}
                   ref={c => {
                     if (c) {
                       this.resizable = c;
