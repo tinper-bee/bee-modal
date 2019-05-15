@@ -1,3 +1,13 @@
+<a name="2.0.11"></a>
+## [2.0.11](https://github.com/tinper-bee/bee-modal/compare/v2.0.10...v2.0.11) (2019-05-15)
+
+
+### Features
+
+* **bee-modal:** 改变窗口大小加判断 ([e285dd3](https://github.com/tinper-bee/bee-modal/commit/e285dd3))
+
+
+
 <a name="2.0.10"></a>
 ## [2.0.10](https://github.com/tinper-bee/bee-modal/compare/v2.0.9...v2.0.10) (2019-05-14)
 
