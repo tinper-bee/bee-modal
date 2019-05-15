@@ -1,3 +1,13 @@
+<a name="2.0.12"></a>
+## [2.0.12](https://github.com/tinper-bee/bee-modal/compare/v2.0.11...v2.0.12) (2019-05-15)
+
+
+### Features
+
+* **bee-modal:** container不传即为body的时候不计算isOverFlowing ([d1b9458](https://github.com/tinper-bee/bee-modal/commit/d1b9458))
+
+
+
 <a name="2.0.11"></a>
 ## [2.0.11](https://github.com/tinper-bee/bee-modal/compare/v2.0.10...v2.0.11) (2019-05-15)
 
