@@ -179,15 +179,17 @@ var ModalDialog = function (_React$Component) {
   }
 
   ModalDialog.prototype.componentDidUpdate = function componentDidUpdate() {
-    var _getMaxSizesFromProps = this.getMaxSizesFromProps(),
-        maxWidth = _getMaxSizesFromProps.maxWidth,
-        maxHeight = _getMaxSizesFromProps.maxHeight;
+    if (this.props.resizable) {
+      var _getMaxSizesFromProps = this.getMaxSizesFromProps(),
+          maxWidth = _getMaxSizesFromProps.maxWidth,
+          maxHeight = _getMaxSizesFromProps.maxHeight;
 
-    if (maxWidth != this.state.maxWidth) {
-      this.setState({
-        maxWidth: maxWidth,
-        maxHeight: maxHeight
-      });
+      if (maxWidth != this.state.maxWidth) {
+        this.setState({
+          maxWidth: maxWidth,
+          maxHeight: maxHeight
+        });
+      }
     }
   };
 

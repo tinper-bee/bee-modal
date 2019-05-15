@@ -31,13 +31,16 @@ class ModalDialog extends React.Component {
   };
 
   componentDidUpdate(){
-    let { maxWidth, maxHeight } = this.getMaxSizesFromProps();
-    if (maxWidth != this.state.maxWidth) {
-      this.setState({
-        maxWidth,
-        maxHeight
-      })
+    if(this.props.resizable){
+      let { maxWidth, maxHeight } = this.getMaxSizesFromProps();
+      if (maxWidth != this.state.maxWidth) {
+        this.setState({
+          maxWidth,
+          maxHeight
+        })
+      }
     }
+    
   }
 
   onStart = () => {
