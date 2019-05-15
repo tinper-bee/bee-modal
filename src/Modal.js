@@ -228,9 +228,12 @@ class Modal extends React.Component {
     const dialogHeight = dialogNode.scrollHeight;
 
     const document = ownerDocument(dialogNode);
-    const bodyIsOverflowing = isOverflowing(
-      ReactDOM.findDOMNode(this.props.container || document.body)
-    );
+    let bodyIsOverflowing=false;
+    if(this.props.container){
+      bodyIsOverflowing = isOverflowing(
+        ReactDOM.findDOMNode(this.props.container)
+      );
+    }
     const modalIsOverflowing =
       dialogHeight > document.documentElement.clientHeight;
 

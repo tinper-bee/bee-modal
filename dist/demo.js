@@ -15387,9 +15387,10 @@
 	  return doc.body.clientWidth < fullWidth;
 	}
 	
-	function isOverflowing(container) {console.log("计算2222")
+	function isOverflowing(container) {
 	  var win = (0, _isWindow2["default"])(container);
-	
+	  console.log("——————————————————————————")
+	  console.log(win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight)
 	  return win || isBody(container) ? bodyIsOverflowing(container) : container.scrollHeight > container.clientHeight;
 	}
 	module.exports = exports['default'];
@@ -34104,7 +34105,10 @@
 	    var dialogHeight = dialogNode.scrollHeight;
 	
 	    var document = (0, _ownerDocument2['default'])(dialogNode);
-	    var bodyIsOverflowing = (0, _isOverflowing2['default'])(_reactDom2['default'].findDOMNode(this.props.container || document.body));
+	    var bodyIsOverflowing = false;
+	    if (this.props.container) {
+	      bodyIsOverflowing = (0, _isOverflowing2['default'])(_reactDom2['default'].findDOMNode(this.props.container));
+	    }
 	    var modalIsOverflowing = dialogHeight > document.documentElement.clientHeight;
 	
 	    this.setState({

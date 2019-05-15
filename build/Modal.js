@@ -252,7 +252,10 @@ var Modal = function (_React$Component) {
     var dialogHeight = dialogNode.scrollHeight;
 
     var document = (0, _ownerDocument2["default"])(dialogNode);
-    var bodyIsOverflowing = (0, _isOverflowing2["default"])(_reactDom2["default"].findDOMNode(this.props.container || document.body));
+    var bodyIsOverflowing = false;
+    if (this.props.container) {
+      bodyIsOverflowing = (0, _isOverflowing2["default"])(_reactDom2["default"].findDOMNode(this.props.container));
+    }
     var modalIsOverflowing = dialogHeight > document.documentElement.clientHeight;
 
     this.setState({
