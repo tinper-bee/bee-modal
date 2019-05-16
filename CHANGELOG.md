@@ -1,3 +1,13 @@
+<a name="2.0.13"></a>
+## [2.0.13](https://github.com/tinper-bee/bee-modal/compare/v2.0.12...v2.0.13) (2019-05-16)
+
+
+### Features
+
+* **bee-modal:** 依赖bee-overlay改为bee-overlay-modal版本 ([a77d557](https://github.com/tinper-bee/bee-modal/commit/a77d557))
+
+
+
 <a name="2.0.12"></a>
 ## [2.0.12](https://github.com/tinper-bee/bee-modal/compare/v2.0.11...v2.0.12) (2019-05-15)
 
