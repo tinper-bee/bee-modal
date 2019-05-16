@@ -5,8 +5,8 @@ import canUseDOM from 'dom-helpers/util/inDOM';
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import  BaseModal  from 'bee-overlay/build/Modal';
-import isOverflowing from 'bee-overlay/build/utils/isOverflowing';
+import  BaseModal  from 'bee-overlay-modal/build/Modal';
+import isOverflowing from 'bee-overlay-modal/build/utils/isOverflowing';
 import { elementType, splitComponent, createChainedFunction } from 'tinper-bee-core';
 
 import { Fade } from 'bee-transition';

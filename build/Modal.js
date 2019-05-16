@@ -39,11 +39,11 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Modal = require('bee-overlay/build/Modal');
+var _Modal = require('bee-overlay-modal/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _isOverflowing = require('bee-overlay/build/utils/isOverflowing');
+var _isOverflowing = require('bee-overlay-modal/build/utils/isOverflowing');
 
 var _isOverflowing2 = _interopRequireDefault(_isOverflowing);
 
