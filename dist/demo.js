@@ -34867,7 +34867,8 @@
 	          {
 	            handle: '.dnd-handle',
 	            cancel: '.dnd-cancel',
-	            onStart: this.onStart,
+	            bounds: { top: -20 } //防止拖拽时，Header 被导航栏覆盖
+	            , onStart: this.onStart,
 	            onStop: this.onStop,
 	            position: original,
 	            list: []
