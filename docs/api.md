@@ -64,6 +64,7 @@ import 'bee-modal/build/Modal.css';
 |minHeight|resize时模态框的最小高度|number/string|150|
 |maxWidth|resize时模态框的最大宽度|number/string|-|
 |maxHeight|resize时模态框的最大高度|number/string|-|
+|bounds|设置拖拽范围,可输入{top:xxx,bottom:xxx,left:xxx,right:xxx}或者选择器(例如 "#app")|object/string|{top:-20}|
 
 ### Modal.Header
 
