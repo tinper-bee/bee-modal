@@ -1,3 +1,13 @@
+<a name="2.0.18"></a>
+## [2.0.18](https://github.com/tinper-bee/bee-modal/compare/v2.0.17...v2.0.18) (2019-06-26)
+
+
+### Features
+
+* **bee-modal:** icon版本修改 ([f52c2af](https://github.com/tinper-bee/bee-modal/commit/f52c2af))
+
+
+
 <a name="2.0.17"></a>
 ## [2.0.17](https://github.com/tinper-bee/bee-modal/compare/v2.0.16...v2.0.17) (2019-06-26)
 
