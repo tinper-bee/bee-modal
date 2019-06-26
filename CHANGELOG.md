@@ -1,3 +1,13 @@
+<a name="2.0.17"></a>
+## [2.0.17](https://github.com/tinper-bee/bee-modal/compare/v2.0.16...v2.0.17) (2019-06-26)
+
+
+### Features
+
+* **bee-modal:** 设置可拖拽范围 ([ad1f183](https://github.com/tinper-bee/bee-modal/commit/ad1f183))
+
+
+
 <a name="2.0.16"></a>
 ## [2.0.16](https://github.com/tinper-bee/bee-modal/compare/v2.0.14...v2.0.16) (2019-06-24)
 
