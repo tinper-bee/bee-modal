@@ -27,6 +27,7 @@ import 'bee-modal/build/Modal.css';
 |:--|:----|:---|:----|
 |backdrop|是否弹出遮罩层|boolean|true|
 |backdropClosable|遮罩层点击是否触发关闭|boolean|true|
+|centered|垂直居中展示 Modal|boolean|false|
 |keyboard|esc触发关闭|boolean|-|
 |animation|显隐时是否使用动画|boolean|true|
 |dialogComponentClass|传递给模态框使用的元素|string/element|-|
@@ -64,7 +65,7 @@ import 'bee-modal/build/Modal.css';
 |minHeight|resize时模态框的最小高度|number/string|150|
 |maxWidth|resize时模态框的最大宽度|number/string|-|
 |maxHeight|resize时模态框的最大高度|number/string|-|
-|bounds|设置拖拽范围,可输入{top:xxx,bottom:xxx,left:xxx,right:xxx}或者选择器(例如 "#app")|object/string|{top:-20}|
+|bounds|设置拖拽范围,可输入{top:xxx,bottom:xxx,left:xxx,right:xxx}或者选择器(例如 "#app")|object/string|null|
 
 ### Modal.Header
 
