@@ -27,7 +27,7 @@ import 'bee-modal/build/Modal.css';
 |:--|:----|:---|:----|
 |backdrop|是否弹出遮罩层|boolean|true|
 |backdropClosable|遮罩层点击是否触发关闭|boolean|true|
-|centered|垂直居中展示 Modal|boolean|false|
+|centered|垂直居中展示 Modal (2.0.21+版本)|boolean|false|
 |keyboard|esc触发关闭|boolean|-|
 |animation|显隐时是否使用动画|boolean|true|
 |dialogComponentClass|传递给模态框使用的元素|string/element|-|
