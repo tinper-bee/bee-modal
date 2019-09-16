@@ -45,7 +45,7 @@ var ConfirmDialog = function ConfirmDialog(props) {
       keyboard = props.keyboard,
       centered = props.centered,
       getContainer = props.getContainer,
-      maskStyle = props.maskStyle,
+      backdropStyle = props.backdropStyle,
       okButtonProps = props.okButtonProps,
       cancelButtonProps = props.cancelButtonProps,
       _props$iconType = props.iconType,
@@ -59,11 +59,11 @@ var ConfirmDialog = function ConfirmDialog(props) {
   var contentPrefixCls = prefixCls + '-confirm';
   // 默认为 true，保持向下兼容
   var okCancel = 'okCancel' in props ? props.okCancel : true;
-  var width = props.width || 400;
+  var width = props.width || 400;7;
   var style = props.style || {};
   var backdrop = props.backdrop === undefined ? true : props.backdrop;
   // 默认为 false，保持旧版默认行为
-  var maskClosable = props.maskClosable === undefined ? false : props.maskClosable;
+  var backdropClosable = props.backdropClosable === undefined ? true : props.backdropClosable;
   // const runtimeLocale = getConfirmLocale();
   var okText = props.okText || (okCancel ? "确定" : "知道了");
   var cancelText = props.cancelText || "取消";
@@ -95,7 +95,11 @@ var ConfirmDialog = function ConfirmDialog(props) {
       className: classString,
       show: show,
       onHide: close,
-      backdrop: backdrop },
+      backdrop: backdrop,
+      backdropClosable: backdropClosable,
+      centered: centered,
+      keyboard: keyboard,
+      backdropStyle: backdropStyle },
     _react2["default"].createElement(
       _Modal2["default"].Header,
       null,
