@@ -59,7 +59,7 @@ var ConfirmDialog = function ConfirmDialog(props) {
   var contentPrefixCls = prefixCls + '-confirm';
   // 默认为 true，保持向下兼容
   var okCancel = 'okCancel' in props ? props.okCancel : true;
-  var width = props.width || 400;7;
+  var width = props.width || 400;
   var style = props.style || {};
   var backdrop = props.backdrop === undefined ? true : props.backdrop;
   // 默认为 false，保持旧版默认行为
