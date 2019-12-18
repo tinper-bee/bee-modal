@@ -46,7 +46,11 @@ var propTypes = {
   /**
    * 自定义关闭按钮的钩子函数
    */
-  renderCloseButton: _propTypes2["default"].func
+  renderCloseButton: _propTypes2["default"].func,
+  /**
+   * 自定义关闭按钮的 props
+   */
+  closeButtonProps: _propTypes2["default"].object
 };
 
 var defaultProps = {
@@ -79,7 +83,8 @@ var ModalHeader = function (_React$Component) {
         clsPrefix = _props.clsPrefix,
         children = _props.children,
         renderCloseButton = _props.renderCloseButton,
-        props = _objectWithoutProperties(_props, ['aria-label', 'closeButton', 'onHide', 'className', 'clsPrefix', 'children', 'renderCloseButton']);
+        closeButtonProps = _props.closeButtonProps,
+        props = _objectWithoutProperties(_props, ['aria-label', 'closeButton', 'onHide', 'className', 'clsPrefix', 'children', 'renderCloseButton', 'closeButtonProps']);
 
     var modal = this.context.$u_modal;
     var classes = {};
@@ -88,12 +93,12 @@ var ModalHeader = function (_React$Component) {
 
     var closeBtnDom = _react2["default"].createElement(
       'button',
-      {
+      _extends({}, closeButtonProps, {
         type: 'button',
         className: 'u-close dnd-cancel',
         'aria-label': label,
         onClick: (0, _tinperBeeCore.createChainedFunction)(modal.onHide, onHide)
-      },
+      }),
       renderCloseButton ? renderCloseButton() : _react2["default"].createElement(
         'span',
         { 'aria-hidden': 'true' },

@@ -19,7 +19,11 @@ const propTypes = {
   /**
    * 自定义关闭按钮的钩子函数
    */
-  renderCloseButton: PropTypes.func
+  renderCloseButton: PropTypes.func,
+  /**
+   * 自定义关闭按钮的 props
+   */
+  closeButtonProps: PropTypes.object
 };
 
 const defaultProps = {
@@ -44,6 +48,7 @@ class ModalHeader extends React.Component {
       clsPrefix,
       children,
       renderCloseButton,
+      closeButtonProps,
       ...props
     } = this.props;
 
@@ -54,6 +59,7 @@ class ModalHeader extends React.Component {
 
     let closeBtnDom = (
       <button
+        {...closeButtonProps}
         type="button"
         className="u-close dnd-cancel"
         aria-label={label}
