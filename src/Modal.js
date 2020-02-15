@@ -331,6 +331,7 @@ class Modal extends React.Component {
         transition={animation ? Fade : undefined}
         dialogTransitionTimeout={Modal.TRANSITION_DURATION}
         backdropTransitionTimeout={Modal.BACKDROP_TRANSITION_DURATION}
+        container={container}
       >
         <Dialog
           {...dialogProps}

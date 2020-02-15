@@ -37524,7 +37524,8 @@
 	        containerClassName: (0, _classnames2['default'])(containerClasses, containerClassName),
 	        transition: animation ? _beeTransition.Fade : undefined,
 	        dialogTransitionTimeout: Modal.TRANSITION_DURATION,
-	        backdropTransitionTimeout: Modal.BACKDROP_TRANSITION_DURATION
+	        backdropTransitionTimeout: Modal.BACKDROP_TRANSITION_DURATION,
+	        container: container
 	      }),
 	      _react2['default'].createElement(
 	        Dialog,
