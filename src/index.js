@@ -3,6 +3,7 @@ import Modal, { destroyFns } from './Modal';
 import confirm from './confirm';
 import Icon from 'bee-icon';
 
+
 Modal.info = function(props) {
     const config = {
       type: 'info',
@@ -60,4 +61,5 @@ Modal.destroyAll = function() {
         }
     }
 };
+
 export default Modal;

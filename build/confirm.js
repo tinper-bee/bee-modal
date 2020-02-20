@@ -34,113 +34,144 @@ var _beeIcon2 = _interopRequireDefault(_beeIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
+
 var IS_REACT_16 = !!_reactDom2["default"].createPortal;
 
-var ConfirmDialog = function ConfirmDialog(props) {
-  var onCancel = props.onCancel,
-      onOk = props.onOk,
-      close = props.close,
-      onHide = props.onHide,
-      show = props.show,
-      keyboard = props.keyboard,
-      centered = props.centered,
-      getContainer = props.getContainer,
-      backdropStyle = props.backdropStyle,
-      okButtonProps = props.okButtonProps,
-      cancelButtonProps = props.cancelButtonProps,
-      _props$iconType = props.iconType,
-      iconType = _props$iconType === undefined ? 'uf-qm-c' : _props$iconType;
+var ConfirmDialog = function (_React$Component) {
+  _inherits(ConfirmDialog, _React$Component);
 
-  // 支持传入{ icon: null }来隐藏`Modal.confirm`默认的Icon
+  function ConfirmDialog(props) {
+    _classCallCheck(this, ConfirmDialog);
 
-  var icon = props.icon === undefined ? iconType : props.icon;
-  var okType = props.okType || 'primary';
-  var prefixCls = props.prefixCls || 'u-modal';
-  var contentPrefixCls = prefixCls + '-confirm';
-  // 默认为 true，保持向下兼容
-  var okCancel = 'okCancel' in props ? props.okCancel : true;
-  var width = props.width || 400;
-  var style = props.style || {};
-  var backdrop = props.backdrop === undefined ? true : props.backdrop;
-  // 默认为 false，保持旧版默认行为
-  var backdropClosable = props.backdropClosable === undefined ? true : props.backdropClosable;
-  // const runtimeLocale = getConfirmLocale();
-  var okText = props.okText || (okCancel ? "确定" : "知道了");
-  var cancelText = props.cancelText || "取消";
-  var autoFocusButton = props.autoFocusButton === null ? false : props.autoFocusButton || 'ok';
-  var transitionName = props.transitionName || 'zoom';
-  var maskTransitionName = props.maskTransitionName || 'fade';
+    return _possibleConstructorReturn(this, _React$Component.call(this, props));
+  }
 
-  var classString = (0, _classnames2["default"])(contentPrefixCls, contentPrefixCls + '-' + props.type, props.className);
+  ConfirmDialog.prototype.render = function render() {
+    var props = this.props;
+    var onCancel = props.onCancel,
+        onOk = props.onOk,
+        close = props.close,
+        onHide = props.onHide,
+        show = props.show,
+        keyboard = props.keyboard,
+        centered = props.centered,
+        getContainer = props.getContainer,
+        backdropStyle = props.backdropStyle,
+        okButtonProps = props.okButtonProps,
+        cancelButtonProps = props.cancelButtonProps,
+        _props$iconType = props.iconType,
+        iconType = _props$iconType === undefined ? 'uf-qm-c' : _props$iconType,
+        _props$locale = props.locale,
+        locale = _props$locale === undefined ? {
+      'ok': '确定',
+      'gotit': '知道了',
+      'cancel': '取消'
+    } : _props$locale;
 
-  var cancelButton = okCancel && _react2["default"].createElement(
-    _beeButton2["default"],
-    {
-      onClick: function onClick() {
-        close();onCancel ? onCancel() : function () {
-          return;
-        };
+    // 支持传入{ icon: null }来隐藏`Modal.confirm`默认的Icon
+
+    var icon = props.icon === undefined ? iconType : props.icon;
+    var okType = props.okType || 'primary';
+    var prefixCls = props.prefixCls || 'u-modal';
+    var contentPrefixCls = prefixCls + '-confirm';
+    // 默认为 true，保持向下兼容
+    var okCancel = 'okCancel' in props ? props.okCancel : true;
+    var width = props.width || 400;
+    var style = props.style || {};
+    var backdrop = props.backdrop === undefined ? true : props.backdrop;
+    // 默认为 false，保持旧版默认行为
+    var backdropClosable = props.backdropClosable === undefined ? true : props.backdropClosable;
+    // const runtimeLocale = getConfirmLocale();
+    var okText = props.okText || (okCancel ? locale.ok : locale.gotit);
+    var cancelText = props.cancelText || locale.cancel;
+    var autoFocusButton = props.autoFocusButton === null ? false : props.autoFocusButton || 'ok';
+    var transitionName = props.transitionName || 'zoom';
+    var maskTransitionName = props.maskTransitionName || 'fade';
+
+    var classString = (0, _classnames2["default"])(contentPrefixCls, contentPrefixCls + '-' + props.type, props.className);
+
+    var cancelButton = okCancel && _react2["default"].createElement(
+      _beeButton2["default"],
+      {
+        onClick: function onClick() {
+          close();onCancel ? onCancel() : function () {
+            return;
+          };
+        },
+        colors: 'secondary',
+        style: { marginRight: 8 }
       },
-      colors: 'secondary',
-      style: { marginRight: 8 }
-    },
-    cancelText
-  );
-  var iconNode = typeof icon === 'string' ? _react2["default"].createElement(_beeIcon2["default"], { type: icon }) : icon;
+      cancelText
+    );
+    var iconNode = typeof icon === 'string' ? _react2["default"].createElement(_beeIcon2["default"], { type: icon }) : icon;
 
-  return _react2["default"].createElement(
-    _Modal2["default"],
-    {
-      width: width,
-      className: classString,
-      show: show,
-      onHide: close,
-      backdrop: backdrop,
-      backdropClosable: backdropClosable,
-      centered: centered,
-      keyboard: keyboard,
-      backdropStyle: backdropStyle },
-    _react2["default"].createElement(
-      _Modal2["default"].Header,
-      null,
+    return _react2["default"].createElement(
+      _Modal2["default"],
+      {
+        width: width,
+        className: classString,
+        show: show,
+        onHide: close,
+        backdrop: backdrop,
+        backdropClosable: backdropClosable,
+        centered: centered,
+        keyboard: keyboard,
+        backdropStyle: backdropStyle },
       _react2["default"].createElement(
-        _Modal2["default"].Title,
+        _Modal2["default"].Header,
         null,
-        iconNode,
         _react2["default"].createElement(
-          'span',
-          { className: contentPrefixCls + '-title' },
-          props.title
+          _Modal2["default"].Title,
+          null,
+          iconNode,
+          _react2["default"].createElement(
+            'span',
+            { className: contentPrefixCls + '-title' },
+            props.title
+          )
+        )
+      ),
+      _react2["default"].createElement(
+        _Modal2["default"].Body,
+        null,
+        _react2["default"].createElement(
+          'div',
+          { className: contentPrefixCls + '-content' },
+          props.content
+        )
+      ),
+      _react2["default"].createElement(
+        _Modal2["default"].Footer,
+        null,
+        cancelButton,
+        _react2["default"].createElement(
+          _beeButton2["default"],
+          {
+            onClick: function onClick() {
+              close();onOk ? onOk() : function () {
+                return;
+              };
+            },
+            colors: okType
+          },
+          okText
         )
       )
-    ),
-    _react2["default"].createElement(
-      _Modal2["default"].Body,
-      null,
-      _react2["default"].createElement(
-        'div',
-        { className: contentPrefixCls + '-content' },
-        props.content
-      )
-    ),
-    _react2["default"].createElement(
-      _Modal2["default"].Footer,
-      null,
-      cancelButton,
-      _react2["default"].createElement(
-        _beeButton2["default"],
-        {
-          onClick: function onClick() {
-            close();onOk ? onOk() : function () {
-              return;
-            };
-          },
-          colors: okType
-        },
-        okText
-      )
-    )
-  );
+    );
+  };
+
+  return ConfirmDialog;
+}(_react2["default"].Component);
+
+ConfirmDialog.contextTypes = {
+  beeLocale: PropTypes.object
 };
 
 function confirm(config) {

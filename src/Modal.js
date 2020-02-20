@@ -180,7 +180,7 @@ class Modal extends React.Component {
     this.handleEntering = this.handleEntering.bind(this);
     this.handleExited = this.handleExited.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
-    this.handleDialogClick = this.handleDialogClick.bind(this);
+    this.handleDialogClick = this.handleDialogClick.bind(this); 
   }
   static info =  ModalFunc;
   static success =  ModalFunc;

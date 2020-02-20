@@ -90,7 +90,7 @@ import 'bee-modal/build/Modal.css';
 |参数|说明|类型|默认值|
 |:---|:-----|:----|:------|
 |cancelText|取消按钮文字|string|取消|
-|okText|确认按钮文字|string|确定|
+|okText|确认按钮文字，建议使用`locale`控制按钮文字|string|确定|
 |okType|确认按钮类型，取值范围(primary/secondary/success/info/warning/danger/dark/light)|string|primary|
 |title|标题|string/ReactNode|-|
 |content|内容|string/ReactNode|-|
@@ -100,6 +100,7 @@ import 'bee-modal/build/Modal.css';
 |width|宽度|string/number|400|
 |onCancel|取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭|function|-|
 |onOk|点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭|function|-|
+|locale|按钮文字，默认中文。okText优先级要高于`locale`，建议使用`locale`控制按钮文字|object|`{'ok':'确定','gotit':'知道了','cancel':'取消',}`|
 
 以上函数调用后，会返回一个引用，可以通过该引用更新和关闭弹窗。
 

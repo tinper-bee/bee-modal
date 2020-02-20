@@ -76,5 +76,6 @@ _Modal2["default"].destroyAll = function () {
         }
     }
 };
+
 exports["default"] = _Modal2["default"];
 module.exports = exports['default'];
