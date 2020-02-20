@@ -1,3 +1,13 @@
+<a name="2.1.7"></a>
+## [2.1.7](https://github.com/tinper-bee/bee-modal/compare/v2.1.6...v2.1.7) (2020-02-20)
+
+
+### Features
+
+* **bee-modal:** api调用方式新增locale属性,设置按钮文字 ([e7b5a8a](https://github.com/tinper-bee/bee-modal/commit/e7b5a8a))
+
+
+
 <a name="2.1.6"></a>
 ## [2.1.6](https://github.com/tinper-bee/bee-modal/compare/v2.1.5...v2.1.6) (2020-02-15)
 
