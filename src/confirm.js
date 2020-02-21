@@ -101,9 +101,6 @@ class ConfirmDialog extends React.Component{
   }
 }
 
-ConfirmDialog.contextTypes = {
-  beeLocale: PropTypes.object
-};
 
 export default function confirm(config) {
     const div = document.createElement('div');

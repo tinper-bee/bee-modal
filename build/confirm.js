@@ -170,10 +170,6 @@ var ConfirmDialog = function (_React$Component) {
   return ConfirmDialog;
 }(_react2["default"].Component);
 
-ConfirmDialog.contextTypes = {
-  beeLocale: PropTypes.object
-};
-
 function confirm(config) {
   var div = document.createElement('div');
   document.body.appendChild(div);
