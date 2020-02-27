@@ -5302,7 +5302,7 @@
 	    return element.nodeName.toLowerCase() === 'html' ? null : getParent(element);
 	  }
 	
-	  for (parent = getParent(element); parent && parent !== body && parent.nodeType !== 9; parent = getParent(parent)) {
+	  for (parent = getParent(element); parent && parent !== body; parent = getParent(parent)) {
 	    positionStyle = utils.css(parent, 'position');
 	
 	    if (positionStyle !== 'static') {
@@ -7580,12 +7580,6 @@
 	
 	var deselectCurrent = __webpack_require__(69);
 	
-	var clipboardToIE11Formatting = {
-	  "text/plain": "Text",
-	  "text/html": "Url",
-	  "default": "Text"
-	}
-	
 	var defaultMessage = "Copy to clipboard: #{key}, Enter";
 	
 	function format(message) {
@@ -7630,16 +7624,8 @@
 	      e.stopPropagation();
 	      if (options.format) {
 	        e.preventDefault();
-	        if (typeof e.clipboardData === "undefined") { // IE 11
-	          debug && console.warn("unable to use e.clipboardData");
-	          debug && console.warn("trying IE specific stuff");
-	          window.clipboardData.clearData();
-	          var format = clipboardToIE11Formatting[options.format] || clipboardToIE11Formatting["default"]
-	          window.clipboardData.setData(format, text);
-	        } else { // all other browsers
-	          e.clipboardData.clearData();
-	          e.clipboardData.setData(options.format, text);
-	        }
+	        e.clipboardData.clearData();
+	        e.clipboardData.setData(options.format, text);
 	      }
 	    });
 	
@@ -7655,10 +7641,16 @@
 	    success = true;
 	  } catch (err) {
 	    debug && console.error("unable to copy using execCommand: ", err);
-	    debug && console.error("unable to copy using clipboardData: ", err);
-	    debug && console.error("falling back to prompt");
-	    message = format("message" in options ? options.message : defaultMessage);
-	    window.prompt(message, text);
+	    debug && console.warn("trying IE specific stuff");
+	    try {
+	      window.clipboardData.setData(options.format || "text", text);
+	      success = true;
+	    } catch (err) {
+	      debug && console.error("unable to copy using clipboardData: ", err);
+	      debug && console.error("falling back to prompt");
+	      message = format("message" in options ? options.message : defaultMessage);
+	      window.prompt(message, text);
+	    }
 	  } finally {
 	    if (selection) {
 	      if (typeof selection.removeRange == "function") {
@@ -11195,16 +11187,8 @@
 	        classNames = props.classNames,
 	        style = props.style,
 	        overlay = props.overlay,
-	        overlayStyle = props.overlayStyle,
 	        otherProps = props.otherProps;
-	    // style 包含用户传入的自定义样式，以及 bee-overlay 计算返回的样式。
-	    // overlayStyle 是用户传入的自定义样式。
 	
-	    if (overlayStyle && overlayStyle.width) {
-	        style.width = overlayStyle.width;
-	    } else {
-	        delete style.width;
-	    }
 	    return _react2["default"].createElement(
 	        'div',
 	        _extends({
@@ -11333,8 +11317,7 @@
 	            onMouseEnter: this.onMouseEnter,
 	            onMouseLeave: this.onMouseLeave,
 	            style: style,
-	            overlayStyle: style // 用户自定义样式
-	            , arrowOffsetTop: arrowOffsetTop,
+	            arrowOffsetTop: arrowOffsetTop,
 	            arrowOffsetLeft: arrowOffsetLeft,
 	            otherProps: others
 	        });
@@ -14496,8 +14479,7 @@
 	        containerClassName: (0, _classnames2["default"])(containerClasses, containerClassName),
 	        transition: animation ? _beeTransition.Fade : undefined,
 	        dialogTransitionTimeout: Modal.TRANSITION_DURATION,
-	        backdropTransitionTimeout: Modal.BACKDROP_TRANSITION_DURATION,
-	        container: container
+	        backdropTransitionTimeout: Modal.BACKDROP_TRANSITION_DURATION
 	      }),
 	      _react2["default"].createElement(
 	        Dialog,
@@ -23608,19 +23590,21 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	Object.defineProperty(exports, "__esModule", { value: true });
 	var isProduction = process.env.NODE_ENV === 'production';
 	var prefix = 'Invariant failed';
 	function invariant(condition, message) {
-	    if (condition) {
-	        return;
-	    }
-	    if (isProduction) {
-	        throw new Error(prefix);
-	    }
+	  if (condition) {
+	    return;
+	  }
+	
+	  if (isProduction) {
+	    throw new Error(prefix);
+	  } else {
 	    throw new Error(prefix + ": " + (message || ''));
+	  }
 	}
-	exports.default = invariant;
+	
+	module.exports = invariant;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)))
 
@@ -23862,7 +23846,7 @@
 	  var calledOnce = false;
 	
 	  var isNewArgEqualToLast = function isNewArgEqualToLast(newArg, index) {
-	    return isEqual(newArg, lastArgs[index]);
+	    return isEqual(newArg, lastArgs[index], index);
 	  };
 	
 	  var result = function result() {
@@ -24905,8 +24889,6 @@
 /***/ (function(module, exports) {
 
 	function _typeof(obj) {
-	  "@babel/helpers - typeof";
-	
 	  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
 	    module.exports = _typeof = function _typeof(obj) {
 	      return typeof obj;
@@ -25530,14 +25512,11 @@
 	};
 	var TYPE_STATICS = {};
 	TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
-	TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
 	
 	function getStatics(component) {
-	  // React v16.11 and below
 	  if (reactIs.isMemo(component)) {
 	    return MEMO_STATICS;
-	  } // React v16.12 and above
-	
+	  }
 	
 	  return TYPE_STATICS[component['$$typeof']] || REACT_STATICS;
 	}
@@ -36857,10 +36836,8 @@
 	    }
 	
 	    FormControl.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProp) {
-	        if ("value" in nextProp) {
-	            if (nextProp.value !== this.state.value) {
-	                this.setState({ value: nextProp.value });
-	            }
+	        if (nextProp.value !== this.state.value) {
+	            this.setState({ value: nextProp.value });
 	        }
 	    };
 	
@@ -37897,6 +37874,8 @@
 	          children
 	        );
 	      }
+	      var _minWidth = _this.handleWH(minWidth);
+	      var _minHeight = _this.handleWH(minHeight);
 	      return _react2['default'].createElement(
 	        _reResizable2['default'],
 	        {
@@ -37909,14 +37888,14 @@
 	          onResizeStart: _this.onResizeStart,
 	          onResize: _this.onResize,
 	          onResizeStop: _this.onResizeStop,
-	          minWidth: _this.handleWH(minWidth),
-	          minHeight: _this.handleWH(minHeight),
+	          minWidth: _minWidth,
+	          minHeight: _minHeight,
 	          maxWidth: _this.handleWH(maxWidth),
 	          maxHeight: _this.handleWH(maxHeight)
 	        },
 	        _react2['default'].createElement(
 	          'div',
-	          { style: _extends({}, contentStyle, { height: "100%" }), className: (0, _classnames2['default'])([clsPrefix + '-content']), role: 'document', ref: function ref(_ref2) {
+	          { style: _extends({}, contentStyle, { minHeight: _minHeight, height: "100%" }), className: (0, _classnames2['default'])([clsPrefix + '-content']), role: 'document', ref: function ref(_ref2) {
 	              return _this.resize = _ref2;
 	            } },
 	          children
@@ -42187,13 +42166,13 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
 	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -42861,7 +42840,7 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
@@ -42885,7 +42864,7 @@
 	
 	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -43963,7 +43942,7 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
@@ -44065,7 +44044,7 @@
 	
 	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -44200,7 +44179,7 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
@@ -44214,7 +44193,7 @@
 	
 	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -44481,7 +44460,7 @@
 	      }
 	
 	      if (this.mutationObserver) {
-	        this.mutationObserver.disconnect();
+	        this.resizeObserver.disconnect();
 	      }
 	    }
 	  }, {
@@ -45547,7 +45526,7 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
@@ -45569,7 +45548,7 @@
 	
 	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -50967,13 +50946,13 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
 	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -51835,7 +51814,7 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 	
@@ -51925,8 +51904,6 @@
 
 	"use strict";
 	
-	function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -51936,7 +51913,7 @@
 	
 	function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 	
 	var Divider = function Divider(_ref) {
 	  var className = _ref.className,
@@ -54180,10 +54157,7 @@
 	    var showClose = props.showClose,
 	        defaultPanelShown = props.defaultPanelShown,
 	        onBlur = props.onBlur,
-	        showHour = props.showHour,
-	        showMinute = props.showMinute,
-	        showSecond = props.showSecond,
-	        others = _objectWithoutProperties(props, ["showClose", "defaultPanelShown", "onBlur", "showHour", "showMinute", "showSecond"]);
+	        others = _objectWithoutProperties(props, ["showClose", "defaultPanelShown", "onBlur"]);
 	
 	    var value = state.value;
 	    var pickerChangeHandler = {};
@@ -54201,16 +54175,8 @@
 	      };
 	    }
 	
-	    var splitNumber = '3';
-	    if (!showHour) splitNumber -= 1;
-	    if (!showMinute) splitNumber -= 1;
-	    if (!showSecond) splitNumber -= 1;
-	
 	    var calendar = _react2["default"].createElement(_rcCalendar2["default"], _extends({
-	      timePicker: props.showTime ? _react2["default"].createElement(_Panel2["default"], {
-	        className: 'time-split-' + splitNumber,
-	        showHour: showHour, showMinute: showMinute, showSecond: showSecond,
-	        defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") }) : null
+	      timePicker: props.showTime ? _react2["default"].createElement(_Panel2["default"], { defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") }) : null
 	    }, props, {
 	      onSelect: this.handleSelect,
 	      onChange: this.handleCalendarChange,
@@ -54546,10 +54512,7 @@
 	  onKeyDown: function onKeyDown() {},
 	  renderError: function renderError() {},
 	  showClose: true,
-	  format: "YYYY-MM-DD",
-	  showSecond: true,
-	  showHour: true,
-	  showMinute: true
+	  format: "YYYY-MM-DD"
 	};
 	
 	exports["default"] = DatePicker;
@@ -77266,6 +77229,8 @@
 	    now.locale("en-gb").utcOffset(0);
 	}
 	
+	var timePickerElement = _react2["default"].createElement(_Panel2["default"], { defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") });
+	
 	var RangePicker = function (_Component) {
 	    _inherits(RangePicker, _Component);
 	
@@ -77311,19 +77276,14 @@
 	
 	        var showClose = props.showClose,
 	            onChange = props.onChange,
-	            showHour = props.showHour,
-	            showMinute = props.showMinute,
-	            showSecond = props.showSecond,
-	            others = _objectWithoutProperties(props, ["showClose", "onChange", "showHour", "showMinute", "showSecond"]);
+	            others = _objectWithoutProperties(props, ["showClose", "onChange"]);
 	
 	        var _state = this.state,
 	            value = _state.value,
 	            open = _state.open;
 	
 	        var formatStr = props.format || 'YYYY-MM-DD';
-	        var timePickerElement = _react2["default"].createElement(_Panel2["default"], {
-	            showHour: showHour, showMinute: showMinute, showSecond: showSecond,
-	            defaultValue: (0, _moment2["default"])((0, _moment2["default"])().format("HH:mm:ss"), "HH:mm:ss") });
+	
 	        var calendar = _react2["default"].createElement(_RangeCalendar2["default"], {
 	            hoverValue: this.state.hoverValue,
 	            onHoverChange: this.onHoverChange,
@@ -77599,10 +77559,7 @@
 	    showClear: true,
 	    showToday: true,
 	    showOk: true,
-	    showClose: true,
-	    showSecond: true,
-	    showHour: true,
-	    showMinute: true
+	    showClose: true
 	};
 	
 	exports["default"] = RangePicker;
@@ -85895,9 +85852,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-	
-	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+	function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -85909,11 +85864,11 @@
 	
 	function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 	
-	function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 	
 	function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+	
+	function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -85931,7 +85886,7 @@
 	
 	    _this = _possibleConstructorReturn(this, _getPrototypeOf(Rate).call(this, props));
 	
-	    _defineProperty(_assertThisInitialized(_this), "onHover", function (event, index) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onHover", function (event, index) {
 	      var onHoverChange = _this.props.onHoverChange;
 	
 	      var hoverValue = _this.getStarValue(index, event.pageX);
@@ -85948,7 +85903,7 @@
 	      onHoverChange(hoverValue);
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onMouseLeave", function () {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onMouseLeave", function () {
 	      var onHoverChange = _this.props.onHoverChange;
 	
 	      _this.setState({
@@ -85959,7 +85914,7 @@
 	      onHoverChange(undefined);
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onClick", function (event, index) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClick", function (event, index) {
 	      var allowClear = _this.props.allowClear;
 	      var value = _this.state.value;
 	
@@ -85980,7 +85935,7 @@
 	      });
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onFocus", function () {
 	      var onFocus = _this.props.onFocus;
 	
 	      _this.setState({
@@ -85992,7 +85947,7 @@
 	      }
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onBlur", function () {
 	      var onBlur = _this.props.onBlur;
 	
 	      _this.setState({
@@ -86004,7 +85959,7 @@
 	      }
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (event) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyDown", function (event) {
 	      var keyCode = event.keyCode;
 	      var _this$props = _this.props,
 	          count = _this$props.count,
@@ -86039,13 +85994,13 @@
 	      }
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "saveRef", function (index) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "saveRef", function (index) {
 	      return function (node) {
 	        _this.stars[index] = node;
 	      };
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "saveRate", function (node) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "saveRate", function (node) {
 	      _this.rate = node;
 	    });
 	
@@ -86113,7 +86068,7 @@
 	      var disabled = this.props.disabled;
 	
 	      if (!disabled) {
-	        this.rate.blur();
+	        this.rate.focus();
 	      }
 	    }
 	  }, {
@@ -86315,11 +86270,11 @@
 	
 	function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 	
-	function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 	
 	function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+	
+	function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -86341,21 +86296,21 @@
 	
 	    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Star)).call.apply(_getPrototypeOf2, [this].concat(args)));
 	
-	    _defineProperty(_assertThisInitialized(_this), "onHover", function (e) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onHover", function (e) {
 	      var _this$props = _this.props,
 	          onHover = _this$props.onHover,
 	          index = _this$props.index;
 	      onHover(e, index);
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onClick", function (e) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onClick", function (e) {
 	      var _this$props2 = _this.props,
 	          onClick = _this$props2.onClick,
 	          index = _this$props2.index;
 	      onClick(e, index);
 	    });
 	
-	    _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (e) {
+	    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyDown", function (e) {
 	      var _this$props3 = _this.props,
 	          onClick = _this$props3.onClick,
 	          index = _this$props3.index;
@@ -88879,10 +88834,6 @@
 	  };
 	
 	  Table.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	    var _props = this.props,
-	        rowDraggAble = _props.rowDraggAble,
-	        showRowNum = _props.showRowNum;
-	
 	    if ('data' in nextProps) {
 	      this.setState({
 	        data: nextProps.data
@@ -88894,22 +88845,17 @@
 	      });
 	    }
 	    if (nextProps.columns && nextProps.columns !== this.props.columns) {
-	      this.columnManager.reset(nextProps.columns, null, showRowNum, rowDraggAble); // 加入this.props.showRowNum参数
+	      this.columnManager.reset(nextProps.columns, null, this.props.showRowNum); // 加入this.props.showRowNum参数
 	      if (nextProps.columns.length !== this.props.columns.length && this.refs && this.bodyTable) {
 	        this.scrollTop = this.bodyTable.scrollTop;
 	      }
 	    } else if (nextProps.children !== this.props.children) {
-	      this.columnManager.reset(null, nextProps.children, showRowNum, rowDraggAble); // 加入this.props.showRowNum参数
+	      this.columnManager.reset(null, nextProps.children, this.props.showRowNum); // 加入this.props.showRowNum参数
 	    }
 	    //适配lazyload
 	    if (nextProps.scrollTop > -1) {
 	      // this.bodyTable.scrollTop = nextProps.scrollTop;
 	      this.scrollTop = nextProps.scrollTop;
-	    }
-	    // fix:模态框中使用table，计算的滚动条宽度为0的bug
-	    // fix:表格首次渲染时 display:none，再显示时，未重新计算，导致表行出现错位的bug
-	    if (this.scrollbarWidth <= 0 && this.props.scroll.y) {
-	      this.scrollbarWidth = (0, _utils.measureScrollbar)();
 	    }
 	    if (!nextProps.originWidth) {
 	      this.computeTableWidth();
@@ -88917,6 +88863,11 @@
 	    }
 	    if (nextProps.resetScroll) {
 	      this.resetScrollX();
+	    }
+	    // fix:模态框中使用table，计算的滚动条宽度为0的bug
+	    // fix:表格首次渲染时 display:none，再显示时，未重新计算，导致表行出现错位的bug
+	    if (this.scrollbarWidth <= 0 && this.props.scroll.y) {
+	      this.scrollbarWidth = (0, _utils.measureScrollbar)();
 	    }
 	
 	    // console.log('this.scrollTop**********',this.scrollTop);
@@ -89086,33 +89037,33 @@
 	
 	  Table.prototype.getHeader = function getHeader(columns, fixed, leftFixedWidth, rightFixedWidth) {
 	    var lastShowIndex = this.state.lastShowIndex;
-	    var _props2 = this.props,
-	        filterDelay = _props2.filterDelay,
-	        onFilterChange = _props2.onFilterChange,
-	        onFilterClear = _props2.onFilterClear,
-	        filterable = _props2.filterable,
-	        showHeader = _props2.showHeader,
-	        expandIconAsCell = _props2.expandIconAsCell,
-	        clsPrefix = _props2.clsPrefix,
-	        onDragStart = _props2.onDragStart,
-	        onDragEnter = _props2.onDragEnter,
-	        onDragOver = _props2.onDragOver,
-	        onDrop = _props2.onDrop,
-	        onDragEnd = _props2.onDragEnd,
-	        draggable = _props2.draggable,
-	        onMouseDown = _props2.onMouseDown,
-	        onMouseMove = _props2.onMouseMove,
-	        onMouseUp = _props2.onMouseUp,
-	        dragborder = _props2.dragborder,
-	        onThMouseMove = _props2.onThMouseMove,
-	        dragborderKey = _props2.dragborderKey,
-	        minColumnWidth = _props2.minColumnWidth,
-	        headerHeight = _props2.headerHeight,
-	        afterDragColWidth = _props2.afterDragColWidth,
-	        headerScroll = _props2.headerScroll,
-	        bordered = _props2.bordered,
-	        onDropBorder = _props2.onDropBorder,
-	        onDraggingBorder = _props2.onDraggingBorder;
+	    var _props = this.props,
+	        filterDelay = _props.filterDelay,
+	        onFilterChange = _props.onFilterChange,
+	        onFilterClear = _props.onFilterClear,
+	        filterable = _props.filterable,
+	        showHeader = _props.showHeader,
+	        expandIconAsCell = _props.expandIconAsCell,
+	        clsPrefix = _props.clsPrefix,
+	        onDragStart = _props.onDragStart,
+	        onDragEnter = _props.onDragEnter,
+	        onDragOver = _props.onDragOver,
+	        onDrop = _props.onDrop,
+	        onDragEnd = _props.onDragEnd,
+	        draggable = _props.draggable,
+	        onMouseDown = _props.onMouseDown,
+	        onMouseMove = _props.onMouseMove,
+	        onMouseUp = _props.onMouseUp,
+	        dragborder = _props.dragborder,
+	        onThMouseMove = _props.onThMouseMove,
+	        dragborderKey = _props.dragborderKey,
+	        minColumnWidth = _props.minColumnWidth,
+	        headerHeight = _props.headerHeight,
+	        afterDragColWidth = _props.afterDragColWidth,
+	        headerScroll = _props.headerScroll,
+	        bordered = _props.bordered,
+	        onDropBorder = _props.onDropBorder,
+	        onDraggingBorder = _props.onDraggingBorder;
 	
 	    this.columnsChildrenList = []; //复杂表头拖拽，重新render表头前，将其置空
 	    var rows = this.getHeaderRows(columns);
@@ -89190,7 +89141,7 @@
 	      } else if (width) {
 	        width = parseInt(width);
 	      }
-	      if (!column.fixed && lastShowIndex == i && width) {
+	      if (lastShowIndex == i && width) {
 	        width = width + contentWidthDiff;
 	      }
 	      var cell = {
@@ -89252,9 +89203,9 @@
 	  };
 	
 	  Table.prototype.getExpandedRow = function getExpandedRow(key, content, visible, className, fixed) {
-	    var _props3 = this.props,
-	        clsPrefix = _props3.clsPrefix,
-	        expandIconAsCell = _props3.expandIconAsCell;
+	    var _props2 = this.props,
+	        clsPrefix = _props2.clsPrefix,
+	        expandIconAsCell = _props2.expandIconAsCell;
 	
 	    var colCount = void 0;
 	    if (fixed === 'left') {
@@ -89374,10 +89325,8 @@
 	      var isHiddenExpandIcon = void 0;
 	      var record = data[i];
 	      var key = this.getRowKey(record, i);
-	      // 兼容 NCC 以前的业务逻辑，支持外部通过 record 中的 isleaf 字段，判断是否为叶子节点
-	      record['isLeaf'] = typeof record['isleaf'] === 'boolean' ? record['isleaf'] : record['isLeaf'];
 	      // isLeaf 字段是在 bigData 里添加的，只有层级树大数据场景需要该字段
-	      // isLeaf 有三种取值情况：true / false / null。（Table内部字段）
+	      // isLeaf 有三种取值情况：true / false / null
 	      var isLeaf = typeof record['isLeaf'] === 'boolean' ? record['isLeaf'] : null;
 	      var childrenColumn = isLeaf ? false : record[childrenColumnName];
 	      var isRowExpanded = this.isRowExpanded(record, i);
@@ -89583,19 +89532,19 @@
 	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	    var columns = options.columns,
 	        fixed = options.fixed;
+	    var _props3 = this.props,
+	        clsPrefix = _props3.clsPrefix,
+	        _props3$scroll = _props3.scroll,
+	        scroll = _props3$scroll === undefined ? {} : _props3$scroll,
+	        getBodyWrapper = _props3.getBodyWrapper,
+	        footerScroll = _props3.footerScroll,
+	        headerScroll = _props3.headerScroll,
+	        _props3$hideHeaderScr = _props3.hideHeaderScroll,
+	        hideHeaderScroll = _props3$hideHeaderScr === undefined ? false : _props3$hideHeaderScr,
+	        expandIconAsCell = _props3.expandIconAsCell;
 	    var _props4 = this.props,
-	        clsPrefix = _props4.clsPrefix,
-	        _props4$scroll = _props4.scroll,
-	        scroll = _props4$scroll === undefined ? {} : _props4$scroll,
-	        getBodyWrapper = _props4.getBodyWrapper,
-	        footerScroll = _props4.footerScroll,
-	        headerScroll = _props4.headerScroll,
-	        _props4$hideHeaderScr = _props4.hideHeaderScroll,
-	        hideHeaderScroll = _props4$hideHeaderScr === undefined ? false : _props4$hideHeaderScr,
-	        expandIconAsCell = _props4.expandIconAsCell;
-	    var _props5 = this.props,
-	        useFixedHeader = _props5.useFixedHeader,
-	        data = _props5.data;
+	        useFixedHeader = _props4.useFixedHeader,
+	        data = _props4.data;
 	
 	    var bodyStyle = _extends({}, this.props.bodyStyle); // 这里为什么不写在上面?
 	    var headStyle = {};
@@ -89787,9 +89736,9 @@
 	  };
 	
 	  Table.prototype.getTitle = function getTitle() {
-	    var _props6 = this.props,
-	        title = _props6.title,
-	        clsPrefix = _props6.clsPrefix;
+	    var _props5 = this.props,
+	        title = _props5.title,
+	        clsPrefix = _props5.clsPrefix;
 	
 	    return title ? _react2["default"].createElement(
 	      'div',
@@ -89799,9 +89748,9 @@
 	  };
 	
 	  Table.prototype.getFooter = function getFooter() {
-	    var _props7 = this.props,
-	        footer = _props7.footer,
-	        clsPrefix = _props7.clsPrefix;
+	    var _props6 = this.props,
+	        footer = _props6.footer,
+	        clsPrefix = _props6.clsPrefix;
 	
 	    return footer ? _react2["default"].createElement(
 	      'div',
@@ -89811,10 +89760,10 @@
 	  };
 	
 	  Table.prototype.getEmptyText = function getEmptyText() {
-	    var _props8 = this.props,
-	        defaultEmptyText = _props8.emptyText,
-	        clsPrefix = _props8.clsPrefix,
-	        data = _props8.data;
+	    var _props7 = this.props,
+	        defaultEmptyText = _props7.emptyText,
+	        clsPrefix = _props7.clsPrefix,
+	        data = _props7.data;
 	
 	    var locale = (0, _tool.getComponentLocale)(this.props, this.context, 'Table', function () {
 	      return _i18n2["default"];
@@ -89855,13 +89804,13 @@
 	
 	  Table.prototype.syncFixedTableRowHeight = function syncFixedTableRowHeight() {
 	    //this.props.height、headerHeight分别为用户传入的行高和表头高度，如果有值，所有行的高度都是固定的，主要为了避免在千行数据中有固定列时获取行高度有问题
-	    var _props9 = this.props,
-	        clsPrefix = _props9.clsPrefix,
-	        height = _props9.height,
-	        headerHeight = _props9.headerHeight,
-	        columns = _props9.columns,
-	        heightConsistent = _props9.heightConsistent,
-	        bodyDisplayInRow = _props9.bodyDisplayInRow;
+	    var _props8 = this.props,
+	        clsPrefix = _props8.clsPrefix,
+	        height = _props8.height,
+	        headerHeight = _props8.headerHeight,
+	        columns = _props8.columns,
+	        heightConsistent = _props8.heightConsistent,
+	        bodyDisplayInRow = _props8.bodyDisplayInRow;
 	
 	    var headRows = this.headTable ? this.headTable.querySelectorAll('thead') : this.bodyTable.querySelectorAll('thead');
 	    var expandedRows = this.bodyTable.querySelectorAll('.' + clsPrefix + '-expanded-row') || [];
@@ -89953,13 +89902,13 @@
 	
 	  Table.prototype.handleBodyScroll = function handleBodyScroll(e) {
 	    var headTable = this.headTable;
-	    var _props10 = this.props,
-	        _props10$scroll = _props10.scroll,
-	        scroll = _props10$scroll === undefined ? {} : _props10$scroll,
-	        clsPrefix = _props10.clsPrefix,
-	        handleScrollY = _props10.handleScrollY,
-	        handleScrollX = _props10.handleScrollX,
-	        onBodyScroll = _props10.onBodyScroll;
+	    var _props9 = this.props,
+	        _props9$scroll = _props9.scroll,
+	        scroll = _props9$scroll === undefined ? {} : _props9$scroll,
+	        clsPrefix = _props9.clsPrefix,
+	        handleScrollY = _props9.handleScrollY,
+	        handleScrollX = _props9.handleScrollX,
+	        onBodyScroll = _props9.onBodyScroll;
 	    var _refs = this.refs,
 	        fixedColumnsBodyLeft = _refs.fixedColumnsBodyLeft,
 	        fixedColumnsBodyRight = _refs.fixedColumnsBodyRight;
@@ -90016,10 +89965,10 @@
 	
 	  Table.prototype.handleRowHover = function handleRowHover(isHover, key, event, currentIndex, propsRecord) {
 	    //增加新的API，设置是否同步Hover状态，提高性能，避免无关的渲染
-	    var _props11 = this.props,
-	        syncHover = _props11.syncHover,
-	        onRowHover = _props11.onRowHover,
-	        data = _props11.data;
+	    var _props10 = this.props,
+	        syncHover = _props10.syncHover,
+	        onRowHover = _props10.onRowHover,
+	        data = _props10.data;
 	    //fix:树形表，onRowHover返回参数异常
 	
 	    var isTreeType = this.isTreeType;
@@ -90782,8 +90731,7 @@
 	          expandIcon
 	        ));
 	      }
-	      // bugfix 设置expandRowByClick，无法显示箭头，去掉 expandRowByClick 判断
-	      var isColumnHaveExpandIcon = expandIconAsCell || showSum ? false : i === expandIndexInThisTable;
+	      var isColumnHaveExpandIcon = expandIconAsCell || expandRowByClick || showSum ? false : i === expandIndexInThisTable;
 	      cells.push(_react2["default"].createElement(_TableCell2["default"], {
 	        clsPrefix: clsPrefix,
 	        record: record,
@@ -95578,7 +95526,7 @@
 	    _this.drag = {
 	      option: ''
 	    };
-	    _this.minWidth = parseInt(props.minColumnWidth);
+	    _this.minWidth = 80; //确定最小宽度就是80
 	    _this.table = null;
 	    _this._thead = null; //当前对象
 	    _this.event = false; //避免多次绑定问题
@@ -96016,7 +95964,7 @@
 	              da.onClick ? thDefaultObj.onClick = function (e) {
 	                da.onClick(da, e);
 	              } : "";
-	              return _react2["default"].createElement("th", _extends({}, thDefaultObj, keyTemp, { "data-th-fixed": da.fixed, style: { maxWidth: da.width } }));
+	              return _react2["default"].createElement("th", _extends({}, thDefaultObj, keyTemp, { "data-th-fixed": da.fixed }));
 	            }
 	          })
 	        );
@@ -96064,7 +96012,7 @@
 	    var type = currentElement.getAttribute('data-type');
 	    if (!_this7.props.dragborder && !_this7.props.draggable) return;
 	    if (type == 'online' && _this7.props.dragborder) {
-	      // if(!this.props.dragborder)return;
+	      if (!_this7.props.dragborder) return;
 	      targetEvent.setAttribute('draggable', false); //添加交换列效果
 	      var currentIndex = -1;
 	      var defaultWidth = currentElement.getAttribute("data-th-width");
@@ -96209,9 +96157,7 @@
 	  this.onTrMouseUp = function (e) {
 	    var event = _utils.Event.getEvent(e);
 	    var width = _this7.drag.newWidth;
-	    var opt = _this7.drag.option;
 	    _this7.mouseClear();
-	    if (opt !== "border") return; // fix:点击表头会触发onDropBorder事件的问题
 	    _this7.props.onDropBorder && _this7.props.onDropBorder(event, width);
 	  };
 	
@@ -97134,8 +97080,7 @@
 	    locale: _propTypes2["default"].object,
 	    toNumber: _propTypes2["default"].bool, //回调函数内的值是否转换为数值类型
 	    displayCheckPrompt: _propTypes2["default"].bool, //是否显示超出限制范围之后的检验提示
-	    minusRight: _propTypes2["default"].bool, //负号是否在右边
-	    handleBtnClick: _propTypes2["default"].func //加减按钮点击回调
+	    minusRight: _propTypes2["default"].bool //负号是否在右边
 	};
 	
 	var defaultProps = {
@@ -97147,8 +97092,7 @@
 	    delay: 300,
 	    toNumber: false,
 	    displayCheckPrompt: false,
-	    locale: {},
-	    handleBtnClick: function handleBtnClick() {}
+	    locale: {}
 	};
 	
 	//校验提示
@@ -97186,6 +97130,11 @@
 	    return result;
 	}
 	
+	function unThousands(number) {
+	    number = (number || 0).toString();
+	    return number.replace(/\,/g, '');
+	}
+	
 	function setCaretPosition(ctrl, pos, need) {
 	
 	    if (ctrl && need) {
@@ -97216,6 +97165,7 @@
 	        _initialiseProps.call(_this);
 	
 	        var data = _this.judgeValue(props);
+	
 	        _this.state = {
 	            value: data.value,
 	            minusDisabled: data.minusDisabled,
@@ -97228,14 +97178,6 @@
 	        _this.selectionStart = 0;
 	        return _this;
 	    }
-	
-	    // unThousands = (number) =>{
-	    //     if(!number || number === "")return number;
-	    //     number = number.toString();
-	    //     return number.replace(new RegExp(this.props.formatSymbol,'g'),'');
-	    //     // return number.replace(/\,/g,'');
-	    // }
-	
 	    /**
 	     * 校验value
 	     * @param {*} props 
@@ -97298,7 +97240,6 @@
 	
 	        var _props = this.props,
 	            toThousands = _props.toThousands,
-	            minusRight = _props.minusRight,
 	            max = _props.max,
 	            min = _props.min,
 	            step = _props.step,
@@ -97314,7 +97255,7 @@
 	            format = _props.format,
 	            precision = _props.precision,
 	            toNumber = _props.toNumber,
-	            others = _objectWithoutProperties(_props, ['toThousands', 'minusRight', 'max', 'min', 'step', 'disabled', 'clsPrefix', 'className', 'delay', 'onBlur', 'onFocus', 'iconStyle', 'autoWidth', 'onChange', 'format', 'precision', 'toNumber']);
+	            others = _objectWithoutProperties(_props, ['toThousands', 'max', 'min', 'step', 'disabled', 'clsPrefix', 'className', 'delay', 'onBlur', 'onFocus', 'iconStyle', 'autoWidth', 'onChange', 'format', 'precision', 'toNumber']);
 	
 	        var classes = (_classes = {}, _defineProperty(_classes, clsPrefix + '-auto', autoWidth), _defineProperty(_classes, '' + clsPrefix, true), _defineProperty(_classes, clsPrefix + '-lg', others.size === "lg"), _defineProperty(_classes, clsPrefix + '-sm', others.size === "sm"), _classes);
 	
@@ -97324,11 +97265,9 @@
 	            plusDisabled = _state.plusDisabled,
 	            showValue = _state.showValue;
 	
-	        value = precision != null && !this.focus ? this.getPrecision(value) : value;
-	        value = format && !this.focus ? format(value) : value;
-	        if (minusRight && String(value).indexOf('-') != -1) {
-	            value = String(value).replace("-", "") + "-";
-	        }
+	
+	        value = format ? format(value) : value;
+	
 	        var disabledCursor = disabled ? ' disabled-cursor' : '';
 	        var disabledCon = disabled ? ' disabled-con' : '';
 	        return _react2["default"].createElement(
@@ -97340,9 +97279,6 @@
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
-	                        onClick: function onClick() {
-	                            minusDisabled ? '' : _this2.handleBtnClick('down');
-	                        },
 	                        className: (minusDisabled && 'disabled') + disabledCursor,
 	                        onMouseDown: this.handleReduceMouseDown,
 	                        onMouseLeave: this.clear,
@@ -97362,9 +97298,6 @@
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
-	                        onClick: function onClick() {
-	                            plusDisabled ? '' : _this2.handleBtnClick('up');
-	                        },
 	                        className: (plusDisabled && 'disabled') + disabledCursor,
 	                        onMouseDown: this.handlePlusMouseDown,
 	                        onMouseLeave: this.clear,
@@ -97396,9 +97329,6 @@
 	                        _react2["default"].createElement(
 	                            'span',
 	                            {
-	                                onClick: function onClick() {
-	                                    plusDisabled ? '' : _this2.handleBtnClick('up');
-	                                },
 	                                onMouseDown: this.handlePlusMouseDown,
 	                                onMouseLeave: this.clear,
 	                                onMouseUp: this.clear,
@@ -97408,9 +97338,6 @@
 	                        _react2["default"].createElement(
 	                            'span',
 	                            {
-	                                onClick: function onClick() {
-	                                    minusDisabled ? '' : _this2.handleBtnClick('down');
-	                                },
 	                                onMouseDown: this.handleReduceMouseDown,
 	                                onMouseLeave: this.clear,
 	                                onMouseUp: this.clear,
@@ -97460,24 +97387,23 @@
 	            } else {
 	                currentValue = Number(value) || 0;
 	            }
-	        } //lse if (min&&(value!='')) {//mdd中提出bug
-	        //currentValue = min;
-	        //} 
-	        else if (value === '0' || value === 0) {
-	                currentValue = 0;
+	        } else if (min && value != '') {
+	            currentValue = min;
+	        } else if (value === '0' || value === 0) {
+	            currentValue = 0;
+	        } else {
+	            //NaN
+	            if (oldValue || oldValue === 0 || oldValue === '0') {
+	                currentValue = oldValue;
 	            } else {
-	                //NaN
-	                if (oldValue || oldValue === 0 || oldValue === '0') {
-	                    currentValue = oldValue;
-	                } else {
-	                    //value为空
-	                    return {
-	                        value: '',
-	                        minusDisabled: false,
-	                        plusDisabled: false
-	                    };
-	                }
+	                //value为空
+	                return {
+	                    value: '',
+	                    minusDisabled: false,
+	                    plusDisabled: false
+	                };
 	            }
+	        }
 	        if (currentValue == -Infinity) {
 	            return {
 	                value: min,
@@ -97507,8 +97433,7 @@
 	        }
 	
 	        if (props.hasOwnProperty('precision')) {
-	            // currentValue = Number(currentValue).toFixed(precision);
-	            currentValue = _this3.getPrecision(currentValue);
+	            currentValue = Number(currentValue).toFixed(precision);
 	        }
 	        if (props.minusRight) {
 	            currentValue = currentValue.toString();
@@ -97542,17 +97467,11 @@
 	            });
 	            return;
 	        }
-	        // value = this.unThousands(value);
+	        value = unThousands(value);
 	        if (minusRight) {
 	            if (value.match(/-/g) && value.match(/-/g).length > 1) return;
 	        } else {
 	            if (isNaN(value) && value !== '.' && value !== '-') return;
-	        }
-	        if (value.indexOf(".") !== -1) {
-	            //小数最大值处理
-	            var prec = String(value.split(".")[1]).replace("-", "");
-	            if (_this3.props.precision && prec.length > _this3.props.precision) return;
-	            if (prec.length > 8) return;
 	        }
 	        _this3.setState({
 	            value: value,
@@ -97596,7 +97515,7 @@
 	            min = _props3.min,
 	            max = _props3.max;
 	
-	        onFocus && onFocus(_this3.getPrecision(_this3.state.value), e);
+	        onFocus && onFocus(value, e);
 	    };
 	
 	    this.handleBlur = function (v, e) {
@@ -97614,8 +97533,7 @@
 	        var local = (0, _tool.getComponentLocale)(_this3.props, _this3.context, 'InputNumber', function () {
 	            return _i18n2["default"];
 	        });
-	        v = _this3.state.value; //在onBlur的时候不需要活输入框的只，而是要获取state中的值，因为有format的时候就会有问题。
-	        if (v === '' || !v) {
+	        if (v === '') {
 	            _this3.setState({
 	                value: v
 	            });
@@ -97623,8 +97541,7 @@
 	            onBlur && onBlur(v, e);
 	            return;
 	        }
-	        // let value = this.unThousands(v);
-	        var value = v;
+	        var value = unThousands(v);
 	        if (minusRight) {
 	            if (value.indexOf('-') != -1) {
 	                //所有位置的负号转到前边
@@ -97632,6 +97549,7 @@
 	                value = '-' + value;
 	            }
 	        }
+	
 	        value = isNaN(Number(value)) ? 0 : Number(value);
 	        if (value > max) {
 	            if (displayCheckPrompt) prompt(local['msgMax']);
@@ -97642,8 +97560,7 @@
 	            value = min;
 	        }
 	        if (_this3.props.hasOwnProperty('precision')) {
-	            // value = value.toFixed(precision);
-	            value = _this3.getPrecision(value);
+	            value = value.toFixed(precision);
 	        }
 	        value = value.toString();
 	        if (minusRight && value.indexOf('-') != -1) {
@@ -97657,8 +97574,8 @@
 	        });
 	        _this3.detailDisable(value);
 	        if (toNumber && !minusRight) {
-	            onChange && onChange(value);
-	            onBlur && onBlur(value, e);
+	            onChange && onChange(Number(value));
+	            onBlur && onBlur(Number(value), e);
 	        } else {
 	            onChange && onChange(value);
 	            onBlur && onBlur(value, e);
@@ -97802,9 +97719,10 @@
 	        var _props8 = _this3.props,
 	            delay = _props8.delay,
 	            disabled = _props8.disabled;
-	        var value = _this3.state.value;
 	
 	        if (disabled) return;
+	        var value = _this3.state.value;
+	
 	        _this3.plus(value);
 	        _this3.clear();
 	        _this3.timer = setTimeout(function () {
@@ -97817,35 +97735,15 @@
 	        var _props9 = _this3.props,
 	            delay = _props9.delay,
 	            disabled = _props9.disabled;
-	        var value = _this3.state.value;
 	
 	        if (disabled) return;
+	        var value = _this3.state.value;
+	
 	        _this3.minus(value);
 	        _this3.clear();
 	        _this3.timer = setTimeout(function () {
 	            _this3.handleReduceMouseDown();
 	        }, delay);
-	    };
-	
-	    this.getPrecision = function (value) {
-	        if (!value && value === "") return value;
-	        value = String(value);
-	        var precision = _this3.props.precision;
-	
-	        if (precision == undefined || value.indexOf(".") !== -1 && String(value.split(".")[1]).length === precision) {
-	            return value;
-	        }
-	        var before = value.substring(0, 1),
-	            len = value.length,
-	            after = value.substring(len - 1, len);
-	        before = before === "-" ? before : "";
-	        after = after === "-" ? after : "";
-	        value = value.replace("-", '');
-	        return before + Number(value).toFixed(precision) + after;
-	    };
-	
-	    this.handleBtnClick = function (type) {
-	        _this3.props.handleBtnClick(type, _this3.state.value);
 	    };
 	};
 	
@@ -98622,8 +98520,7 @@
 	    return element && (element.type === _Column2["default"] || element.type === _ColumnGroup2["default"]);
 	  };
 	
-	  ColumnManager.prototype.reset = function reset(columns, elements, showRowNum, rowDraggAble) {
-	    columns = this.addDragHandleColumn(columns, rowDraggAble);
+	  ColumnManager.prototype.reset = function reset(columns, elements, showRowNum) {
 	    columns = this.addOrderColumn(columns, showRowNum);
 	    columns = this.deleteColumnNotShow(columns);
 	    this.columns = columns || this.normalize(elements);
