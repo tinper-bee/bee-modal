@@ -220,3 +220,68 @@ $modal-footer-padding : 16px;
 
 
 .react-draggable-transparent-selection * { pointer-events: none !important;}
+
+
+.ac-confirm{
+  .u-modal-dialog{
+      width: 410px;
+      height: 201px;
+      .ac-confirm-footer{
+          height: 44px;
+          padding: 7px 20px;
+          border-top:	#d0d0d0 solid 1px;
+          .u-button{
+            min-width: auto;
+          }
+          .u-button.u-button-primary{
+            margin-right: 6px;
+          }
+          .u-button-border:hover{
+            color: $button-primary-color;
+            border-color: $button-primary-color;
+            background: #fff;
+          }
+      }
+  }
+  .u-modal-content .ac-confirm-header.u-modal-header{
+      background-color: #f3f3f3;
+      padding: 10px 20px;
+      height: 40px;
+      .ac-confirm-header-title{
+          color: #111111;
+          font-size: 14px;
+          font-weight: 700;
+      }
+      .u-close.dnd-cancel{
+          display: none;
+      }
+  }
+  .ac-confirm-body.u-modal-body{
+      padding: 16px 33px;
+      min-height: 124px;
+      .ac-confirm-body-title{
+          display: block;
+          
+          .ac-confirm-body-title-icon{
+              color: rgba(255, 191, 0, 1);
+              font-size: 25px;
+              vertical-align: sub;
+          }
+
+          .ac-confirm-body-title-keyword{
+              font-size: 18px;
+              color: #111111;
+              display: inline-block;
+              margin-left: 15px;
+          }
+      }
+      .ac-confirm-body-content{
+          display: block;
+          font-size: 13px;
+          color: #555555;
+          margin: 8px 48px;
+
+      }
+  }
+  
+}

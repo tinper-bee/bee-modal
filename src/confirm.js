@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import Modal,{ destroyFns } from './Modal';
 import Button from 'bee-button';
+import ConfirmModal from './ConfirmModal'
 import Icon from 'bee-icon';
 
 const IS_REACT_16 = !!ReactDOM.createPortal;
@@ -147,7 +148,7 @@ export default function confirm(config) {
     }
   
     function render(props) {
-      ReactDOM.render(<ConfirmDialog {...props} />, div);
+      ReactDOM.render(props.confirmType=='one'?<ConfirmDialog {...props} />:<ConfirmModal {...props}/>, div);
     }
   
     render(currentConfig);

@@ -48,10 +48,21 @@ Modal.confirm = function(props) {
     const config = {
         type: 'confirm',
         okCancel: true,
+        confirmType:'one',
         ...props,
     };
     return confirm(config);
 };
+
+// onOk: ()=>{
+//     console.log('onOk')
+// },
+// onCancel:()=>{
+//     console.log('onCancel')
+// },
+// title:'提示信息',
+// keyword:'删除',
+// content:"确定要删除吗?",
 
 Modal.destroyAll = function() {
     while (destroyFns.length) {

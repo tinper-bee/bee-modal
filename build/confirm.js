@@ -28,6 +28,10 @@ var _beeButton = require('bee-button');
 
 var _beeButton2 = _interopRequireDefault(_beeButton);
 
+var _ConfirmModal = require('./ConfirmModal');
+
+var _ConfirmModal2 = _interopRequireDefault(_ConfirmModal);
+
 var _beeIcon = require('bee-icon');
 
 var _beeIcon2 = _interopRequireDefault(_beeIcon);
@@ -222,7 +226,7 @@ function confirm(config) {
   }
 
   function render(props) {
-    _reactDom2["default"].render(_react2["default"].createElement(ConfirmDialog, props), div);
+    _reactDom2["default"].render(props.confirmType == 'one' ? _react2["default"].createElement(ConfirmDialog, props) : _react2["default"].createElement(_ConfirmModal2["default"], props), div);
   }
 
   render(currentConfig);
