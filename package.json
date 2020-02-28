@@ -45,7 +45,7 @@
   "dom-helpers": "3.0.0",
   "re-resizable": "^4.11.0",
   "tinper-bee-core": "latest",
-  "bee-button": "latest",
+  "bee-button": "latest"
  },
  "peerDependencies": {
   "react": "^15.3.0 || ^16.0",
