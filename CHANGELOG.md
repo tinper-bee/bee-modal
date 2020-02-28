@@ -1,3 +1,13 @@
+<a name="2.1.9"></a>
+## [2.1.9](https://github.com/tinper-bee/bee-modal/compare/v2.1.8...v2.1.9) (2020-02-28)
+
+
+### Bug Fixes
+
+* content高度自由伸缩 ([1ca1928](https://github.com/tinper-bee/bee-modal/commit/1ca1928))
+
+
+
 <a name="2.1.8"></a>
 ## [2.1.8](https://github.com/tinper-bee/bee-modal/compare/v2.1.7...v2.1.8) (2020-02-21)
 
