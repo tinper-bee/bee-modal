@@ -1,3 +1,13 @@
+<a name="2.1.10"></a>
+## [2.1.10](https://github.com/tinper-bee/bee-modal/compare/v2.1.9...v2.1.10) (2020-03-03)
+
+
+### Features
+
+* **bee-modal:** confirm2样式修改 ([f0a0001](https://github.com/tinper-bee/bee-modal/commit/f0a0001))
+
+
+
 <a name="2.1.9"></a>
 ## [2.1.9](https://github.com/tinper-bee/bee-modal/compare/v2.1.8...v2.1.9) (2020-02-28)
 
