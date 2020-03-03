@@ -237,11 +237,25 @@ $modal-footer-padding : 16px;
             min-width: auto;
           }
           .u-button.u-button-primary{
-            margin-right: 6px;
+            margin-right: 8px;
+            background-color: #e14c46;
+            color: #fff;
+            border: 1px solid #f53c32;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+          }
+          .u-button.u-button-primary:hover{
+            background-color: #d7332c;
+            color: #fff;
+          }
+          .u-button-border{
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+            border-color: #d0d0d0;
+            color: #111;
+            background-color: #fff;
           }
           .u-button-border:hover{
-            color: $button-primary-color;
-            border-color: $button-primary-color;
+            color: #e14c46;
+            border-color: #e14c46;
             background: #fff;
           }
       }

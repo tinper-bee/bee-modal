@@ -1175,10 +1175,22 @@
     .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button {
       min-width: auto; }
     .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button.u-button-primary {
-      margin-right: 6px; }
+      margin-right: 8px;
+      background-color: #e14c46;
+      color: #fff;
+      border: 1px solid #f53c32;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2); }
+    .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button.u-button-primary:hover {
+      background-color: #d7332c;
+      color: #fff; }
+    .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button-border {
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+      border-color: #d0d0d0;
+      color: #111;
+      background-color: #fff; }
     .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button-border:hover {
-      color: rgb(245, 60, 50);
-      border-color: rgb(245, 60, 50);
+      color: #e14c46;
+      border-color: #e14c46;
       background: #fff; }
 
 .ac-confirm .u-modal-content .ac-confirm-header.u-modal-header {
