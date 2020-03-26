@@ -38456,7 +38456,11 @@
 	        width: width,
 	        className: classString,
 	        show: show,
-	        onHide: close,
+	        onHide: function onHide() {
+	          close();onCancel ? onCancel() : function () {
+	            return;
+	          };
+	        },
 	        backdrop: backdrop,
 	        backdropClosable: backdropClosable,
 	        centered: centered,
@@ -86887,6 +86891,8 @@
 	
 	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -86935,9 +86941,26 @@
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.call(this, props, context));
 	
+	    _this.handleFocus = function (e) {
+	      if (e.target && e.target.type == 'radio') {
+	        _this.setState({
+	          focused: true
+	        });
+	      }
+	    };
+	
+	    _this.handleBlur = function (e) {
+	      if (e.target && e.target.type == 'radio') {
+	        _this.setState({
+	          focused: false
+	        });
+	      }
+	    };
+	
 	    var initChecked = typeof props.checked !== 'undefined' ? props.checked : props.defaultChecked;
 	    _this.state = {
-	      checked: initChecked
+	      checked: initChecked,
+	      focused: false
 	    };
 	    _this.handleClick = _this.handleClick.bind(_this);
 	
@@ -86959,6 +86982,8 @@
 	  };
 	
 	  Radio.prototype.render = function render() {
+	    var _classes;
+	
 	    var state = this.state,
 	        props = this.props,
 	        context = this.context;
@@ -87000,10 +87025,7 @@
 	      optional.checked = this.props.value === selectedValue;
 	    }
 	
-	    var classes = {
-	      'is-checked': typeof optional.checked !== 'undefined' ? optional.checked : checked,
-	      disabled: disabled
-	    };
+	    var classes = (_classes = {}, _defineProperty(_classes, clsPrefix + '-focused', this.state.focused), _defineProperty(_classes, 'is-checked', typeof optional.checked !== 'undefined' ? optional.checked : checked), _defineProperty(_classes, 'disabled', disabled), _classes);
 	
 	    if (colors) {
 	      classes[clsPrefix + '-' + colors] = true;
@@ -87026,7 +87048,9 @@
 	      type: 'radio',
 	      name: name,
 	      disabled: this.props.disabled,
-	      tabIndex: tabIndex
+	      tabIndex: tabIndex,
+	      onFocus: this.handleFocus,
+	      onBlur: this.handleBlur
 	    }));
 	    return _react2["default"].createElement(
 	      'label',
@@ -89552,11 +89576,11 @@
 	      var record = data[i];
 	      var key = this.getRowKey(record, i);
 	      // 兼容 NCC 以前的业务逻辑，支持外部通过 record 中的 isleaf 字段，判断是否为叶子节点
-	      record['isLeaf'] = typeof record['isleaf'] === 'boolean' ? record['isleaf'] : record['isLeaf'];
-	      // isLeaf 字段是在 bigData 里添加的，只有层级树大数据场景需要该字段
-	      // isLeaf 有三种取值情况：true / false / null。（Table内部字段）
-	      var isLeaf = typeof record['isLeaf'] === 'boolean' ? record['isLeaf'] : null;
-	      var childrenColumn = isLeaf ? false : record[childrenColumnName];
+	      record['_isLeaf'] = typeof record['isleaf'] === 'boolean' ? record['isleaf'] : record['_isLeaf'];
+	      // _isLeaf 字段是在 bigData 里添加的，只有层级树大数据场景需要该字段
+	      // _isLeaf 有三种取值情况：true / false / null。（Table内部字段）
+	      var _isLeaf = typeof record['_isLeaf'] === 'boolean' ? record['_isLeaf'] : null;
+	      var childrenColumn = _isLeaf ? false : record[childrenColumnName];
 	      var isRowExpanded = this.isRowExpanded(record, i);
 	      var expandedRowContent = void 0;
 	      var expandedContentHeight = 0;
@@ -89621,7 +89645,7 @@
 	        visible: visible,
 	        expandRowByClick: expandRowByClick,
 	        onExpand: this.onExpanded,
-	        expandable: expandedRowRender || (childrenColumn && childrenColumn.length > 0 ? true : isLeaf === false),
+	        expandable: expandedRowRender || (childrenColumn && childrenColumn.length > 0 ? true : _isLeaf === false),
 	        expanded: isRowExpanded,
 	        clsPrefix: props.clsPrefix + '-row',
 	        childrenColumnName: childrenColumnName,
@@ -91390,13 +91414,13 @@
 	        var key = node.key,
 	            title = node.title,
 	            children = node.children,
-	            isLeaf = node.isLeaf,
-	            otherProps = _objectWithoutProperties(node, ['key', 'title', 'children', 'isLeaf']);
+	            _isLeaf = node._isLeaf,
+	            otherProps = _objectWithoutProperties(node, ['key', 'title', 'children', '_isLeaf']);
 	
 	        var obj = {
 	          key: key,
 	          title: title,
-	          isLeaf: isLeaf,
+	          _isLeaf: _isLeaf,
 	          children: []
 	        };
 	        tree.push(_extends(obj, _extends({}, otherProps)));
@@ -91416,7 +91440,7 @@
 	
 	      var obj = {
 	        key: item[attr.id],
-	        isLeaf: item[attr.isLeaf],
+	        _isLeaf: item[attr._isLeaf],
 	        children: []
 	      };
 	      tree.push(_extends(obj, _extends({}, otherProps)));
@@ -91442,7 +91466,7 @@
 	
 	            var _obj = {
 	              key: _item[attr.id],
-	              isLeaf: _item[attr.isLeaf],
+	              _isLeaf: _item[attr._isLeaf],
 	              children: []
 	            };
 	            treeArrs[_i].children.push(_extends(_obj, _extends({}, _otherProps)));
@@ -91942,19 +91966,22 @@
 	      className += ' u-table-inline-icon';
 	    }
 	    return _react2["default"].createElement(
-	      'td',
-	      {
-	        colSpan: colSpan,
-	        rowSpan: rowSpan,
-	        className: className,
-	        onClick: this.handleClick,
-	        title: title,
-	        style: _extends({ maxWidth: column.width, color: fontColor, backgroundColor: bgColor }, column.style)
-	      },
-	      indentText,
-	      expandIcon,
-	      text,
-	      colMenu
+	      _react.Fragment,
+	      null,
+	      colSpan == 0 ? null : _react2["default"].createElement(
+	        'td',
+	        {
+	          colSpan: colSpan,
+	          rowSpan: rowSpan,
+	          className: className,
+	          onClick: this.handleClick,
+	          title: title,
+	          style: _extends({ maxWidth: column.width, color: fontColor, backgroundColor: bgColor }, column.style) },
+	        indentText,
+	        expandIcon,
+	        text,
+	        colMenu
+	      )
 	    );
 	  };
 	
@@ -92291,20 +92318,20 @@
 	    "bool_true": "是",
 	    "bool_false": "否",
 	    'en-us': {
-	        'resetSettings': 'reset settings',
-	        'include': 'include',
-	        'exclusive': 'exclusive',
-	        'equal': 'equal',
-	        'unequal': 'unequal',
-	        'begin': 'begin',
-	        'end': 'end',
-	        'greater_than': 'greater than',
-	        'great_than_equal_to': 'great than equal to',
-	        'less_than': 'less than',
-	        'less_than_equal_to': 'less than equal to',
-	        'be_equal_to': 'be equal to',
-	        'not_equal_to': 'not equal to',
-	        "no_data": 'no data',
+	        'resetSettings': 'Reset',
+	        'include': 'Include',
+	        'exclusive': 'Not include',
+	        'equal': 'Equal to',
+	        'unequal': 'Not equal to',
+	        'begin': 'Begin with',
+	        'end': 'End with',
+	        'greater_than': 'Greater than',
+	        'great_than_equal_to': 'Greater than or equal to',
+	        'less_than': 'Less than',
+	        'less_than_equal_to': 'Less than or equal to',
+	        'be_equal_to': 'Equal to',
+	        'not_equal_to': 'Not equal to',
+	        "no_data": 'No data',
 	        "bool_true": "true",
 	        "bool_false": "false"
 	    },
@@ -95764,6 +95791,27 @@
 	    return _this;
 	  }
 	
+	  TableHeader.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	    var _this2 = this;
+	
+	    // 表格column改变时，要重新绑定拖拽事件，否则拖拽不生效
+	    var oldCols = this.props.columnsChildrenList;
+	    var newCols = nextProps.columnsChildrenList;
+	
+	    if (this._thead) {
+	      if (newCols.length !== oldCols.length) {
+	        this.event = false;
+	        return;
+	      }
+	      oldCols.some(function (item, index) {
+	        if (newCols[index] && newCols[index].dataIndex !== item.dataIndex) {
+	          _this2.event = false;
+	          return true;
+	        }
+	      });
+	    }
+	  };
+	
 	  TableHeader.prototype.componentDidUpdate = function componentDidUpdate() {
 	    this.initTable();
 	    this.initEvent();
@@ -95777,7 +95825,7 @@
 	  };
 	
 	  TableHeader.prototype.componentWillUnmount = function componentWillUnmount() {
-	    var _this2 = this;
+	    var _this3 = this;
 	
 	    this.fixedTable = null;
 	    if (!this.table) return;
@@ -95788,7 +95836,7 @@
 	      this.removeDragBorderEvent();
 	    }
 	    this.doEventList(this.table.tr, function (tr) {
-	      _this2.eventListen([{ key: 'mousedown', fun: _this2.onTrMouseDown }], 'remove', tr);
+	      _this3.eventListen([{ key: 'mousedown', fun: _this3.onTrMouseDown }], 'remove', tr);
 	    });
 	    // this.eventListen([{key:'mousedown',fun:this.onTrMouseDown}],'remove',this.table.tr[0]);
 	    this.eventListen([{ key: 'mouseup', fun: this.bodyonLineMouseUp }], 'remove', document.body);
@@ -95845,7 +95893,7 @@
 	
 	
 	  TableHeader.prototype.initEvent = function initEvent() {
-	    var _this3 = this;
+	    var _this4 = this;
 	
 	    var _props = this.props,
 	        dragborder = _props.dragborder,
@@ -95868,7 +95916,7 @@
 	      if (this.table && this.table.tr) {
 	        // this.eventListen([{key:'mousedown',fun:this.onTrMouseDown}],'',this.table.tr[0]);//body mouseup
 	        this.doEventList(this.table.tr, function (tr) {
-	          _this3.eventListen([{ key: 'mousedown', fun: _this3.onTrMouseDown }], '', tr); //body mouseup
+	          _this4.eventListen([{ key: 'mousedown', fun: _this4.onTrMouseDown }], '', tr); //body mouseup
 	        });
 	      }
 	      this.eventListen([{ key: 'mouseup', fun: this.bodyonLineMouseUp }], '', document.body); //body mouseup
@@ -95887,12 +95935,12 @@
 	
 	
 	  TableHeader.prototype.dragBorderEventInit = function dragBorderEventInit() {
-	    var _this4 = this;
+	    var _this5 = this;
 	
 	    if (!this.props.dragborder) return;
 	    var events = [{ key: 'mouseup', fun: this.onTrMouseUp }, { key: 'mousemove', fun: this.onTrMouseMove }];
 	    this.doEventList(this.table.tr, function (tr) {
-	      _this4.eventListen(events, '', tr); //表示把事件添加到th元素上
+	      _this5.eventListen(events, '', tr); //表示把事件添加到th元素上
 	    });
 	    // this.eventListen(events,'',this.table.tr[0]);//表示把事件添加到th元素上
 	  };
@@ -95903,12 +95951,12 @@
 	
 	
 	  TableHeader.prototype.removeDragBorderEvent = function removeDragBorderEvent() {
-	    var _this5 = this;
+	    var _this6 = this;
 	
 	    var events = [{ key: 'mouseup', fun: this.onTrMouseUp }, { key: 'mousemove', fun: this.onTrMouseMove }];
 	    // this.eventListen(events,'remove',this.table.tr[0]);
 	    this.doEventList(this.table.tr, function (tr) {
-	      _this5.eventListen(events, 'remove', _this5.table.tr);
+	      _this6.eventListen(events, 'remove', _this6.table.tr);
 	    });
 	  };
 	
@@ -96088,7 +96136,7 @@
 	
 	
 	  TableHeader.prototype.render = function render() {
-	    var _this6 = this;
+	    var _this7 = this;
 	
 	    var _props2 = this.props,
 	        clsPrefix = _props2.clsPrefix,
@@ -96106,7 +96154,7 @@
 	    return _react2["default"].createElement(
 	      "thead",
 	      _extends({ className: clsPrefix + "-thead" }, attr, { "data-theader-fixed": "scroll", ref: function ref(_thead) {
-	          return _this6._thead = _thead;
+	          return _this7._thead = _thead;
 	        } }),
 	      rows.map(function (row, index) {
 	        var _rowLeng = row.length - 1;
@@ -96152,7 +96200,7 @@
 	
 	            // }
 	            if (filterable && index == rows.length - 1) {
-	              da.children = _this6.filterRenderType(da["filtertype"], da.dataindex, columIndex);
+	              da.children = _this7.filterRenderType(da["filtertype"], da.dataindex, columIndex);
 	              if (da.key === undefined) {
 	                keyTemp.key = keyTemp.key + '-filterable';
 	              }
@@ -96179,7 +96227,7 @@
 	                dragborder && lastObj && da.key != lastObj.key ? _react2["default"].createElement(
 	                  "div",
 	                  { ref: function ref(el) {
-	                      return _this6.gap = el;
+	                      return _this7.gap = el;
 	                    }, "data-line-key": da.key,
 	                    "data-line-index": columIndex, "data-th-width": da.width,
 	                    "data-type": "online", className: clsPrefix + "-thead-th-drag-gap" },
@@ -96209,7 +96257,7 @@
 	};
 	
 	var _initialiseProps = function _initialiseProps() {
-	  var _this7 = this;
+	  var _this8 = this;
 	
 	  this.getOnLineObject = function (_element) {
 	    var type = _element.getAttribute('data-type'),
@@ -96229,23 +96277,23 @@
 	    _utils.Event.stopPropagation(e);
 	    var event = _utils.Event.getEvent(e),
 	        targetEvent = _utils.Event.getTarget(event);
-	    var _props3 = _this7.props,
+	    var _props3 = _this8.props,
 	        clsPrefix = _props3.clsPrefix,
 	        contentTable = _props3.contentTable,
 	        lastShowIndex = _props3.lastShowIndex,
 	        columnsChildrenList = _props3.columnsChildrenList;
 	    // let currentElement = this.getOnLineObject(targetEvent);
 	
-	    var currentElement = _this7.getTargetToType(targetEvent);
+	    var currentElement = _this8.getTargetToType(targetEvent);
 	    if (!currentElement) return;
 	    var type = currentElement.getAttribute('data-type');
-	    if (!_this7.props.dragborder && !_this7.props.draggable) return;
-	    if (type == 'online' && _this7.props.dragborder) {
+	    if (!_this8.props.dragborder && !_this8.props.draggable) return;
+	    if (type == 'online' && _this8.props.dragborder) {
 	      // if(!this.props.dragborder)return;
 	      targetEvent.setAttribute('draggable', false); //添加交换列效果
 	      var currentIndex = -1;
 	      var defaultWidth = currentElement.getAttribute("data-th-width");
-	      _this7.drag.option = "border"; //拖拽操作
+	      _this8.drag.option = "border"; //拖拽操作
 	      if (columnsChildrenList) {
 	        var columnKey = currentElement.getAttribute("data-line-key");
 	        if (columnKey) {
@@ -96254,28 +96302,31 @@
 	          });
 	        }
 	      }
-	      // console.log("currentIndex :",currentIndex);
-	      var currentObj = _this7.table.cols[currentIndex];
-	      _this7.drag.currIndex = currentIndex;
-	      _this7.drag.oldLeft = event.x;
-	      _this7.drag.oldWidth = parseInt(currentObj.style.width);
-	      _this7.drag.minWidth = currentObj.style.minWidth != "" ? parseInt(currentObj.style.minWidth) : defaultWidth;
-	      _this7.drag.tableWidth = parseInt(_this7.table.table.style.width ? _this7.table.table.style.width : _this7.table.table.scrollWidth);
-	      if (!_this7.tableOldWidth) {
-	        _this7.tableOldWidth = _this7.drag.tableWidth; //this.getTableWidth();
+	      if (currentIndex < 0) {
+	        console.log('Key must be set for column!');
+	        return;
 	      }
-	      if (!_this7.lastColumWidth) {
-	        _this7.lastColumWidth = parseInt(_this7.table.cols[lastShowIndex].style.width);
+	      var currentObj = _this8.table.cols[currentIndex];
+	      _this8.drag.currIndex = currentIndex;
+	      _this8.drag.oldLeft = event.x;
+	      _this8.drag.oldWidth = parseInt(currentObj.style.width);
+	      _this8.drag.minWidth = currentObj.style.minWidth != "" ? parseInt(currentObj.style.minWidth) : defaultWidth;
+	      _this8.drag.tableWidth = parseInt(_this8.table.table.style.width ? _this8.table.table.style.width : _this8.table.table.scrollWidth);
+	      if (!_this8.tableOldWidth) {
+	        _this8.tableOldWidth = _this8.drag.tableWidth; //this.getTableWidth();
 	      }
-	    } else if (type != 'online' && _this7.props.draggable) {
+	      if (!_this8.lastColumWidth) {
+	        _this8.lastColumWidth = parseInt(_this8.table.cols[lastShowIndex].style.width);
+	      }
+	    } else if (type != 'online' && _this8.props.draggable) {
 	      // if (!this.props.draggable || targetEvent.nodeName.toUpperCase() != "TH") return;
-	      if (!_this7.props.draggable) return;
-	      var th = _this7.getTargetToType(targetEvent);
+	      if (!_this8.props.draggable) return;
+	      var th = _this8.getTargetToType(targetEvent);
 	      th.setAttribute('draggable', true); //添加交换列效果
-	      _this7.drag.option = 'dragAble';
-	      _this7.currentDome = th;
+	      _this8.drag.option = 'dragAble';
+	      _this8.currentDome = th;
 	      var _currentIndex = parseInt(th.getAttribute("data-line-index"));
-	      _this7.drag.currIndex = _currentIndex;
+	      _this8.drag.currIndex = _currentIndex;
 	    } else {
 	      // console.log("onTrMouseDown dragborder or draggable is all false !");
 	      return;
@@ -96285,8 +96336,8 @@
 	  this.getTableWidth = function () {
 	    var tableWidth = 0,
 	        offWidth = 0; //this.table.cols.length;
-	    for (var index = 0; index < _this7.table.cols.length; index++) {
-	      var da = _this7.table.cols[index];
+	    for (var index = 0; index < _this8.table.cols.length; index++) {
+	      var da = _this8.table.cols[index];
 	      tableWidth += parseInt(da.style.width);
 	    }
 	    return tableWidth - offWidth;
@@ -96295,7 +96346,7 @@
 	  this.getTargetToType = function (targetEvent) {
 	    var tag = targetEvent;
 	    if (targetEvent && !targetEvent.getAttribute("data-type")) {
-	      tag = _this7.getTargetToType(targetEvent.parentElement);
+	      tag = _this8.getTargetToType(targetEvent.parentElement);
 	    }
 	    return tag;
 	  };
@@ -96303,15 +96354,15 @@
 	  this.getTargetToTh = function (targetEvent) {
 	    var th = targetEvent;
 	    if (targetEvent.nodeName.toUpperCase() != "TH") {
-	      th = _this7.getThDome(targetEvent);
+	      th = _this8.getThDome(targetEvent);
 	    }
 	    // console.log(" getTargetToTh: ", th);
 	    return th;
 	  };
 	
 	  this.onTrMouseMove = function (e) {
-	    if (!_this7.props.dragborder && !_this7.props.draggable) return;
-	    var _props4 = _this7.props,
+	    if (!_this8.props.dragborder && !_this8.props.draggable) return;
+	    var _props4 = _this8.props,
 	        clsPrefix = _props4.clsPrefix,
 	        dragborder = _props4.dragborder,
 	        contentDomWidth = _props4.contentDomWidth,
@@ -96325,83 +96376,83 @@
 	
 	    _utils.Event.stopPropagation(e);
 	    var event = _utils.Event.getEvent(e);
-	    if (_this7.props.dragborder && _this7.drag.option == "border") {
+	    if (_this8.props.dragborder && _this8.drag.option == "border") {
 	      //移动改变宽度
-	      var currentCols = _this7.table.cols[_this7.drag.currIndex];
-	      var diff = event.x - _this7.drag.oldLeft;
-	      var newWidth = _this7.drag.oldWidth + diff;
-	      _this7.drag.newWidth = newWidth > 0 ? newWidth : _this7.minWidth;
-	      if (newWidth > _this7.minWidth) {
+	      var currentCols = _this8.table.cols[_this8.drag.currIndex];
+	      var diff = event.x - _this8.drag.oldLeft;
+	      var newWidth = _this8.drag.oldWidth + diff;
+	      _this8.drag.newWidth = newWidth > 0 ? newWidth : _this8.minWidth;
+	      if (newWidth > _this8.minWidth) {
 	        currentCols.style.width = newWidth + 'px';
 	        //hao 支持固定表头拖拽 修改表体的width
-	        if (_this7.fixedTable.cols) {
-	          _this7.fixedTable.cols[_this7.drag.currIndex].style.width = newWidth + "px";
+	        if (_this8.fixedTable.cols) {
+	          _this8.fixedTable.cols[_this8.drag.currIndex].style.width = newWidth + "px";
 	        }
 	
 	        var newDiff = parseInt(currentCols.style.minWidth) - parseInt(currentCols.style.width);
 	        if (newDiff > 0) {
 	          //缩小
-	          var lastWidth = _this7.lastColumWidth + newDiff;
-	          _this7.table.cols[lastShowIndex].style.width = lastWidth + "px"; //同步表头
-	          _this7.table.tableBodyCols[lastShowIndex].style.width = lastWidth + "px"; //同步表体
+	          var lastWidth = _this8.lastColumWidth + newDiff;
+	          _this8.table.cols[lastShowIndex].style.width = lastWidth + "px"; //同步表头
+	          _this8.table.tableBodyCols[lastShowIndex].style.width = lastWidth + "px"; //同步表体
 	        }
-	        var showScroll = contentDomWidth - (leftFixedWidth + rightFixedWidth) - (_this7.drag.tableWidth + diff) - scrollbarWidth;
+	        var showScroll = contentDomWidth - (leftFixedWidth + rightFixedWidth) - (_this8.drag.tableWidth + diff) - scrollbarWidth;
 	        //表头滚动条处理
 	        if (headerScroll) {
 	          if (showScroll < 0) {
 	            //小于 0 出现滚动条
 	            //找到固定列表格，设置表头的marginBottom值为scrollbarWidth;
-	            _this7.table.contentTableHeader.style.overflowX = 'scroll';
-	            _this7.optTableMargin(_this7.table.fixedLeftHeaderTable, scrollbarWidth);
-	            _this7.optTableMargin(_this7.table.fixedRighHeadertTable, scrollbarWidth);
+	            _this8.table.contentTableHeader.style.overflowX = 'scroll';
+	            _this8.optTableMargin(_this8.table.fixedLeftHeaderTable, scrollbarWidth);
+	            _this8.optTableMargin(_this8.table.fixedRighHeadertTable, scrollbarWidth);
 	          } else {
 	            //大于 0 不显示滚动条
-	            _this7.table.contentTableHeader.style.overflowX = 'hidden';
-	            _this7.optTableMargin(_this7.table.fixedLeftHeaderTable, 0);
-	            _this7.optTableMargin(_this7.table.fixedRighHeadertTable, 0);
+	            _this8.table.contentTableHeader.style.overflowX = 'hidden';
+	            _this8.optTableMargin(_this8.table.fixedLeftHeaderTable, 0);
+	            _this8.optTableMargin(_this8.table.fixedRighHeadertTable, 0);
 	          }
 	        } else {
 	          if (showScroll < 0) {
-	            _this7.table.tableBody.style.overflowX = 'auto';
-	            _this7.optTableMargin(_this7.table.fixedLeftBodyTable, '-' + scrollbarWidth);
-	            _this7.optTableMargin(_this7.table.fixedRightBodyTable, '-' + scrollbarWidth);
-	            _this7.optTableScroll(_this7.table.fixedLeftBodyTable, { x: 'scroll' });
-	            _this7.optTableScroll(_this7.table.fixedRightBodyTable, { x: 'scroll' });
+	            _this8.table.tableBody.style.overflowX = 'auto';
+	            _this8.optTableMargin(_this8.table.fixedLeftBodyTable, '-' + scrollbarWidth);
+	            _this8.optTableMargin(_this8.table.fixedRightBodyTable, '-' + scrollbarWidth);
+	            _this8.optTableScroll(_this8.table.fixedLeftBodyTable, { x: 'scroll' });
+	            _this8.optTableScroll(_this8.table.fixedRightBodyTable, { x: 'scroll' });
 	          } else {
-	            _this7.table.tableBody.style.overflowX = 'hidden';
-	            _this7.optTableMargin(_this7.table.fixedLeftBodyTable, 0);
-	            _this7.optTableMargin(_this7.table.fixedRightBodyTable, 0);
-	            _this7.optTableScroll(_this7.table.fixedLeftBodyTable, { x: 'auto' });
-	            _this7.optTableScroll(_this7.table.fixedRightBodyTable, { x: 'auto' });
+	            _this8.table.tableBody.style.overflowX = 'hidden';
+	            _this8.optTableMargin(_this8.table.fixedLeftBodyTable, 0);
+	            _this8.optTableMargin(_this8.table.fixedRightBodyTable, 0);
+	            _this8.optTableScroll(_this8.table.fixedLeftBodyTable, { x: 'auto' });
+	            _this8.optTableScroll(_this8.table.fixedRightBodyTable, { x: 'auto' });
 	          }
 	        }
 	      } else {
-	        _this7.drag.newWidth = _this7.minWidth;
+	        _this8.drag.newWidth = _this8.minWidth;
 	      }
 	    }
 	    // 增加拖拽列宽动作的回调函数
-	    _this7.drag.newWidth && onDraggingBorder && onDraggingBorder(event, _this7.drag.newWidth);
+	    _this8.drag.newWidth && onDraggingBorder && onDraggingBorder(event, _this8.drag.newWidth);
 	  };
 	
 	  this.onTrMouseUp = function (e) {
 	    var event = _utils.Event.getEvent(e);
-	    var width = _this7.drag.newWidth;
-	    var opt = _this7.drag.option;
-	    _this7.mouseClear();
+	    var width = _this8.drag.newWidth;
+	    var opt = _this8.drag.option;
+	    _this8.mouseClear();
 	    if (opt !== "border") return; // fix:点击表头会触发onDropBorder事件的问题
-	    _this7.props.onDropBorder && _this7.props.onDropBorder(event, width);
+	    _this8.props.onDropBorder && _this8.props.onDropBorder(event, width);
 	  };
 	
 	  this.clearThsDr = function () {
-	    var ths = _this7.table.ths;
+	    var ths = _this8.table.ths;
 	    for (var index = 0; index < ths.length; index++) {
 	      ths[index].setAttribute('draggable', false); //去掉交换列效果
 	    }
 	  };
 	
 	  this.bodyonLineMouseUp = function (events, type) {
-	    if (!_this7.drag || !_this7.drag.option) return;
-	    _this7.mouseClear();
+	    if (!_this8.drag || !_this8.drag.option) return;
+	    _this8.mouseClear();
 	  };
 	
 	  this.optTableMargin = function (table, scrollbarWidth) {
@@ -96424,31 +96475,31 @@
 	  };
 	
 	  this.onDragStart = function (e) {
-	    if (!_this7.props.draggable) return;
-	    if (_this7.drag && _this7.drag.option != 'dragAble') {
+	    if (!_this8.props.draggable) return;
+	    if (_this8.drag && _this8.drag.option != 'dragAble') {
 	      return;
 	    }
 	    var event = _utils.Event.getEvent(e),
 	
 	    // target = Event.getTarget(event);
-	    target = _this7.getTargetToTh(_utils.Event.getTarget(event));
+	    target = _this8.getTargetToTh(_utils.Event.getTarget(event));
 	    var currentIndex = parseInt(target.getAttribute("data-line-index"));
 	    var currentKey = target.getAttribute('data-line-key');
 	
 	    if (event.dataTransfer.setDragImage) {
 	      var crt = target.cloneNode(true);
 	      crt.style.backgroundColor = "#ebecf0";
-	      crt.style.width = _this7.table.cols[currentIndex].style.width; //拖动后再交换列的时候，阴影效果可同步
+	      crt.style.width = _this8.table.cols[currentIndex].style.width; //拖动后再交换列的时候，阴影效果可同步
 	      crt.style.height = "40px";
 	      // crt.style['line-height'] = "40px";
 	      // document.body.appendChild(crt);
-	      document.getElementById(_this7._table_none_cont_id).appendChild(crt);
+	      document.getElementById(_this8._table_none_cont_id).appendChild(crt);
 	      event.dataTransfer.setDragImage(crt, 0, 0);
 	    }
 	
 	    event.dataTransfer.effectAllowed = "move";
 	    event.dataTransfer.setData("Text", currentKey);
-	    _this7.currentObj = _this7.props.rows[0][currentIndex];
+	    _this8.currentObj = _this8.props.rows[0][currentIndex];
 	  };
 	
 	  this.onDragOver = function (e) {
@@ -96457,32 +96508,32 @@
 	  };
 	
 	  this.onDrop = function (e) {
-	    if (!_this7.props.draggable) return;
-	    var props = _this7.getCurrentEventData(_this7._dragCurrent);
+	    if (!_this8.props.draggable) return;
+	    var props = _this8.getCurrentEventData(_this8._dragCurrent);
 	    e.column = { props: props };
-	    if (_this7.drag && _this7.drag.option != 'dragAble') {
-	      _this7.props.onDrop(e);
+	    if (_this8.drag && _this8.drag.option != 'dragAble') {
+	      _this8.props.onDrop(e);
 	      return;
 	    }
 	    var event = _utils.Event.getEvent(e),
 	        target = _utils.Event.getTarget(event);
-	    _this7.currentDome.setAttribute('draggable', false); //添加交换列效果
+	    _this8.currentDome.setAttribute('draggable', false); //添加交换列效果
 	    // let data = this.getCurrentEventData(this._dragCurrent);
 	    // if(!data){
 	    //   this.props.onDrop(e);
 	    //   return;
 	    // }
-	    if (!_this7.props.onDrop) return;
+	    if (!_this8.props.onDrop) return;
 	    // this.props.onDrop(event,target);
-	    _this7.props.onDrop(event, { dragSource: _this7.currentObj, dragTarg: e.column });
+	    _this8.props.onDrop(event, { dragSource: _this8.currentObj, dragTarg: e.column });
 	  };
 	
 	  this.onDragEnter = function (e) {
 	    var event = _utils.Event.getEvent(e),
 	        target = _utils.Event.getTarget(event);
-	    _this7._dragCurrent = target;
+	    _this8._dragCurrent = target;
 	    var currentIndex = target.getAttribute("data-line-index");
-	    if (!currentIndex || parseInt(currentIndex) === _this7.drag.currIndex) return;
+	    if (!currentIndex || parseInt(currentIndex) === _this8.drag.currIndex) return;
 	    if (target.nodeName.toUpperCase() === "TH") {
 	      // target.style.border = "2px dashed rgba(5,0,0,0.25)";
 	      target.setAttribute("style", "border-right:2px dashed rgb(30, 136, 229)");
@@ -96493,22 +96544,22 @@
 	  this.onDragEnd = function (e) {
 	    var event = _utils.Event.getEvent(e),
 	        target = _utils.Event.getTarget(event);
-	    _this7._dragCurrent.setAttribute("style", "");
+	    _this8._dragCurrent.setAttribute("style", "");
 	    // this._dragCurrent.style = "";
-	    document.getElementById(_this7._table_none_cont_id).innerHTML = "";
+	    document.getElementById(_this8._table_none_cont_id).innerHTML = "";
 	
-	    var data = _this7.getCurrentEventData(_this7._dragCurrent);
+	    var data = _this8.getCurrentEventData(_this8._dragCurrent);
 	    if (!data) return;
-	    if (!_this7.currentObj || _this7.currentObj.key == data.key) return;
-	    if (!_this7.props.onDragEnd) return;
-	    _this7.props.onDragEnd(event, { dragSource: _this7.currentObj, dragTarg: data });
+	    if (!_this8.currentObj || _this8.currentObj.key == data.key) return;
+	    if (!_this8.props.onDragEnd) return;
+	    _this8.props.onDragEnd(event, { dragSource: _this8.currentObj, dragTarg: data });
 	  };
 	
 	  this.onDragLeave = function (e) {
 	    var event = _utils.Event.getEvent(e),
 	        target = _utils.Event.getTarget(event);
 	    var currentIndex = target.getAttribute("data-line-index");
-	    if (!currentIndex || parseInt(currentIndex) === _this7.drag.currIndex) return;
+	    if (!currentIndex || parseInt(currentIndex) === _this8.drag.currIndex) return;
 	    if (target.nodeName.toUpperCase() === "TH") {
 	      target.setAttribute("style", "");
 	      // this._dragCurrent.style = "";
@@ -96516,7 +96567,7 @@
 	  };
 	
 	  this.handlerFilterChange = function (key, value, condition) {
-	    var onFilterChange = _this7.props.onFilterChange;
+	    var onFilterChange = _this8.props.onFilterChange;
 	
 	    if (onFilterChange) {
 	      onFilterChange(key, value, condition);
@@ -96524,7 +96575,7 @@
 	  };
 	
 	  this.handlerFilterClear = function (field) {
-	    var onFilterClear = _this7.props.onFilterClear;
+	    var onFilterClear = _this8.props.onFilterClear;
 	
 	    if (onFilterClear) {
 	      onFilterClear(field);
@@ -96532,7 +96583,7 @@
 	  };
 	
 	  this.filterRenderType = function (type, dataIndex, index) {
-	    var _props5 = _this7.props,
+	    var _props5 = _this8.props,
 	        clsPrefix = _props5.clsPrefix,
 	        rows = _props5.rows,
 	        filterDelay = _props5.filterDelay,
@@ -96547,8 +96598,8 @@
 	          , clsPrefix: clsPrefix //css前缀
 	          , className: clsPrefix + " filter-text",
 	          dataIndex: dataIndex //字段
-	          , onFilterChange: _this7.handlerFilterChange //输入框回调
-	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
 	          , filterDropdown: rows[1][index]["filterdropdown"] //是否显示下拉条件
 	          , filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
 	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
@@ -96561,8 +96612,8 @@
 	          clsPrefix: clsPrefix,
 	          className: clsPrefix + " filter-text",
 	          dataIndex: dataIndex //字段
-	          , onFilterChange: (0, _throttleDebounce.debounce)(filterDelay || 300, _this7.handlerFilterChange) //输入框回调并且函数防抖动
-	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , onFilterChange: (0, _throttleDebounce.debounce)(filterDelay || 300, _this8.handlerFilterChange) //输入框回调并且函数防抖动
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
 	          , filterDropdown: rows[1][index]["filterdropdown"],
 	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
 	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
@@ -96596,8 +96647,8 @@
 	          data: selectDataSource,
 	          notFoundContent: "Loading" //没有数据显示的默认字
 	          , dataIndex: dataIndex //字段
-	          , onFilterChange: _this7.handlerFilterChange //输入框回调
-	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
 	          , filterDropdown: rows[1][index]["filterdropdown"],
 	          onFocus: rows[1][index]["filterdropdownfocus"],
 	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
@@ -96612,8 +96663,53 @@
 	          onClick: function onClick() {},
 	          format: rows[1][index]["format"] || "YYYY-MM-DD",
 	          dataIndex: dataIndex //字段
-	          , onFilterChange: _this7.handlerFilterChange //输入框回调
-	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
+	          , filterDropdown: rows[1][index]["filterdropdown"],
+	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
+	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
+	        });
+	      //日期 年
+	      case "dateyear":
+	        return _react2["default"].createElement(_FilterType2["default"], {
+	          locale: locale,
+	          rendertype: type,
+	          className: "filter-date",
+	          onClick: function onClick() {},
+	          format: rows[1][index]["format"] || "YYYY",
+	          dataIndex: dataIndex //字段
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
+	          , filterDropdown: rows[1][index]["filterdropdown"],
+	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
+	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
+	        });
+	      //日期 月
+	      case "datemonth":
+	        return _react2["default"].createElement(_FilterType2["default"], {
+	          locale: locale,
+	          rendertype: type,
+	          className: "filter-date",
+	          onClick: function onClick() {},
+	          format: rows[1][index]["format"] || "YYYY-MM",
+	          dataIndex: dataIndex //字段
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
+	          , filterDropdown: rows[1][index]["filterdropdown"],
+	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
+	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
+	        });
+	      //日期 周
+	      case "dateweek":
+	        return _react2["default"].createElement(_FilterType2["default"], {
+	          locale: locale,
+	          rendertype: type,
+	          className: "filter-date",
+	          onClick: function onClick() {},
+	          format: rows[1][index]["format"] || "YYYY-Wo",
+	          dataIndex: dataIndex //字段
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
 	          , filterDropdown: rows[1][index]["filterdropdown"],
 	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
 	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
@@ -96627,8 +96723,8 @@
 	          onClick: function onClick() {},
 	          format: rows[1][index]["format"] || "YYYY-MM-DD",
 	          dataIndex: dataIndex //字段
-	          , onFilterChange: _this7.handlerFilterChange //输入框回调
-	          , onFilterClear: _this7.handlerFilterClear //清除回调
+	          , onFilterChange: _this8.handlerFilterChange //输入框回调
+	          , onFilterClear: _this8.handlerFilterClear //清除回调
 	          , filterDropdown: rows[1][index]["filterdropdown"],
 	          filterDropdownType: rows[1][index]["filterdropdowntype"] //下拉的条件类型为string,number
 	          , filterDropdownIncludeKeys: rows[1][index]["filterdropdownincludekeys"] //下拉条件按照指定的keys去显示
@@ -96845,7 +96941,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 	
-	var RangePicker = _beeDatepicker2["default"].RangePicker;
+	var RangePicker = _beeDatepicker2["default"].RangePicker,
+	    YearPicker = _beeDatepicker2["default"].YearPicker,
+	    MonthPicker = _beeDatepicker2["default"].MonthPicker,
+	    WeekPicker = _beeDatepicker2["default"].WeekPicker;
 	
 	
 	var propTypes = {
@@ -97084,6 +97183,75 @@
 	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
 	                        })
 	                    );
+	                case 'dateyear':
+	                    return _react2["default"].createElement(
+	                        'div',
+	                        { className: clsPrefix + ' filter-wrap' },
+	                        _react2["default"].createElement(YearPicker, _extends({}, _this.props, {
+	                            value: _this.state.value,
+	                            onChange: _this.changeDate,
+	                            open: _this.state.open,
+	                            format: format,
+	                            locale: _zh_CN2["default"]
+	                        })),
+	                        _react2["default"].createElement(_FilterDropDown2["default"], {
+	                            locale: locale,
+	                            dataIndex: dataIndex,
+	                            dataText: _this.state.value,
+	                            onSelectDropdown: _this.onSelectDropdown,
+	                            onClickClear: _this.clearFilter,
+	                            isShowCondition: filterDropdown,
+	                            isShowClear: _this.state.value,
+	                            filterDropdownType: filterDropdownType,
+	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
+	                        })
+	                    );
+	                case 'datemonth':
+	                    return _react2["default"].createElement(
+	                        'div',
+	                        { className: clsPrefix + ' filter-wrap' },
+	                        _react2["default"].createElement(MonthPicker, _extends({}, _this.props, {
+	                            value: _this.state.value,
+	                            onChange: _this.changeDate,
+	                            open: _this.state.open,
+	                            format: format,
+	                            locale: _zh_CN2["default"]
+	                        })),
+	                        _react2["default"].createElement(_FilterDropDown2["default"], {
+	                            locale: locale,
+	                            dataIndex: dataIndex,
+	                            dataText: _this.state.value,
+	                            onSelectDropdown: _this.onSelectDropdown,
+	                            onClickClear: _this.clearFilter,
+	                            isShowCondition: filterDropdown,
+	                            isShowClear: _this.state.value,
+	                            filterDropdownType: filterDropdownType,
+	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
+	                        })
+	                    );
+	                case 'dateweek':
+	                    return _react2["default"].createElement(
+	                        'div',
+	                        { className: clsPrefix + ' filter-wrap' },
+	                        _react2["default"].createElement(WeekPicker, _extends({}, _this.props, {
+	                            value: _this.state.value,
+	                            onChange: _this.changeDate,
+	                            open: _this.state.open,
+	                            format: format,
+	                            locale: _zh_CN2["default"]
+	                        })),
+	                        _react2["default"].createElement(_FilterDropDown2["default"], {
+	                            locale: locale,
+	                            dataIndex: dataIndex,
+	                            dataText: _this.state.value,
+	                            onSelectDropdown: _this.onSelectDropdown,
+	                            onClickClear: _this.clearFilter,
+	                            isShowCondition: filterDropdown,
+	                            isShowClear: _this.state.value,
+	                            filterDropdownType: filterDropdownType,
+	                            filterDropdownIncludeKeys: filterDropdownIncludeKeys
+	                        })
+	                    );
 	                case 'daterange':
 	                    return _react2["default"].createElement(
 	                        'div',
@@ -97192,7 +97360,7 @@
 	    /**
 	     * 根据不同的类型生成对应的组件类型包含一些参数的适应
 	     *
-	     * @param {*} rendertype 参数类型，包括['text','dropdown','date','daterange','number']
+	     * @param {*} rendertype 参数类型，包括['text','dropdown','date','dateyear','datemonth','dateweek',daterange','number']
 	     * @returns
 	     */
 	
@@ -97449,6 +97617,12 @@
 	    InputNumber.prototype.ComponentWillUnMount = function ComponentWillUnMount() {
 	        this.clear();
 	    };
+	
+	    /**
+	     *  @memberof InputNumber
+	     * type 是否要四舍五入(此参数无效,超长不让输入)
+	     */
+	
 	    /**
 	     * 设置增加减少按钮是否可用
 	     */
@@ -97517,9 +97691,7 @@
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
-	                        onClick: function onClick() {
-	                            minusDisabled ? '' : _this2.handleBtnClick('down');
-	                        },
+	                        // onClick={()=>{minusDisabled?'':this.handleBtnClick('down')}}
 	                        className: (minusDisabled && 'disabled') + disabledCursor,
 	                        onMouseDown: this.handleReduceMouseDown,
 	                        onMouseLeave: this.clear,
@@ -97539,9 +97711,7 @@
 	                _react2["default"].createElement(
 	                    _beeInputGroup2["default"].Addon,
 	                    {
-	                        onClick: function onClick() {
-	                            plusDisabled ? '' : _this2.handleBtnClick('up');
-	                        },
+	                        // onClick={()=>{plusDisabled?'':this.handleBtnClick('up')}}
 	                        className: (plusDisabled && 'disabled') + disabledCursor,
 	                        onMouseDown: this.handlePlusMouseDown,
 	                        onMouseLeave: this.clear,
@@ -97573,9 +97743,7 @@
 	                        _react2["default"].createElement(
 	                            'span',
 	                            {
-	                                onClick: function onClick() {
-	                                    plusDisabled ? '' : _this2.handleBtnClick('up');
-	                                },
+	                                // onClick={()=>{plusDisabled?'':this.handleBtnClick('up')}}
 	                                onMouseDown: this.handlePlusMouseDown,
 	                                onMouseLeave: this.clear,
 	                                onMouseUp: this.clear,
@@ -97585,9 +97753,7 @@
 	                        _react2["default"].createElement(
 	                            'span',
 	                            {
-	                                onClick: function onClick() {
-	                                    minusDisabled ? '' : _this2.handleBtnClick('down');
-	                                },
+	                                // onClick={()=> minusDisabled?'':this.handleBtnClick('down')}
 	                                onMouseDown: this.handleReduceMouseDown,
 	                                onMouseLeave: this.clear,
 	                                onMouseUp: this.clear,
@@ -97703,6 +97869,21 @@
 	        };
 	    };
 	
+	    this.numToFixed = function (value, fixed, type) {
+	        value = String(value);
+	        if (!value && value !== "0") return value;
+	        if (!fixed && String(fixed) !== "0") return value;
+	        var preIndex = value.indexOf(".");
+	        if (value.indexOf(".") === -1) return value;
+	        preIndex++;
+	        var endIndex = preIndex + fixed;
+	        var precValue = value.substr(preIndex, endIndex) + "0000000000";
+	        if (type) {
+	            return Number(value).toFixed(fixed);
+	        }
+	        return value.split(".")[0] + "." + precValue.substr(0, fixed);
+	    };
+	
 	    this.handleChange = function (value) {
 	        var selectionStart = _this3.input.selectionStart == undefined ? _this3.input.input.selectionStart : _this3.input.selectionStart;
 	        _this3.selectionStart = selectionStart;
@@ -97722,12 +97903,12 @@
 	        // value = this.unThousands(value);
 	        if (minusRight) {
 	            if (value.match(/-/g) && value.match(/-/g).length > 1) return;
-	        } else {
-	            if (isNaN(value) && value !== '.' && value !== '-') return;
 	        }
+	        if (isNaN(value) && value !== '.' && value !== '-') return;
 	        if (value.indexOf(".") !== -1) {
 	            //小数最大值处理
 	            var prec = String(value.split(".")[1]).replace("-", "");
+	            if (_this3.props.precision === 0 && (prec === "" || prec != "")) return;
 	            if (_this3.props.precision && prec.length > _this3.props.precision) return;
 	            if (prec.length > 8) return;
 	        }
@@ -97786,7 +97967,8 @@
 	            max = _props4.max,
 	            min = _props4.min,
 	            displayCheckPrompt = _props4.displayCheckPrompt,
-	            minusRight = _props4.minusRight;
+	            minusRight = _props4.minusRight,
+	            round = _props4.round;
 	
 	        var local = (0, _tool.getComponentLocale)(_this3.props, _this3.context, 'InputNumber', function () {
 	            return _i18n2["default"];
@@ -97800,8 +97982,8 @@
 	            onBlur && onBlur(v, e);
 	            return;
 	        }
-	        // let value = this.unThousands(v);
-	        var value = v;
+	        // let value = this.unThousands(v); 
+	        var value = _this3.numToFixed(v, precision, round);
 	        if (minusRight) {
 	            if (value.indexOf('-') != -1) {
 	                //所有位置的负号转到前边
@@ -97900,6 +98082,7 @@
 	            showValue: toThousands(value)
 	        });
 	        toNumber ? onChange && onChange(Number(value)) : onChange && onChange(value);
+	        _this3.handleBtnClick('down', value);
 	        _this3.detailDisable(value);
 	    };
 	
@@ -97932,6 +98115,7 @@
 	            showValue: toThousands(value)
 	        });
 	        toNumber ? onChange && onChange(Number(value)) : onChange && onChange(value);
+	        _this3.handleBtnClick('up', value);
 	        _this3.detailDisable(value);
 	    };
 	
@@ -97975,7 +98159,7 @@
 	    };
 	
 	    this.handlePlusMouseDown = function (e) {
-	        e.preventDefault();
+	        e.preventDefault && e.preventDefault();
 	        var _props8 = _this3.props,
 	            delay = _props8.delay,
 	            disabled = _props8.disabled;
@@ -97985,12 +98169,12 @@
 	        _this3.plus(value);
 	        _this3.clear();
 	        _this3.timer = setTimeout(function () {
-	            _this3.handlePlusMouseDown();
+	            _this3.handlePlusMouseDown(e);
 	        }, delay);
 	    };
 	
 	    this.handleReduceMouseDown = function (e) {
-	        e.preventDefault();
+	        e.preventDefault && e.preventDefault();
 	        var _props9 = _this3.props,
 	            delay = _props9.delay,
 	            disabled = _props9.disabled;
@@ -98009,6 +98193,7 @@
 	        value = String(value);
 	        var precision = _this3.props.precision;
 	
+	        if (precision === 0) return value;
 	        if (precision == undefined || value.indexOf(".") !== -1 && String(value.split(".")[1]).length === precision) {
 	            return value;
 	        }
@@ -98018,11 +98203,17 @@
 	        before = before === "-" ? before : "";
 	        after = after === "-" ? after : "";
 	        value = value.replace("-", '');
+	        var precV = "000000000000";
+	        if (value.indexOf(".") === -1) {
+	            precV = precV.substr(0, precision);
+	            precV = precV ? "." + precV : precV;
+	            value = value + precV;
+	        }
 	        return before + Number(value).toFixed(precision) + after;
 	    };
 	
-	    this.handleBtnClick = function (type) {
-	        _this3.props.handleBtnClick(type, _this3.state.value);
+	    this.handleBtnClick = function (type, value) {
+	        _this3.props.handleBtnClick(type, value);
 	    };
 	};
 	
@@ -98047,8 +98238,8 @@
 	    'msgMax': '值不能大于最大值',
 	    'msgMin': '值不能小于最小值',
 	    'en-us': {
-	        'msgMax': 'value cannot be greater than the maximum',
-	        'msgMin': 'value cannot be less than minimum'
+	        'msgMax': 'Cannot be greater than the Max value',
+	        'msgMin': 'Cannot be less than the Min value'
 	    },
 	    'zh-tw': {
 	        'msgMax': '值不能大於最大值',
@@ -98566,6 +98757,9 @@
 	    filterDropdownType: 'string'
 	};
 	
+	FilterDropDown.contextTypes = {
+	    beeLocale: _propTypes2["default"].object
+	};
 	exports["default"] = FilterDropDown;
 	module.exports = exports['default'];
 
