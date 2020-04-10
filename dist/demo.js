@@ -37639,6 +37639,10 @@
 	  };
 	
 	  Modal.prototype.handleExited = function handleExited() {
+	    this.setState({
+	      draging: false,
+	      draged: false
+	    });
 	    // FIXME: This should work even when animation is disabled.
 	    _events2['default'].off(window, 'resize', this.handleWindowResize);
 	  };

@@ -199,7 +199,6 @@ class Modal extends React.Component {
       },
     };
   }
-
   componentWillUnmount() {
     // Clean up the listener if we need to.
     this.handleExited();
@@ -212,6 +211,10 @@ class Modal extends React.Component {
   }
 
   handleExited() {
+    this.setState({
+      draging:false,
+      draged:false
+    })
     // FIXME: This should work even when animation is disabled.
     events.off(window, 'resize', this.handleWindowResize);
   }
