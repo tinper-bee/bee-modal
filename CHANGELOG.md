@@ -1,3 +1,13 @@
+<a name="2.1.14"></a>
+## [2.1.14](https://github.com/tinper-bee/bee-modal/compare/v2.1.13...v2.1.14) (2020-04-10)
+
+
+### Features
+
+* **bee-modal:** 关闭后 还原draging draged 属性 ([1f54e74](https://github.com/tinper-bee/bee-modal/commit/1f54e74))
+
+
+
 <a name="2.1.13"></a>
 ## [2.1.13](https://github.com/tinper-bee/bee-modal/compare/v2.1.12...v2.1.13) (2020-04-07)
 
