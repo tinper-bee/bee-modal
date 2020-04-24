@@ -1,3 +1,12 @@
+## [2.1.15](https://github.com/tinper-bee/bee-modal/compare/v2.1.14...v2.1.15) (2020-04-24)
+
+
+### Bug Fixes
+
+* 自动化 ([4d3135f](https://github.com/tinper-bee/bee-modal/commit/4d3135fad1fcca164a84a697a61a51a00422e1ff))
+
+
+
 <a name="2.1.14"></a>
 ## [2.1.14](https://github.com/tinper-bee/bee-modal/compare/v2.1.13...v2.1.14) (2020-04-10)
 
