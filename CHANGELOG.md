@@ -1,3 +1,17 @@
+## [2.1.17](https://github.com/tinper-bee/bee-modal/compare/v2.1.15...v2.1.17) (2020-07-07)
+
+
+### Bug Fixes
+
+* 去掉 pointer-events 影响 ([f086dd8](https://github.com/tinper-bee/bee-modal/commit/f086dd8b5c20868219fd13403812dddafb45e1a3))
+
+
+### Features
+
+* 新增needScroll属性，解决打开模态框滚动到最顶部的问题 ([7589392](https://github.com/tinper-bee/bee-modal/commit/7589392e2678160ac03aed9b27004b5a8b363a5a))
+
+
+
 ## [2.1.16](https://github.com/tinper-bee/bee-modal/compare/v2.1.15...v2.1.16) (2020-05-28)
 
 
