@@ -126,7 +126,8 @@ const propTypes = {
   ]),
   className: PropTypes.string,
   /* 模态框是否居中显示 */
-  centered: PropTypes.bool
+  centered: PropTypes.bool,
+  needScroll:PropTypes.bool
 };
 
 const defaultProps = {
@@ -137,7 +138,8 @@ const defaultProps = {
   draggable: false,
   resizable: false,
   clsPrefix: 'u-modal',
-  className: ''
+  className: '',
+  needScroll: false
 };
 
 const ModalFuncProps = {
@@ -208,9 +210,11 @@ class Modal extends React.Component {
     // FIXME: This should work even when animation is disabled.
     events.on(window, 'resize', this.handleWindowResize);
     this.updateStyle();
+    if(this.props.needScroll)this.scrollY = window.scrollY;
   }
 
   handleExited() {
+    if(this.props.needScroll)window.scrollTo(0,this.scrollY);
     this.setState({
       draging:false,
       draged:false
