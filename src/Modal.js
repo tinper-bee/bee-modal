@@ -127,7 +127,7 @@ const propTypes = {
   className: PropTypes.string,
   /* 模态框是否居中显示 */
   centered: PropTypes.bool,
-  needScroll:PropTypes.bool
+  needScroll:PropTypes.oneOfType([PropTypes.number,PropTypes.bool])
 };
 
 const defaultProps = {
@@ -205,16 +205,40 @@ class Modal extends React.Component {
     // Clean up the listener if we need to.
     this.handleExited();
   }
+  scrollTo=()=>{
+    let needScroll = this.props.needScroll;
+    if(needScroll){
+      if(typeof needScroll=='number'){
+        window.scrollTo(0,needScroll);
+      }else{
+        window.scrollTo(0,this.scrollY)
+      }
+    }
+  }
+  onEnter=(param)=>{
+    if(this.props.needScroll){
+      this.scrollY = window.scrollY;
+    }
+    this.props.onEnter&&this.props.onEnter(param)
+  }
+  onEntered=(param)=>{
+    if(this.props.needScroll){
+      let scrollY = window.scrollY;
+      if((scrollY!=this.scrollY)||typeof this.props.needScroll=='number'){
+        this.scrollTo()
+      }
+    }
+    this.props.onEntered&&this.props.onEntered(param)
+  }
 
   handleEntering() {
     // FIXME: This should work even when animation is disabled.
     events.on(window, 'resize', this.handleWindowResize);
     this.updateStyle();
-    if(this.props.needScroll)this.scrollY = window.scrollY;
   }
 
   handleExited() {
-    if(this.props.needScroll)window.scrollTo(0,this.scrollY);
+    this.scrollTo()
     this.setState({
       draging:false,
       draged:false
@@ -340,6 +364,8 @@ class Modal extends React.Component {
         {...baseModalProps}
         ref={c => { this._modal = c; }}
         show={show}
+        onEnter={this.onEnter}
+        onEntered={this.onEntered}
         onEntering={createChainedFunction(onEntering, this.handleEntering)}
         onExited={createChainedFunction(onExited, this.handleExited)}
         backdrop={backdrop}
