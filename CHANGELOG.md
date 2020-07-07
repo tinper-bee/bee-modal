@@ -1,3 +1,12 @@
+## [2.1.18](https://github.com/tinper-bee/bee-modal/compare/v2.1.17...v2.1.18) (2020-07-07)
+
+
+### Features
+
+* needScroll支持传入number类型的值 ([ad6c103](https://github.com/tinper-bee/bee-modal/commit/ad6c1032d64e24194a56ff019c02b60717af25b9))
+
+
+
 ## [2.1.17](https://github.com/tinper-bee/bee-modal/compare/v2.1.15...v2.1.17) (2020-07-07)
 
 
