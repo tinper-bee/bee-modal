@@ -16,7 +16,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    title: "提示信息",
+    // title: "提示信息",
     onOk: ()=>{},
     onCancel: ()=>{},
     content: "确认要删除吗 ?",
@@ -51,9 +51,13 @@ class AlertDialog extends Component {
                     resizable={true}
                     width={400}
                     >
-                    <Modal.Header closeButton className='ac-confirm-header'>
-                        <Modal.Title className='ac-confirm-header-title'>{title}</Modal.Title>
-                    </Modal.Header>
+                    {
+                        title?
+                        <Modal.Header closeButton className='ac-confirm-header'>
+                            <Modal.Title className='ac-confirm-header-title'>{title}</Modal.Title>
+                        </Modal.Header>
+                        : null
+                    }
 
                     <Modal.Body className='ac-confirm-body'>
                         <span className='ac-confirm-body-title'>
@@ -72,7 +76,7 @@ class AlertDialog extends Component {
                         }}>
                             {locale.ok}
                         </Button>
-                        <Button bordered onClick={()=>{
+                        <Button colors="secondary" onClick={()=>{
                                         this.setState({
                                             show:false
                                         })
