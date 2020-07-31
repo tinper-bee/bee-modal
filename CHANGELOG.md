@@ -1,3 +1,12 @@
+## [2.1.19](https://github.com/tinper-bee/bee-modal/compare/v2.1.18...v2.1.19) (2020-07-31)
+
+
+### Bug Fixes
+
+* confirm 支持配置拖拽 ([74375af](https://github.com/tinper-bee/bee-modal/commit/74375aff46b46cdefa43b5cc0747e29589c67df3))
+
+
+
 ## [2.1.18](https://github.com/tinper-bee/bee-modal/compare/v2.1.17...v2.1.18) (2020-07-07)
 
 
