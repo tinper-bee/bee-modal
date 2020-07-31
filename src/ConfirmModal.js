@@ -26,7 +26,9 @@ const defaultProps = {
         'ok':'确定',
         'gotit':'知道了',
         'cancel':'取消',
-    }
+    },
+    draggable: true,
+    resizable: true
 };
 
 class AlertDialog extends Component {
@@ -39,7 +41,7 @@ class AlertDialog extends Component {
     }  
 
     render() {
-        let { close, title, keyword, content, onOk, onCancel,locale } = this.props;
+        let { close, title, keyword, content, onOk, onCancel,locale, draggable, resizable } = this.props;
         //按钮组 
         return (
             <span >
@@ -47,8 +49,8 @@ class AlertDialog extends Component {
                     show={this.state.show}
                     className='ac-confirm'
                     onHide={close} 
-                    draggable={true}
-                    resizable={true}
+                    draggable={draggable}
+                    resizable={resizable}
                     width={400}
                     >
                     <Modal.Header closeButton className='ac-confirm-header'>

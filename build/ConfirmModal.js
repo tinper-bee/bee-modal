@@ -55,7 +55,9 @@ var defaultProps = {
         'ok': '确定',
         'gotit': '知道了',
         'cancel': '取消'
-    }
+    },
+    draggable: true,
+    resizable: true
 };
 
 var AlertDialog = function (_Component) {
@@ -82,7 +84,9 @@ var AlertDialog = function (_Component) {
             content = _props.content,
             onOk = _props.onOk,
             onCancel = _props.onCancel,
-            locale = _props.locale;
+            locale = _props.locale,
+            draggable = _props.draggable,
+            resizable = _props.resizable;
         //按钮组 
 
         return _react2["default"].createElement(
@@ -94,8 +98,8 @@ var AlertDialog = function (_Component) {
                     show: this.state.show,
                     className: 'ac-confirm',
                     onHide: close,
-                    draggable: true,
-                    resizable: true,
+                    draggable: draggable,
+                    resizable: resizable,
                     width: 400
                 },
                 _react2["default"].createElement(
