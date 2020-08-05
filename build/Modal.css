@@ -1191,7 +1191,7 @@
       .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button.u-button-secondary:hover {
         background: #e5e9ec; }
     .ac-confirm .u-modal-dialog .ac-confirm-footer .u-button.u-button-primary {
-      margin-right: 8px;
+      margin-left: 8px;
       background: linear-gradient(-45deg, #fc4c2f, #ee2223);
       color: #fff;
       border: none;

@@ -68,14 +68,6 @@ class AlertDialog extends Component {
                     </Modal.Body>
 
                     <Modal.Footer className='ac-confirm-footer'>
-                        <Button colors="primary" onClick={()=>{
-                            this.setState({
-                                show:false
-                            })
-                            onOk()
-                        }}>
-                            {locale.ok}
-                        </Button>
                         <Button colors="secondary" onClick={()=>{
                                         this.setState({
                                             show:false
@@ -83,6 +75,14 @@ class AlertDialog extends Component {
                                         onCancel()
                                     }}>
                             {locale.cancel}
+                        </Button>
+                        <Button colors="primary" onClick={()=>{
+                            this.setState({
+                                show:false
+                            })
+                            onOk()
+                        }}>
+                            {locale.ok}
                         </Button>
                     </Modal.Footer>
                 </Modal>

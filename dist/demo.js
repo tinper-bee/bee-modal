@@ -41070,16 +41070,6 @@
 	                    { className: 'ac-confirm-footer' },
 	                    _react2['default'].createElement(
 	                        _beeButton2['default'],
-	                        { colors: 'primary', onClick: function onClick() {
-	                                _this2.setState({
-	                                    show: false
-	                                });
-	                                onOk();
-	                            } },
-	                        locale.ok
-	                    ),
-	                    _react2['default'].createElement(
-	                        _beeButton2['default'],
 	                        { colors: 'secondary', onClick: function onClick() {
 	                                _this2.setState({
 	                                    show: false
@@ -41087,6 +41077,16 @@
 	                                onCancel();
 	                            } },
 	                        locale.cancel
+	                    ),
+	                    _react2['default'].createElement(
+	                        _beeButton2['default'],
+	                        { colors: 'primary', onClick: function onClick() {
+	                                _this2.setState({
+	                                    show: false
+	                                });
+	                                onOk();
+	                            } },
+	                        locale.ok
 	                    )
 	                )
 	            )
