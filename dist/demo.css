@@ -1091,6 +1091,8 @@
       .u-modal .u-modal-header .u-close .uf-close {
         font-size: 12px;
         color: #505F79; }
+        .u-modal .u-modal-header .u-close .uf-close:hover {
+          color: #e23; }
   .u-modal .u-modal-title {
     margin: 0;
     line-height: 1.42857143; }
