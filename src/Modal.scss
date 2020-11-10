@@ -124,6 +124,7 @@ $modal-footer-padding : 16px;
     font-size: 12px;
     color: $font-color-base;
     flex: 1;
+    -ms-flex: auto;
   }
   .u-modal-footer {
     padding: $modal-footer-padding;
@@ -289,7 +290,7 @@ $modal-footer-padding : 16px;
       min-height: 0;
       .ac-confirm-body-title{
           display: block;
-          
+
           .ac-confirm-body-title-icon{
               color: rgba(255, 191, 0, 1);
               font-size: 25px;
@@ -313,5 +314,5 @@ $modal-footer-padding : 16px;
 
       }
   }
-  
+
 }
