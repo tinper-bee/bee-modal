@@ -1,3 +1,12 @@
+## [2.2.5](https://github.com/tinper-bee/bee-modal/compare/v2.2.4...v2.2.5) (2020-11-10)
+
+
+### Bug Fixes
+
+* 修复IE11的高度异常问题 ([0c0423a](https://github.com/tinper-bee/bee-modal/commit/0c0423afef16851706f69da57c250493530fdd6b))
+
+
+
 ## [2.2.4](https://github.com/tinper-bee/bee-modal/compare/v2.2.3...v2.2.4) (2020-08-15)
 
 
