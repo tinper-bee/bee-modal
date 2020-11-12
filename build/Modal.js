@@ -233,6 +233,7 @@ var Modal = function (_React$Component) {
     _this.clearCenteredCls = function () {
       var centered = _this.state.centered;
 
+      console.log('clear--------------');
       if (!centered) {
         return;
       }
@@ -365,7 +366,7 @@ var Modal = function (_React$Component) {
 
     var dialogMarginTop = 30;
     //ResizeStart 时，计算 ModalDialog 的 offsetTop
-    var topPosStyle = this.offsetTop > 0 ? { top: this.offsetTop - dialogMarginTop } : null;
+    var topPosStyle = this.offsetTop > 0 && !draging ? { top: this.offsetTop - dialogMarginTop } : null;
 
     var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
         _splitComponent2 = _slicedToArray(_splitComponent, 2),

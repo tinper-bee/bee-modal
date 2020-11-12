@@ -331,7 +331,7 @@ class Modal extends React.Component {
     let { centered,draging,draged } = this.state;
     const dialogMarginTop = 30;
     //ResizeStart 时，计算 ModalDialog 的 offsetTop
-    let topPosStyle = this.offsetTop > 0 ? {top: this.offsetTop - dialogMarginTop} : null;
+    let topPosStyle = (this.offsetTop > 0 && !draging) ? {top: this.offsetTop - dialogMarginTop} : null;
     const [baseModalProps, dialogProps] =
       splitComponent(props, BaseModal);
 

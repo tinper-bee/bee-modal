@@ -1102,7 +1102,8 @@
     padding: 16px;
     font-size: 12px;
     color: #212121;
-    flex: 1; }
+    flex: 1;
+    -ms-flex: auto; }
   .u-modal .u-modal-footer {
     padding: 16px;
     text-align: right;
