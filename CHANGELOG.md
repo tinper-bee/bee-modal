@@ -1,3 +1,12 @@
+## [2.2.6](https://github.com/tinper-bee/bee-modal/compare/v2.2.5...v2.2.6) (2020-11-12)
+
+
+### Bug Fixes
+
+* resiable draggable centered 共用时不能向上拖拽 ([4ec5a05](https://github.com/tinper-bee/bee-modal/commit/4ec5a05c7de5b478057652e9a47c3d1941ae0bbb))
+
+
+
 ## [2.2.5](https://github.com/tinper-bee/bee-modal/compare/v2.2.4...v2.2.5) (2020-11-10)
 
 
