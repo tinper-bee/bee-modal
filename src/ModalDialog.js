@@ -5,6 +5,17 @@ import PropTypes from 'prop-types';
 import Dnd from 'bee-dnd';
 import Resizable from 're-resizable'
 
+
+function getPos(obj){
+  var pos={left:0,top:0}
+  while(obj){
+      pos.left+=obj.offsetLeft?obj.offsetLeft:0;
+      pos.top+=obj.offsetTop?obj.offsetTop:0;
+      obj=obj.offsetParent;
+  }
+  return pos;  
+}
+
 const propTypes = {
   /**
    * 传给dialog的classname
@@ -46,7 +57,6 @@ class ModalDialog extends React.Component {
         })
       }
     }
-    
   }
 
   onStart = () => {
@@ -54,22 +64,30 @@ class ModalDialog extends React.Component {
     this.setState({
       draging:true
     })
+    const pos = getPos(this.resize);
+    let transform =  this.resize.style && this.resize.style.transform;
+    // reg1 = /translate\((\d+)?px, (\d+)?px\)/;
+    // 'translate(420px, 30px)'.match(reg1)
+    // 兼容含有拖拽功能，点击模态框头部，开始突然往左上角抖一下的问题
+    if(transform == 'translate(0px, 0px)') {
+      this.resize.style.transform = `translate(${pos.left}px, ${pos.top}px)`
+    }
     this.props.onStart()
     return draggable;
   }
   // 当ModalDialog留在可视区的宽度 < 50px 时，拖拽不生效
   onStop = (e, delta) => {
-    let dialogWidth = this.modalDialog && this.modalDialog.offsetWidth;
-    let clientWidth = e && e.target && e.target.clientWidth;
-    if(delta.x > 0 && clientWidth - delta.x < 50){
-      return
-    }
-    if(delta.x < 0 && dialogWidth + delta.x < 50){
-      return
-    }
-    if(delta.y < 0 ){
-      return
-    }
+    // let dialogWidth = this.modalDialog && this.modalDialog.offsetWidth;
+    // let clientWidth = e && e.target && e.target.clientWidth;
+    // if(delta.x > 0 && clientWidth - delta.x < 50){
+    //   return
+    // }
+    // if(delta.x < 0 && dialogWidth + delta.x < 50){
+    //   return
+    // }
+    // if(delta.y < 0 ){
+    //   return
+    // }
     this.setState({
       draged:true,
       draging:false,

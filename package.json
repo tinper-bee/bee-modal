@@ -40,6 +40,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "ac-complex-search-panel": "^0.1.4",
+    "bee-button": "latest",
     "bee-dnd": "^1.1.3",
     "bee-icon": "^1.0.11",
     "bee-overlay-modal": "^0.0.1",
@@ -47,8 +49,7 @@
     "classnames": "^2.2.5",
     "dom-helpers": "3.0.0",
     "re-resizable": "^4.11.0",
-    "tinper-bee-core": "latest",
-    "bee-button": "latest"
+    "tinper-bee-core": "latest"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0",
