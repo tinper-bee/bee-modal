@@ -1,3 +1,12 @@
+## [2.2.7](https://github.com/tinper-bee/bee-modal/compare/v2.2.6...v2.2.7) (2020-12-09)
+
+
+### Bug Fixes
+
+* 含有拖拽的模态框点击时会向左上角抖动一下 ([4407a0a](https://github.com/tinper-bee/bee-modal/commit/4407a0a7d2994a550d2109db74739eff96f117f3))
+
+
+
 ## [2.2.6](https://github.com/tinper-bee/bee-modal/compare/v2.2.5...v2.2.6) (2020-11-12)
 
 
