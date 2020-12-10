@@ -64,13 +64,14 @@ class ModalDialog extends React.Component {
     this.setState({
       draging:true
     })
-    const pos = getPos(this.resize);
-    let transform =  this.resize.style && this.resize.style.transform;
+    const transfromDom = (this.resizable && this.resizable.resizable ) || this.resize
+    const pos = getPos(transfromDom);
+    let transform =  transfromDom.style && transfromDom.style.transform;
     // reg1 = /translate\((\d+)?px, (\d+)?px\)/;
     // 'translate(420px, 30px)'.match(reg1)
     // 兼容含有拖拽功能，点击模态框头部，开始突然往左上角抖一下的问题
-    if(transform == 'translate(0px, 0px)') {
-      this.resize.style.transform = `translate(${pos.left}px, ${pos.top}px)`
+    if(!transform || transform == 'translate(0px, 0px)') {
+      transfromDom.style.transform = `translate(${pos.left}px, ${pos.top}px)`
     }
     this.props.onStart()
     return draggable;

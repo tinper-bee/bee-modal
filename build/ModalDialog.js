@@ -44,6 +44,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); }
 
+function getPos(obj) {
+  var pos = { left: 0, top: 0 };
+  while (obj) {
+    pos.left += obj.offsetLeft ? obj.offsetLeft : 0;
+    pos.top += obj.offsetTop ? obj.offsetTop : 0;
+    obj = obj.offsetParent;
+  }
+  return pos;
+}
+
 var propTypes = {
   /**
    * 传给dialog的classname
@@ -90,20 +100,28 @@ var ModalDialog = function (_React$Component) {
       _this.setState({
         draging: true
       });
+      var pos = getPos(_this.resizable || _this.resize);
+      var transform = _this.resize.style && _this.resize.style.transform;
+      // reg1 = /translate\((\d+)?px, (\d+)?px\)/;
+      // 'translate(420px, 30px)'.match(reg1)
+      // 兼容含有拖拽功能，点击模态框头部，开始突然往左上角抖一下的问题
+      if (transform == 'translate(0px, 0px)') {
+        _this.resize.style.transform = 'translate(' + pos.left + 'px, ' + pos.top + 'px)';
+      }
       _this.props.onStart();
       return draggable;
     }, _this.onStop = function (e, delta) {
-      var dialogWidth = _this.modalDialog && _this.modalDialog.offsetWidth;
-      var clientWidth = e && e.target && e.target.clientWidth;
-      if (delta.x > 0 && clientWidth - delta.x < 50) {
-        return;
-      }
-      if (delta.x < 0 && dialogWidth + delta.x < 50) {
-        return;
-      }
-      if (delta.y < 0) {
-        return;
-      }
+      // let dialogWidth = this.modalDialog && this.modalDialog.offsetWidth;
+      // let clientWidth = e && e.target && e.target.clientWidth;
+      // if(delta.x > 0 && clientWidth - delta.x < 50){
+      //   return
+      // }
+      // if(delta.x < 0 && dialogWidth + delta.x < 50){
+      //   return
+      // }
+      // if(delta.y < 0 ){
+      //   return
+      // }
       _this.setState({
         draged: true,
         draging: false,

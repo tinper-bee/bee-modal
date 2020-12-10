@@ -233,7 +233,6 @@ var Modal = function (_React$Component) {
     _this.clearCenteredCls = function () {
       var centered = _this.state.centered;
 
-      console.log('clear--------------');
       if (!centered) {
         return;
       }
