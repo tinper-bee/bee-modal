@@ -1,3 +1,12 @@
+## [2.2.8](https://github.com/tinper-bee/bee-modal/compare/v2.2.7...v2.2.8) (2020-12-10)
+
+
+### Bug Fixes
+
+* 拖拽模态框点击头部会定位到左上角 ([a141b5d](https://github.com/tinper-bee/bee-modal/commit/a141b5da3379a36d44309258195ec6e419d6dd2f))
+
+
+
 ## [2.2.7](https://github.com/tinper-bee/bee-modal/compare/v2.2.6...v2.2.7) (2020-12-09)
 
 
