@@ -1,3 +1,12 @@
+## [2.2.9](https://github.com/tinper-bee/bee-modal/compare/v2.2.8...v2.2.9) (2021-01-07)
+
+
+### Bug Fixes
+
+* 升级bee-transition ([b26fee8](https://github.com/tinper-bee/bee-modal/commit/b26fee8b00c8d7d8f376aa087a3a998e43729d3a))
+
+
+
 ## [2.2.8](https://github.com/tinper-bee/bee-modal/compare/v2.2.7...v2.2.8) (2020-12-10)
 
 
