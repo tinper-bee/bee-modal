@@ -1,3 +1,12 @@
+## [2.2.10](https://github.com/tinper-bee/bee-modal/compare/v2.2.9...v2.2.10) (2021-01-15)
+
+
+### Bug Fixes
+
+* 弹框拖动的时候阻止事件冒泡 ([36c4b21](https://github.com/tinper-bee/bee-modal/commit/36c4b21e7c227665804a34b222074cb6937a8418))
+
+
+
 ## [2.2.9](https://github.com/tinper-bee/bee-modal/compare/v2.2.8...v2.2.9) (2021-01-07)
 
 
