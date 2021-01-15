@@ -59,7 +59,7 @@ class ModalDialog extends React.Component {
     }
   }
 
-  onStart = () => {
+  onStart = event => {
     let { draggable } = this.props;
     this.setState({
       draging:true
@@ -74,6 +74,9 @@ class ModalDialog extends React.Component {
       transfromDom.style.transform = `translate(${pos.left}px, ${pos.top}px)`
     }
     this.props.onStart()
+    if (event) {
+      event.stopPropagation() // 两个可拖拽modal嵌套的时候，事件冒泡会引起两个可拖拽modal一起动
+    }
     return draggable;
   }
   // 当ModalDialog留在可视区的宽度 < 50px 时，拖拽不生效
