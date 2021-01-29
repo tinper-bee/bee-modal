@@ -70,7 +70,7 @@ class ModalDialog extends React.Component {
     // reg1 = /translate\((\d+)?px, (\d+)?px\)/;
     // 'translate(420px, 30px)'.match(reg1)
     // 兼容含有拖拽功能，点击模态框头部，开始突然往左上角抖一下的问题
-    if(!transform || transform == 'translate(0px, 0px)') {
+    if(!transform || transform == 'translate(0px, 0px)' || transform == 'translate(0px)') {
       transfromDom.style.transform = `translate(${pos.left}px, ${pos.top}px)`
     }
     this.props.onStart()
