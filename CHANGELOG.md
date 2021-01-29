@@ -1,3 +1,12 @@
+## [2.2.11](https://github.com/tinper-bee/bee-modal/compare/v2.2.10...v2.2.11) (2021-01-29)
+
+
+### Bug Fixes
+
+* 火狐浏览器拖拽问题兼容 ([a2aa4e2](https://github.com/tinper-bee/bee-modal/commit/a2aa4e23a5ac32a5d8c067e8342156f69dc5c6e7))
+
+
+
 ## [2.2.10](https://github.com/tinper-bee/bee-modal/compare/v2.2.9...v2.2.10) (2021-01-15)
 
 
