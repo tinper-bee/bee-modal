@@ -1,3 +1,12 @@
+## [2.2.13](https://github.com/tinper-bee/bee-modal/compare/v2.2.12...v2.2.13) (2021-02-20)
+
+
+### Bug Fixes
+
+* Modal停止拖动的时候处理坐标的小数位 ([e6b08f3](https://github.com/tinper-bee/bee-modal/commit/e6b08f30cdeb94fc09a98ce2baef1935ab184e52))
+
+
+
 ## [2.2.12](https://github.com/tinper-bee/bee-modal/compare/v2.2.11...v2.2.12) (2021-02-20)
 
 
