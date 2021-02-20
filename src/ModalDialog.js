@@ -105,8 +105,8 @@ class ModalDialog extends React.Component {
       draged:true,
       draging:false,
       original: {
-        x: delta.x,
-        y: delta.y
+        x: Math.floor(delta.x),
+        y: Math.floor(delta.y)
       }
     })
     this.props.onStop()
