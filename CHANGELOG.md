@@ -1,3 +1,12 @@
+## [2.2.12](https://github.com/tinper-bee/bee-modal/compare/v2.2.11...v2.2.12) (2021-02-20)
+
+
+### Bug Fixes
+
+* 先resize再拖动时有闪动 ([9e95f70](https://github.com/tinper-bee/bee-modal/commit/9e95f7012327aeed64b464919c915930ba23e472))
+
+
+
 ## [2.2.11](https://github.com/tinper-bee/bee-modal/compare/v2.2.10...v2.2.11) (2021-01-29)
 
 
