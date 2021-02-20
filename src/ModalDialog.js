@@ -36,6 +36,8 @@ const defaultProps = {
 };
 
 class ModalDialog extends React.Component {
+  resized = false
+
   state = {
     draging:false,
     draged:false,
@@ -60,7 +62,7 @@ class ModalDialog extends React.Component {
   }
 
   onStart = event => {
-    let { draggable } = this.props;
+    let { draggable, resizable, centered } = this.props;
     this.setState({
       draging:true
     })
@@ -70,8 +72,15 @@ class ModalDialog extends React.Component {
     // reg1 = /translate\((\d+)?px, (\d+)?px\)/;
     // 'translate(420px, 30px)'.match(reg1)
     // 兼容含有拖拽功能，点击模态框头部，开始突然往左上角抖一下的问题
-    if(!transform || transform == 'translate(0px, 0px)' || transform == 'translate(0px)') {
-      transfromDom.style.transform = `translate(${pos.left}px, ${pos.top}px)`
+    // 如果是resize了，那么就会有一定的偏移，这个transform也有值了
+    if(!transform || transform == 'translate(0px, 0px)' || transform == 'translate(0px)' || this.resized) {
+      if (draggable && resizable && centered) {
+        const a = transfromDom.getBoundingClientRect()
+        transfromDom.style.transform = `translate(${Math.floor(a.x)}px, ${Math.floor(a.y)}px)`
+      } else {
+        transfromDom.style.transform = `translate(${Math.floor(pos.left)}px, ${Math.floor(pos.top)}px)`
+      }
+      this.resized = false
     }
     this.props.onStart()
     if (event) {
@@ -142,7 +151,9 @@ class ModalDialog extends React.Component {
     }
 
     if (x || y) {
-      elementRef.style.transform = `translate(${x}px, ${y}px)`;
+      const modifiedX = Math.floor(x)
+      const modifiedY = Math.floor(y)
+      elementRef.style.transform = `translate(${modifiedX}px, ${modifiedY}px)`;
     }
     if (delta.height) {
       this.updateBodyH()
@@ -158,12 +169,12 @@ class ModalDialog extends React.Component {
 
     if (this.position) {
       this.setState({
-        original: this.position
+        original: this.position,
       })
     }
 
     typeof onResizeStop === "function" && onResizeStop(e, direction, elementRef, delta);
-
+    this.resized = true
   }
 
   /**

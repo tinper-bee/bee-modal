@@ -178,7 +178,8 @@ class Modal extends React.Component {
       style: {},
       centered: props.centered,
       draging:false,
-      draged:false
+      draged:false,
+      resized: false
     }
     this.offsetTop = 0;
     this.handleEntering = this.handleEntering.bind(this);
@@ -204,6 +205,15 @@ class Modal extends React.Component {
   componentWillUnmount() {
     // Clean up the listener if we need to.
     this.handleExited();
+  }
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.show) { // 关闭modal时，重置相关属性
+      this.offsetTop = 0
+      this.setState({
+        centered: nextProps.centered,
+        resized: false
+      })
+    }
   }
   scrollTo=()=>{
     let needScroll = this.props.needScroll;
@@ -255,7 +265,6 @@ class Modal extends React.Component {
     if (e.target !== e.currentTarget) {
       return;
     }
-
     this.props.onHide();
   }
 
@@ -328,10 +337,10 @@ class Modal extends React.Component {
       onStop,
       ...props
     } = this.props;
-    let { centered,draging,draged } = this.state;
+    let { centered,draging,draged,resized } = this.state;
     const dialogMarginTop = 30;
     //ResizeStart 时，计算 ModalDialog 的 offsetTop
-    let topPosStyle = (this.offsetTop > 0 && !draging) ? {top: this.offsetTop - dialogMarginTop} : null;
+    let topPosStyle = (this.offsetTop > 0 && !draging && !resized) ? {top: this.offsetTop - dialogMarginTop} : null;
     const [baseModalProps, dialogProps] =
       splitComponent(props, BaseModal);
 
@@ -388,6 +397,7 @@ class Modal extends React.Component {
           clearCenteredCls={this.clearCenteredCls}
           onStart={()=>{
             this.setState({
+              resized: true,
               draging:true,
               draged:false
             })

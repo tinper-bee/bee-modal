@@ -51,6 +51,7 @@ class Demo13 extends Component {
             </Button>​
             <Modal
             centered
+            draggable
             show = { this.state.showModal }
             backdropClosable={false}
             resizable={true}
