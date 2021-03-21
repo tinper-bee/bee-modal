@@ -85,7 +85,7 @@ var ModalDialog = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.state = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.resized = false, _this.state = {
       draging: false,
       draged: false,
       original: {
@@ -94,21 +94,39 @@ var ModalDialog = function (_React$Component) {
       },
       maxWidth: Number.MAX_SAFE_INTEGER,
       maxHeight: Number.MAX_SAFE_INTEGER
-    }, _this.onStart = function () {
-      var draggable = _this.props.draggable;
+    }, _this.onMouseDown = function (event) {
+      if (event) {
+        event.stopPropagation();
+      }
+    }, _this.onStart = function (event) {
+      var _this$props = _this.props,
+          draggable = _this$props.draggable,
+          resizable = _this$props.resizable,
+          centered = _this$props.centered;
 
       _this.setState({
         draging: true
       });
-      var pos = getPos(_this.resizable || _this.resize);
-      var transform = _this.resize.style && _this.resize.style.transform;
+      var transfromDom = _this.resizable && _this.resizable.resizable || _this.resize;
+      var pos = getPos(transfromDom);
+      var transform = transfromDom.style && transfromDom.style.transform;
       // reg1 = /translate\((\d+)?px, (\d+)?px\)/;
       // 'translate(420px, 30px)'.match(reg1)
       // 兼容含有拖拽功能，点击模态框头部，开始突然往左上角抖一下的问题
-      if (transform == 'translate(0px, 0px)') {
-        _this.resize.style.transform = 'translate(' + pos.left + 'px, ' + pos.top + 'px)';
+      // 如果是resize了，那么就会有一定的偏移，这个transform也有值了
+      if (!transform || transform == 'translate(0px, 0px)' || transform == 'translate(0px)' || _this.resized) {
+        if (draggable && resizable && centered) {
+          var a = transfromDom.getBoundingClientRect();
+          transfromDom.style.transform = 'translate(' + Math.floor(a.x) + 'px, ' + Math.floor(a.y) + 'px)';
+        } else {
+          transfromDom.style.transform = 'translate(' + Math.floor(pos.left) + 'px, ' + Math.floor(pos.top) + 'px)';
+        }
+        _this.resized = false;
       }
       _this.props.onStart();
+      if (event) {
+        event.stopPropagation(); // 两个可拖拽modal嵌套的时候，事件冒泡会引起两个可拖拽modal一起动
+      }
       return draggable;
     }, _this.onStop = function (e, delta) {
       // let dialogWidth = this.modalDialog && this.modalDialog.offsetWidth;
@@ -126,8 +144,8 @@ var ModalDialog = function (_React$Component) {
         draged: true,
         draging: false,
         original: {
-          x: delta.x,
-          y: delta.y
+          x: Math.floor(delta.x),
+          y: Math.floor(delta.y)
         }
       });
       _this.props.onStop();
@@ -169,7 +187,9 @@ var ModalDialog = function (_React$Component) {
       }
 
       if (x || y) {
-        elementRef.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+        var modifiedX = Math.floor(x);
+        var modifiedY = Math.floor(y);
+        elementRef.style.transform = 'translate(' + modifiedX + 'px, ' + modifiedY + 'px)';
       }
       if (delta.height) {
         _this.updateBodyH();
@@ -187,6 +207,7 @@ var ModalDialog = function (_React$Component) {
       }
 
       typeof onResizeStop === "function" && onResizeStop(e, direction, elementRef, delta);
+      _this.resized = true;
     }, _this.updateBodyH = function () {
       var $resizable = _reactDom2["default"].findDOMNode(_this.resizable);
       var $header = $resizable.querySelector(".u-modal-header");
@@ -219,14 +240,14 @@ var ModalDialog = function (_React$Component) {
       }
       return size;
     }, _this.renderModalContent = function () {
-      var _this$props = _this.props,
-          clsPrefix = _this$props.clsPrefix,
-          children = _this$props.children,
-          resizable = _this$props.resizable,
-          contentStyle = _this$props.contentStyle,
-          minHeight = _this$props.minHeight,
-          minWidth = _this$props.minWidth,
-          resizeClassName = _this$props.resizeClassName;
+      var _this$props2 = _this.props,
+          clsPrefix = _this$props2.clsPrefix,
+          children = _this$props2.children,
+          resizable = _this$props2.resizable,
+          contentStyle = _this$props2.contentStyle,
+          minHeight = _this$props2.minHeight,
+          minWidth = _this$props2.minWidth,
+          resizeClassName = _this$props2.resizeClassName;
       var _this$state = _this.state,
           maxWidth = _this$state.maxWidth,
           maxHeight = _this$state.maxHeight;
@@ -374,6 +395,7 @@ var ModalDialog = function (_React$Component) {
             bounds: bounds //防止拖拽时，Header 被导航栏覆盖
             , onStart: this.onStart,
             onStop: this.onStop,
+            onMouseDown: this.onMouseDown,
             position: original,
             list: []
           },

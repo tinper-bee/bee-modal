@@ -246,7 +246,8 @@ var Modal = function (_React$Component) {
       style: {},
       centered: props.centered,
       draging: false,
-      draged: false
+      draged: false,
+      resized: false
     };
     _this.offsetTop = 0;
     _this.handleEntering = _this.handleEntering.bind(_this);
@@ -267,6 +268,17 @@ var Modal = function (_React$Component) {
   Modal.prototype.componentWillUnmount = function componentWillUnmount() {
     // Clean up the listener if we need to.
     this.handleExited();
+  };
+
+  Modal.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    if (!nextProps.show) {
+      // 关闭modal时，重置相关属性
+      this.offsetTop = 0;
+      this.setState({
+        centered: nextProps.centered,
+        resized: false
+      });
+    }
   };
 
   Modal.prototype.handleEntering = function handleEntering() {
@@ -293,7 +305,6 @@ var Modal = function (_React$Component) {
     if (e.target !== e.currentTarget) {
       return;
     }
-
     this.props.onHide();
   };
 
@@ -361,11 +372,12 @@ var Modal = function (_React$Component) {
     var _state = this.state,
         centered = _state.centered,
         draging = _state.draging,
-        draged = _state.draged;
+        draged = _state.draged,
+        resized = _state.resized;
 
     var dialogMarginTop = 30;
     //ResizeStart 时，计算 ModalDialog 的 offsetTop
-    var topPosStyle = this.offsetTop > 0 && !draging ? { top: this.offsetTop - dialogMarginTop } : null;
+    var topPosStyle = this.offsetTop > 0 && !draging && !resized ? { top: this.offsetTop - dialogMarginTop } : null;
 
     var _splitComponent = (0, _tinperBeeCore.splitComponent)(props, _Modal2["default"]),
         _splitComponent2 = _slicedToArray(_splitComponent, 2),
@@ -423,6 +435,7 @@ var Modal = function (_React$Component) {
           clearCenteredCls: this.clearCenteredCls,
           onStart: function onStart() {
             _this2.setState({
+              resized: true,
               draging: true,
               draged: false
             });

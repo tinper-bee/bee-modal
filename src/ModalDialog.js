@@ -61,6 +61,12 @@ class ModalDialog extends React.Component {
     }
   }
 
+  onMouseDown = event => {
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
   onStart = event => {
     let { draggable, resizable, centered } = this.props;
     this.setState({
@@ -323,6 +329,7 @@ class ModalDialog extends React.Component {
                 bounds={bounds} //防止拖拽时，Header 被导航栏覆盖
                 onStart={this.onStart} 
                 onStop={this.onStop}
+                onMouseDown={this.onMouseDown}
                 position={original}
                 list={[]}
               >
